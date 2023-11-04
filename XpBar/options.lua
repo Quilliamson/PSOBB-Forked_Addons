@@ -1,0 +1,23 @@
+return {
+    configurationEnableWindow = false,
+    enable = true,
+
+    xpEnableWindow = true,
+    xpHideWhenMenu = true,
+    xpHideWhenSymbolChat = true,
+    xpHideWhenMenuUnavailable = true,
+    xpShowDefaultNotError = false,
+    xpNoTitleBar = "NoTitleBar",
+    xpNoResize = "NoResize",
+    xpNoMove = "NoMove",
+    xpTransparent = true,
+    xpEnableInfoLevel = true,
+    xpEnableInfoTotal = false,
+    xpEnableInfoTNL = true,
+    xpBarNoOverlay = false,
+    xpBarColor = 0xFF28CC66,
+    xpBarX = 1552.000000,
+    xpBarY = 995.000000,
+    xpBarWidth = -1.000000,
+    xpBarHeight = 0.000000,
+}
