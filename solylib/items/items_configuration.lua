@@ -10,6 +10,8 @@ local pink = 0xFFFF3898
 local red = 0xFFFF0000
 local white = 0xFFFFFFFF
 local yellow = 0xFFEAF718
+local green_dark = 0xFF339933
+
 
 -- Item
 local itemIndex = 0xFFFFFFFF
@@ -17,7 +19,7 @@ local itemEquipped = 0xFFFFFFFF
 
 -- WEAPON
 local weaponUntekked = 0xFFFF0000
-local weaponName = 0xFFB060B0
+local weaponName = 0xFFFFAA00
 local weaponGrind = 0xFF28CC66
 local weaponSRankTitle = 0xFFFF0000
 local weaponSRankName = 0xFF2D98B7
@@ -120,12 +122,12 @@ local weaponHit =
 }
 
 -- ARMOR (Frame and Barrier)
-local armorName = 0xFFB060B0
+local armorName = 0xFF0088F4
 local armorStats = 0xFF28CC66
 local armorSlots = 0xFFFFFF00
 
 -- ARMOR (Unit)
-local unitName = 0xFFB060B0
+local unitName = 0xFF0088F4
 local unitKills = 0xFFFFFF00
 
 -- MAG
@@ -142,12 +144,12 @@ local magFeedTimer =
 }
 
 -- TOOL
-local toolName = 0xFFB060B0
-local toolAmount = 0xFF28CC66
+local toolName = 0xFF28CC66
+local toolAmount = 0xFFFFFFFF
 
 -- TECHNIQUE
-local techName = 0xFFB060B0
-local techLevel = 0xFF28CC66
+local techName = 0xFF339933
+local techLevel = 0xFFFFFFFF
 
 -- MESETA
 local mesetaName = 0xFFB060B0
@@ -161,6 +163,7 @@ return
     brown = brown,
     grey = grey,
     green = green,
+	green_dark = green_dark,
     lavender = lavender,
     orange = orange,
     pink = pink,
