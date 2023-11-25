@@ -164,8 +164,8 @@ local function Text(newLine, fmt, ...)
     return TextC(newLine, 0xFFFFFFFF, fmt, ...)
 end
 
--- Rainbow animation
-local function TextR(newLine, fmt, ...)
+-- Get 
+local function TextG(newLine, fmt, ...)
     newLine = newLine or false
     col = 0xFFFFFFFF
     fmt = fmt or "nil"
@@ -176,6 +176,7 @@ local function TextR(newLine, fmt, ...)
 
     local c = GetColorAsFloats(col)
     local str = string.format(fmt, ...)
+	str = string.sub(str,1,2)
     imgui.TextColored(c.r, c.g, c.b, c.a, str)
     return str
 end
@@ -226,5 +227,6 @@ return
     imguiText = imguiText,
     Text = Text,
     TextC = TextC,
+	TextG = TextG,
     imguiProgressBar = imguiProgressBar,
 }

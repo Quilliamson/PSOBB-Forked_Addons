@@ -101,7 +101,7 @@ local function GetPlayerMaxTP(player)
 end
 
 local function GetPlayerATP(player)
-    return pso.read_u16(player + 0x2D2)
+	return pso.read_u16(player + 0x2C4)
 end
 
 local function GetPlayerDFP(player)
@@ -220,6 +220,7 @@ return
     GetPlayerName = GetPlayerName,
     GetPlayerLevel = GetPlayerLevel,
     GetPlayerClass = GetPlayerClass,
+	GetPlayerGeneralClass = GetPlayerGeneralClass,
     GetPlayerSectionID = GetPlayerSectionID,
     GetPlayerHP = GetPlayerHP,
     GetPlayerMaxHP = GetPlayerMaxHP,

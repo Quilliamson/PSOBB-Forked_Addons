@@ -1,6 +1,7 @@
 local core_mainmenu = require("core_mainmenu")
 local lib_helpers = require("solylib.helpers")
 local lib_characters = require("solylib.characters")
+local lib_unitxt = require("solylib.unitxt")
 local lib_menu = require("solylib.menu")
 local cfg = require("Player Reader.configuration")
 local optionsLoaded, options = pcall(require, "Player Reader.options")
@@ -245,6 +246,22 @@ local function PresentPlayer(address, sd, inv)
     if options.singlePlayersShowBarMaxValue then
         barTextFormat = "%d / %d"
     end
+
+	local playerAddr = lib_characters.GetSelf()
+        if playerAddr == 0 then
+            return
+        end
+
+	if string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "FO" then
+		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2C4)+3)
+		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC)+3)
+	elseif string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "RA" then
+		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2C4)+7)
+		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC)+7)
+	elseif string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "HU" then
+		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2C4)+10)
+		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC)+10)
+	end
 
     lib_helpers.Text(true, "%s Lv%d", name, level)
     if options.singlePlayersShowBarText then

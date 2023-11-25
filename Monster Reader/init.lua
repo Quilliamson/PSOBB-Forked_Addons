@@ -1311,17 +1311,26 @@ local function PresentTargetMonster(monster)
         local frozen = lib_characters.GetPlayerFrozenStatus(monster.address)
         local confused = lib_characters.GetPlayerConfusedStatus(monster.address)
         local paralyzed = lib_characters.GetPlayerParalyzedStatus(monster.address)
-
+		
         if options.targetShowMonsterName then
             lib_helpers.Text(true, monster.name)
         end
+		
+		-- local myAtp = lib_characters.GetPlayerATP(playerAddr)
+		-- for x=playerAddr,playerAddr+1500000,1 do
+			-- myAtp = pso.read_u16(x)
+			-- if myAtp == 386 then
+				-- lib_helpers.Text(true, myAtp)
+			-- end
+		-- end
+		
         -- if options.showMonsterID == true then
             -- lib_helpers.Text(false, " - ID: %04X", monster.id)
         -- end
 
         -- Show target enemies stats if feature enabled
         if options.targetShowMonsterStats then
-            lib_helpers.Text(true, "[ATP: %i, DFP: %i, MST: %i, ATA: %i, EVP: %i, LCK: %i]",
+            lib_helpers.Text(true, "[ATsP: %i, DFP: %i, MST: %i, ATA: %i, EVP: %i, LCK: %i]",
                                    monster.Atp, monster.Dfp, monster.Mst, monster.Ata, monster.Evp, monster.Lck)
             lib_helpers.Text(true, "[EFR: %i, EIC: %i, ETH: %i, EDK: %i, ELT: %i, ESP: %i]",
                                    monster.Efr, monster.Eic, monster.Eth, monster.Edk, monster.Elt, monster.Esp)
