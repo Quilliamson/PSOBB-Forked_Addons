@@ -763,12 +763,12 @@ local function foRec(monster)
 		local pClassId = lib_characters.GetPlayerClass(playerAddr)
 		local pClass = lib_unitxt.GetClassName(pClassId)
 
-		local myAtp = lib_characters.GetPlayerATP(playerAddr)
-		-- local myDfp = lib_characters.GetPlayerDFP(playerAddr)
+		local myAtp = lib_characters.GetPlayerMaxATP(playerAddr)
+		local myDfp = lib_characters.GetPlayerDFP(playerAddr)
 		local myMst = lib_characters.GetPlayerMST(playerAddr)
-		-- local myAta = lib_characters.GetPlayerATA(playerAddr)
-		-- local myEvp = lib_characters.GetPlayerEVP(playerAddr)
-		-- local myLck = lib_characters.GetPlayerLCK(playerAddr)
+		local myAta = lib_characters.GetPlayerATA(playerAddr)
+		local myEvp = lib_characters.GetPlayerEVP(playerAddr)
+		local myLck = lib_characters.GetPlayerLCK(playerAddr)
 
 		local foie = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Foie)
 		local gifoie = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Gifoie)
@@ -824,6 +824,7 @@ local function foRec(monster)
 		-- Determine if we have Cane's or Barrier's equipped for it's bonuses along with Class Bonus's
         local inventory = lib_items.GetInventory(lib_items.Me)
         local itemCount = table.getn(inventory.items)
+		
         local foieB = 0
 		local gifoieB = 0
 		local rafoieB = 0

@@ -79,7 +79,7 @@ local function present()
     imgui.End()
 end
 
-local function init()
+--local function init()	
     local i
     
     for i=1,0x4000 do

@@ -253,14 +253,19 @@ local function PresentPlayer(address, sd, inv)
         end
 
 	if string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "FO" then
-		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2C4))
-		lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE52))
-		lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE52)+pso.read_u16(playerAddr + 0x2C4))
-		lib_helpers.Text(true, "---")
+		-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2C4))
+		-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE52))
+		-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE52)+pso.read_u16(playerAddr + 0x2C4))
+		-- lib_helpers.Text(true, "---")
 		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC))
+		lib_helpers.Text(false, " - Base ATP")
 		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE))
+		lib_helpers.Text(false, " - Weapon ATP Range +2")
 		lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE50))
+		lib_helpers.Text(false, " - Weapon Minimum ATP +1")
 		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE)+pso.read_u16(playerAddr+ 0xE50)+pso.read_u16(playerAddr + 0x2CC))
+		lib_helpers.Text(false, " - Maximum Player ATP")
+		lib_helpers.Text(true, "---")
 	elseif string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "RA" then
 		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2C4)+7)
 		lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC)+7)

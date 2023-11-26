@@ -75,6 +75,12 @@ local function GetMonsterName(index, ultimate)
     end
 end
 
+-- Reads a monster attribute based on it's ID.
+-- If ultimate is true, ultimate names will be used
+local function GetMonsterAttribute(index)
+        return _Read(2, index)
+end
+
 -- Reads a technique names based on the technique ID
 local function GetTechniqueName(id)
     return _Read(5, id)
@@ -195,6 +201,7 @@ return
     GetItemName = GetItemName,
     GetSpecialName = GetSpecialName,
     GetMonsterName = GetMonsterName,
+	GetMonsterAttribute = GetMonsterAttribute,
     GetTechniqueName = GetTechniqueName,
     GetClassName = GetClassName,
     GetSectionIDName = GetSectionIDName,
