@@ -164,23 +164,6 @@ local function Text(newLine, fmt, ...)
     return TextC(newLine, 0xFFFFFFFF, fmt, ...)
 end
 
--- Get 
-local function TextG(newLine, fmt, ...)
-    newLine = newLine or false
-    col = 0xFFFFFFFF
-    fmt = fmt or "nil"
-
-    if newLine == false then
-        imgui.SameLine(0, 0)
-    end
-
-    local c = GetColorAsFloats(col)
-    local str = string.format(fmt, ...)
-	str = string.sub(str,1,2)
-    imgui.TextColored(c.r, c.g, c.b, c.a, str)
-    return str
-end
-
 local function imguiProgressBar(newLine, progress, x, y, barColor, textColor, fmt, ...)
     newLine = newLine or false
     progress = progress or 0
@@ -227,6 +210,5 @@ return
     imguiText = imguiText,
     Text = Text,
     TextC = TextC,
-	TextG = TextG,
     imguiProgressBar = imguiProgressBar,
 }
