@@ -100,12 +100,12 @@ local function GetPlayerMaxTP(player)
     return pso.read_u16(player + 0x2BE)
 end
 
-local function GetPlayerMaxATP(player)
-	return (pso.read_u16(player + 0x2CE) + pso.read_u16(player + 0xE50) + pso.read_u16(player + 0x2CC))
+local function GetPlayerMaxATP(player, attribute)
+	return (pso.read_u16(player + 0x2CE) + (pso.read_u16(player + 0xE50) * (1+attribute)) + pso.read_u16(player + 0x2CC))
 end
 
-local function GetPlayerMinATP(player)
-	return (pso.read_u16(player + 0xE50) + pso.read_u16(player + 0x2CC))
+local function GetPlayerMinATP(player, attribute)
+	return ((pso.read_u16(player + 0xE50) * (1+attribute)) + pso.read_u16(player + 0x2CC))
 end
 
 local function GetPlayerDFP(player)

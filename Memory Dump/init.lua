@@ -26,7 +26,7 @@ local function GetMonsterData(monsterAddress)
     return monsterMem
 end
 
-local function present()
+--local function present()
     local s1, s2
     
     imgui.Begin("Monster Data")
@@ -79,7 +79,7 @@ local function present()
     imgui.End()
 end
 
---local function init()	
+local function init()	
     local i
     
     for i=1,0x4000 do

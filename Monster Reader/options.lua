@@ -49,7 +49,7 @@ return
         havoc = true,
     },
 
-    foRecEnableWindow = true,
+    foRecEnableWindow = false,
     foRecShowEfficiencyBased = false,
     foRecChanged = false,
     foRecAnchor = 6,

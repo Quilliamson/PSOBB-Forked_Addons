@@ -326,7 +326,7 @@ local function GetMonsterData(monster)
 
     -- Other stuff
     monster.name = lib_unitxt.GetMonsterName(monster.unitxtID, _Ultimate)
-	--monster.attribute = pso.read_u8(monster.address + 3)
+	monster.attribute = pso.read_u16(monster.address + 0x2e8)
     monster.color = 0xFFFFFFFF
     monster.display = true
 
@@ -405,11 +405,9 @@ local function PresentTargetMonster(monster)
         local confused = lib_characters.GetPlayerConfusedStatus(monster.address)
         local paralyzed = lib_characters.GetPlayerParalyzedStatus(monster.address)
 		
-		local myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr)
-		local myMinAtp = lib_characters.GetPlayerMinATP(playerAddr)
-		local myMaxDamage = (((myMaxAtp - monster.Dfp)/5)*0.9)
-		local myMinDamage = (((myMinAtp - monster.Dfp)/5)*0.9)
-		local zalure = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Zalure)
+		local myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,0)
+		local myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,0)
+		
 		local inventory = lib_items.GetInventory(lib_items.Me)
         local itemCount = table.getn(inventory.items)
 		local NAstat = 0
@@ -419,14 +417,36 @@ local function PresentTargetMonster(monster)
 		for i=1,itemCount,1 do
             item = inventory.items[i]
             if item.equipped and item.data[1] == 0 then
-				NAstat = item.weapon.stats[2]
-				ABstat = item.weapon.stats[3]
-				MAstat = item.weapon.stats[4]
-				DAstat = item.weapon.stats[5]
+				NAstat = item.weapon.stats[2]/100
+				ABstat = item.weapon.stats[3]/100
+				MAstat = item.weapon.stats[4]/100
+				DAstat = item.weapon.stats[5]/100
 			break
 			end
 		end
+
+		if monster.attribute == 1 then
+			myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,NAstat)
+			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,NAstat)
+		elseif monster.attribute == 2 then
+			myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,ABstat)
+			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,ABstat)
+		elseif monster.attribute == 4 then
+			myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,MAstat)
+			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,MAstat)
+		elseif monster.attribute == 8 then
+			myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,DAstat)
+			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,DAstat)
+		end
 		
+		-- lib_helpers.Text(true, monster.attribute)
+		-- lib_helpers.Text(true, myMaxAtp)
+		-- lib_helpers.Text(true, myMinAtp)
+		
+		local myMaxDamage = (((myMaxAtp - monster.Dfp)/5)*0.9)
+		local myMinDamage = (((myMinAtp - monster.Dfp)/5)*0.9)
+		
+		local zalure = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Zalure)
 		if defTech.type == 0 then
 		
 		else
@@ -434,11 +454,19 @@ local function PresentTargetMonster(monster)
 			myMinDamage = (((myMinAtp - (monster.Dfp*((((zalure-1)*1.3)+10)/100)))/5)*0.9)
 		end
 		
-		-- for y=0,45,1 do
-			-- lib_helpers.Text(true, lib_unitxt.read(pso.read_u8(monster.address + y),monster.address))
-		-- end
+		
+			
+		
+		
+	
 		
         lib_helpers.Text(true, monster.name)
+		
+		-- lib_helpers.Text(true, monster.attribute)
+		-- lib_helpers.Text(true, NAstat)
+		-- lib_helpers.Text(true, ABstat)
+		-- lib_helpers.Text(true, MAstat)
+		-- lib_helpers.Text(true, DAstat)
 		
 		lib_helpers.Text(true, "%i", myMinDamage-.5)
 		lib_helpers.Text(false, "-")
