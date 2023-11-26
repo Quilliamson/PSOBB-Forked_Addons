@@ -763,12 +763,12 @@ local function foRec(monster)
 		local pClassId = lib_characters.GetPlayerClass(playerAddr)
 		local pClass = lib_unitxt.GetClassName(pClassId)
 
-		--local myAtp = lib_characters.GetPlayerATP(playerAddr)
-		--local myDfp = lib_characters.GetPlayerDFP(playerAddr)
+		local myAtp = lib_characters.GetPlayerATP(playerAddr)
+		-- local myDfp = lib_characters.GetPlayerDFP(playerAddr)
 		local myMst = lib_characters.GetPlayerMST(playerAddr)
-		--local myAta = lib_characters.GetPlayerATA(playerAddr)
-		--local myEvp = lib_characters.GetPlayerEVP(playerAddr)
-		--local myLck = lib_characters.GetPlayerLCK(playerAddr)
+		-- local myAta = lib_characters.GetPlayerATA(playerAddr)
+		-- local myEvp = lib_characters.GetPlayerEVP(playerAddr)
+		-- local myLck = lib_characters.GetPlayerLCK(playerAddr)
 
 		local foie = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Foie)
 		local gifoie = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Gifoie)
@@ -1074,6 +1074,8 @@ local function foRec(monster)
 		end
 
         lib_helpers.TextC(true, monster.color, monster.name)
+		
+		lib_helpers.Text(true, myAtp)
 
 		techtable = {foie,gifoie,rafoie,zonde,gizonde,razonde,barta,gibarta,rabarta,grants}
 		dpstable = {foie/foieFps,gifoie/gifoieFps,rafoie/rafoieFps,zonde/zondeFps,gizonde/gizondeFps,razonde/razondeFps,barta/bartaFps,gibarta/gibartaFps,rabarta/rabartaFps,grants/grantsFps}
@@ -1315,14 +1317,6 @@ local function PresentTargetMonster(monster)
         if options.targetShowMonsterName then
             lib_helpers.Text(true, monster.name)
         end
-		
-		-- local myAtp = lib_characters.GetPlayerATP(playerAddr)
-		-- for x=playerAddr,playerAddr+1500000,1 do
-			-- myAtp = pso.read_u16(x)
-			-- if myAtp == 386 then
-				-- lib_helpers.Text(true, myAtp)
-			-- end
-		-- end
 		
         -- if options.showMonsterID == true then
             -- lib_helpers.Text(false, " - ID: %04X", monster.id)

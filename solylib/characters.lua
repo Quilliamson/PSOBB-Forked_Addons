@@ -101,7 +101,7 @@ local function GetPlayerMaxTP(player)
 end
 
 local function GetPlayerATP(player)
-	return pso.read_u16(player + 0x2C4)
+	return (pso.read_u16(player + 0x2CE) + pso.read_u16(player + 0xE50) + pso.read_u16(player + 0x2CC))
 end
 
 local function GetPlayerDFP(player)
