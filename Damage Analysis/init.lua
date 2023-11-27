@@ -424,7 +424,7 @@ local function PresentTargetMonster(monster)
 			break
 			end
 		end
-
+		
 		if monster.attribute == 1 then
 			myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,NAstat)
 			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,NAstat)
@@ -439,10 +439,6 @@ local function PresentTargetMonster(monster)
 			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,DAstat)
 		end
 		
-		-- lib_helpers.Text(true, monster.attribute)
-		-- lib_helpers.Text(true, myMaxAtp)
-		-- lib_helpers.Text(true, myMinAtp)
-		
 		local myMaxDamage = (((myMaxAtp - monster.Dfp)/5)*0.9)
 		local myMinDamage = (((myMinAtp - monster.Dfp)/5)*0.9)
 		
@@ -450,23 +446,11 @@ local function PresentTargetMonster(monster)
 		if defTech.type == 0 then
 		
 		else
-			myMaxDamage = (((myMaxAtp - (monster.Dfp*((((zalure-1)*1.3)+10)/100)))/5)*0.9)
-			myMinDamage = (((myMinAtp - (monster.Dfp*((((zalure-1)*1.3)+10)/100)))/5)*0.9)
+			myMaxDamage = (((myMaxAtp - (monster.Dfp*(1-((((zalure-1)*1.3)+10)/100))))/5)*0.9)
+			myMinDamage = (((myMinAtp - (monster.Dfp*(1-((((zalure-1)*1.3)+10)/100))))/5)*0.9)
 		end
-		
-		
-			
-		
-		
-	
-		
+
         lib_helpers.Text(true, monster.name)
-		
-		-- lib_helpers.Text(true, monster.attribute)
-		-- lib_helpers.Text(true, NAstat)
-		-- lib_helpers.Text(true, ABstat)
-		-- lib_helpers.Text(true, MAstat)
-		-- lib_helpers.Text(true, DAstat)
 		
 		lib_helpers.Text(true, "%i", myMinDamage-.5)
 		lib_helpers.Text(false, "-")
