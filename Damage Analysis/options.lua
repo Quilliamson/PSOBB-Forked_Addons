@@ -3,7 +3,8 @@ return
     configurationEnableWindow = false,
     enable = true,
 
-    targetEnableWindow = true,
+    ShowHealthBar = false,
+    ShowMonsterStats = true,
     targetChanged = false,
     targetAnchor = 6,
     targetX = 0,
@@ -17,7 +18,7 @@ return
     targetTransparentWindow = false,
     targetShowAccuracyAssist = true,
     targetAccuracyThreshold = 90,
-    targetEnableActivationRates = true,
+    targetEnableActivationRates = false,
     targetEnableActivationRateItems = {
         hell = true,
         dark = true,

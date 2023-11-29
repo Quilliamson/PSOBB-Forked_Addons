@@ -23,12 +23,13 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.TreePop()
-        end
-
-        if imgui.TreeNodeEx("Target") then
-            if imgui.Checkbox("Enable", _configuration.targetEnableWindow) then
-                _configuration.targetEnableWindow = not _configuration.targetEnableWindow
+			if imgui.Checkbox("Show Health Bar", _configuration.ShowHealthBar) then
+                _configuration.ShowHealthBar = not _configuration.ShowHealthBar
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Show Monster Stats", _configuration.ShowMonsterStats) then
+                _configuration.ShowMonsterStats = not _configuration.ShowMonsterStats
                 this.changed = true
             end
 
@@ -179,7 +180,6 @@ local function ConfigurationWindow(configuration)
                 _configuration.targetChanged = true
                 this.changed = true
             end
-
             imgui.TreePop()
         end
 		

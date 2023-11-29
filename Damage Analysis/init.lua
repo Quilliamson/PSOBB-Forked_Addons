@@ -3,6 +3,8 @@ local lib_helpers = require("solylib.helpers")
 local lib_characters = require("solylib.characters")
 local lib_unitxt = require("solylib.unitxt")
 local lib_items = require("solylib.items.items")
+local lib_items_list = require("solylib.items.items_list")
+local lib_items_cfg = require("solylib.items.items_configuration")
 local lib_menu = require("solylib.menu")
 local cfg = require("Damage Analysis.configuration")
 local cfgMonsters = require("Damage Analysis.monsters")
@@ -17,7 +19,8 @@ if optionsLoaded then
     options.configurationEnableWindow = lib_helpers.NotNilOrDefault(options.configurationEnableWindow, true)
     options.enable                    = lib_helpers.NotNilOrDefault(options.enable, true)
 
-    options.targetEnableWindow        = lib_helpers.NotNilOrDefault(options.targetEnableWindow, true)
+    options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
+	options.ShowMonsterStats   	      = lib_helpers.NotNilOrDefault(options.ShowMonsterStats , true)
     options.targetChanged             = lib_helpers.NotNilOrDefault(options.targetChanged, false)
     options.targetAnchor              = lib_helpers.NotNilOrDefault(options.targetAnchor, 6)
     options.targetX                   = lib_helpers.NotNilOrDefault(options.targetX, 0)
@@ -49,7 +52,8 @@ else
         configurationEnableWindow = true,
         enable = true,
 		
-        targetEnableWindow = true,
+        ShowHealthBar = true,
+		ShowMonsterStats  = true,
         targetChanged = false,
         targetAnchor = 6,
         targetX = 0,
@@ -87,7 +91,8 @@ local function SaveOptions(options)
         io.write(string.format("    configurationEnableWindow = %s,\n", tostring(options.configurationEnableWindow)))
         io.write(string.format("    enable = %s,\n", tostring(options.enable)))
         io.write("\n")
-        io.write(string.format("    targetEnableWindow = %s,\n", tostring(options.targetEnableWindow)))
+        io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
+		io.write(string.format("    ShowMonsterStats = %s,\n", tostring(options.ShowMonsterStats)))
         io.write(string.format("    targetChanged = %s,\n", tostring(options.targetChanged)))
         io.write(string.format("    targetAnchor = %i,\n", options.targetAnchor))
         io.write(string.format("    targetX = %i,\n", options.targetX))
@@ -200,6 +205,7 @@ local function CopyMonster(monster)
     copy.HP2Max   = monster.HP2Max
     copy.name     = monster.name
 	copy.attribute  = monster.attribute
+	copy.exp 	  = monster.exp
     copy.color    = monster.color
     copy.display  = monster.display
 	copy.Efr	  = monster.Efr
@@ -279,6 +285,7 @@ end
 
 local function GetMonsterData(monster)
     local ephineaMonsters = pso.read_u32(_ephineaMonsterArrayPointer)
+	local battleparams_stats = pso.read_u32(monster.address + 0x2b4)
 	
     monster.id = pso.read_u16(monster.address + _ID)
     monster.unitxtID = pso.read_u32(monster.address + _MonsterUnitxtID)
@@ -323,10 +330,13 @@ local function GetMonsterData(monster)
     monster.posX = pso.read_f32(monster.address + _PosX)
     monster.posY = pso.read_f32(monster.address + _PosY)
     monster.posZ = pso.read_f32(monster.address + _PosZ)
-
+	
+	
+	
     -- Other stuff
     monster.name = lib_unitxt.GetMonsterName(monster.unitxtID, _Ultimate)
 	monster.attribute = pso.read_u16(monster.address + 0x2e8)
+	monster.exp = pso.read_u32(battleparams_stats + 0x1c)
     monster.color = 0xFFFFFFFF
     monster.display = true
 
@@ -394,35 +404,88 @@ local function PresentTargetMonster(monster)
         if playerAddr == 0 then
             return
         end
-
+		
         local mHP = monster.HP
         local mHPMax = monster.HPMax
+		
+		local difficulty = pso.read_u32(_Difficulty)
+
+		local PposX = pso.read_f32(playerAddr + _PosX)
+		local PposZ = pso.read_f32(playerAddr + _PosZ)
 
         local atkTech = lib_characters.GetPlayerTechniqueStatus(monster.address, 0)
         local defTech = lib_characters.GetPlayerTechniqueStatus(monster.address, 1)
+		
+		local zalure = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Zalure)
 
         local frozen = lib_characters.GetPlayerFrozenStatus(monster.address)
         local confused = lib_characters.GetPlayerConfusedStatus(monster.address)
         local paralyzed = lib_characters.GetPlayerParalyzedStatus(monster.address)
 		
+		local myMaxTP = lib_characters.GetPlayerMaxTP(playerAddr)
 		local myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,0)
 		local myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,0)
+		local myLck = lib_characters.GetPlayerLCK(playerAddr)
 		
 		local inventory = lib_items.GetInventory(lib_items.Me)
         local itemCount = table.getn(inventory.items)
+		
 		local NAstat = 0
 		local ABstat = 0
 		local MAstat = 0
 		local DAstat = 0
+		local weapon_group = 0
+		local pmt_data = 0
+		local pmt_weapon_animations = 0
+		local weapon_animation_type = 0
+		local ataPenalty = 0
+		local EqSmartlink = 0
+		local MDistance = 0
+		local weapSpecial = ""
+		local weapEquipped = 0
+		local numTargets = 0
+		local numHits = 0
+        local androidBoost = 0
+		local specRedux = 1
+		local specDMG = 0
+		local specAilment = 0
+		local v50xHellBoost = 1
+        local v50xStatusBoost = 1
+		local ailRedux = 1
+		local specPower = pso.read_u16(playerAddr + 0x118)
+            
+		
 		for i=1,itemCount,1 do
-            item = inventory.items[i]
-            if item.equipped and item.data[1] == 0 then
+            local item = inventory.items[i]
+            if item.equipped and item.data[1] == 0x00 then
 				NAstat = item.weapon.stats[2]/100
 				ABstat = item.weapon.stats[3]/100
 				MAstat = item.weapon.stats[4]/100
 				DAstat = item.weapon.stats[5]/100
-			break
+				weapEquipped = item.weapon.special
+				weapSpecial = lib_unitxt.GetSpecialName(weapEquipped)
+				weapon_group = pso.read_u8(item.address + 0xf3)
+				pmt_data = pso.read_u32(0xA8DC94)
+				pmt_weapon_animations = pso.read_u32(pmt_data + 0x14)
+				weapon_animation_type = pso.read_u8(pmt_weapon_animations + weapon_group)
+				if weapon_animation_type == 5 or weapon_animation_type == 6 or weapon_animation_type == 7 or weapon_animation_type == 8 or weapon_animation_type == 9 or weapon_animation_type == 18 then
+					ataPenalty = 1
+				end
 			end
+			if item.equipped and item.name == "Smartlink" then
+				EqSmartlink = 1
+			end
+			if item.equipped and item.data[1] == 0x01 and item.data[2] == 0x03 then
+                -- V501
+                if item.data[3] == 0x4A then
+                    v50xHellBoost = 1.5
+                    v50xStatusBoost = 1.5
+                -- V502
+                elseif item.data[3] == 0x4B then
+                    v50xHellBoost = 2.0
+                    v50xStatusBoost = 1.5
+                end
+            end
 		end
 		
 		if monster.attribute == 1 then
@@ -439,36 +502,178 @@ local function PresentTargetMonster(monster)
 			myMinAtp = lib_characters.GetPlayerMinATP(playerAddr,DAstat)
 		end
 		
-		local myMaxDamage = (((myMaxAtp - monster.Dfp)/5)*0.9)
-		local myMinDamage = (((myMinAtp - monster.Dfp)/5)*0.9)
+		local myMaxDamage = ((myMaxAtp - monster.Dfp)/5)-.5
+		local myMinDamage = ((myMinAtp - monster.Dfp)/5)-.5
 		
-		local zalure = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Zalure)
 		if defTech.type == 0 then
 		
 		else
-			myMaxDamage = (((myMaxAtp - (monster.Dfp*(1-((((zalure-1)*1.3)+10)/100))))/5)*0.9)
-			myMinDamage = (((myMinAtp - (monster.Dfp*(1-((((zalure-1)*1.3)+10)/100))))/5)*0.9)
+			myMaxDamage = ((myMaxAtp - (monster.Dfp*(1-((((zalure-1)*1.3)+10)/100))))/5)-.5
+			myMinDamage = ((myMinAtp - (monster.Dfp*(1-((((zalure-1)*1.3)+10)/100))))/5)-.5
+		end
+		
+		if myMinDamage < 1 then
+			myMinDamage = 0
+		end
+		
+		if myMaxDamage < 1 then
+			myMaxDamage = 0
+		end
+		
+		if (string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "FO" or string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "HU") and EqSmartlink == 0 and ataPenalty == 1 then
+			MDistance = (math.sqrt(((monster.posX-PposX)^2)+((monster.posZ-PposZ)^2)))*0.33
+		end
+		
+		if lib_characters.GetPlayerIsCast(playerAddr) == true and difficulty == 3 then
+            androidBoost = 30
+        end
+		
+		if weapon_animation_type == 2 or weapon_animation_type == 3 or weapon_animation_type == 4 then
+			specRedux = 0.5
+		elseif weapon_animation_type == 5 or weapon_animation_type == 8 or weapon_animation_type == 9 then
+			specRedux = 0.333
+		end
+		
+		
+		if difficulty == 3 then
+			ailRedux = 2.5
+		else
+			ailRedux = 6.67
 		end
 
-        lib_helpers.Text(true, monster.name)
+		lib_helpers.Text(true, monster.name)
 		
-		lib_helpers.Text(true, "%i", myMinDamage-.5)
+		if options.ShowHealthBar then
+			-- Draw enemy HP bar
+			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
+		end
+		
+		lib_helpers.Text(true, "%i", (myMinDamage*0.9))
 		lib_helpers.Text(false, "-")
-		lib_helpers.Text(false, "%i", myMaxDamage-.5)
-		lib_helpers.Text(false, " Weak Hit")
-		lib_helpers.Text(true, "%i", (myMinDamage*1.89)-.5)
+		lib_helpers.Text(false, "%i", (myMaxDamage*0.9))
+		lib_helpers.Text(false, " Weak Hit")		
+		lib_helpers.Text(true, "%i", (myMinDamage*1.89))
 		lib_helpers.Text(false, "-")
-		lib_helpers.Text(false, "%i", (myMaxDamage*1.89)-.5)
+		lib_helpers.Text(false, "%i", (myMaxDamage*1.89))
 		lib_helpers.Text(false, " Heavy Hit")
+	
+		if weapSpecial == "Heat" or weapSpecial == "Fire" or weapSpecial == "Flame" or weapSpecial == "Burning" then
+			specDMG = (((lib_characters.GetPlayerLevel(playerAddr)-1)+((specPower+1)*20))*(100-(monster.Efr))*0.01)-0.5
+			lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", specDMG)
+			lib_helpers.Text(false, " Special Hit [")
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
+			lib_helpers.Text(false, "] ")
+		elseif weapSpecial == "Ice" or weapSpecial == "Frost" or weapSpecial == "Freeze" or weapSpecial == "Blizard" then
+			specAilment = math.min((((specPower+androidBoost)-monster.Esp)*specRedux),40)*v50xStatusBoost
+			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
+			lib_helpers.Text(false, "-")
+			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
+			lib_helpers.Text(false, " Special Hit [")
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
+			lib_helpers.Text(false, "] ")
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], specAilment)
+			lib_helpers.Text(false, "%% chance to Freeze")
+		elseif weapSpecial == "Shock" or weapSpecial == "Thunder" or weapSpecial == "Storm" or weapSpecial == "Tempest" then
+			specDMG = (((lib_characters.GetPlayerLevel(playerAddr)-1)+((specPower+1)*20))*(100-(monster.Eth))*0.01)-0.5
+			specAilment = ailRedux*v50xStatusBoost
+			lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", specDMG)
+			lib_helpers.Text(false, " Special Hit [")
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
+			lib_helpers.Text(false, "] ")
+			if monster.attribute == 4 then
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], specAilment)
+				lib_helpers.Text(false, "%% chance to Shock")
+			end
+		elseif weapSpecial == "Bind" then
+			specAilment = (((32+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Hold" then
+			specAilment = (((48+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Seize" then
+			specAilment = (((64+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Arrest" then
+			specAilment = (((80+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Panic" or weapSpecial == "Riot" or weapSpecial == "Havoc" or weapSpecial == "Chaos" then
+			specAilment = (((specPower+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
+			lib_helpers.Text(false, "-")
+			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
+			lib_helpers.Text(false, " Special Hit [")
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
+			lib_helpers.Text(false, "] ")
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1],specAilment)
+			lib_helpers.Text(false, "%% chance to Confuse")
+		elseif weapSpecial == "Dim" then
+			specAilment = ((48-monster.Edk)*specRedux)*v50xHellBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Shadow" then
+			specAilment = ((66-monster.Edk)*specRedux)*v50xHellBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Dark" then
+			specAilment = ((78-monster.Edk)*specRedux)*v50xHellBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Hell" then
+			specAilment = ((93-monster.Edk)*specRedux)*v50xHellBoost
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Draw" then
+			specAilment = math.min(((5+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Drain" then
+			specAilment = math.min(((9+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Fill" then
+			specAilment = math.min(((13+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Gush" then
+			specAilment = math.min(((17+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Heart" then
+			specAilment = math.min(3*myMaxTP,(difficulty+1)*25)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Mind" then
+			specAilment = math.min(4*myMaxTP,(difficulty+1)*25)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Soul" then
+			specAilment = math.min(5*myMaxTP,(difficulty+1)*25)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Geist" then
+			specAilment = math.min(6*myMaxTP,(difficulty+1)*25)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Master's" then
+			specAilment = math.min(((8+androidBoost)/100)*monster.exp,(difficulty+1)*20)*specRedux
+			--weapSpecial = "if episode 2, you multiply that by 13 and then divide by 10 to get the monster's exp (following the client's +30% boost to ep2 exp)"
+		elseif weapSpecial == "Lord's" then
+			specAilment = math.min(((10+androidBoost)/100)*monster.exp,(difficulty+1)*20)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "King's" then
+			specAilment = math.min(((12+androidBoost)/100)*monster.exp,(difficulty+1)*20)*specRedux
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Devil's" then
+			specAilment = mHP*((50-androidBoost)/100)
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Demon's" then
+			specAilment = mHP*((75-androidBoost)/100)
+			--weapSpecial = "Status"
+		elseif weapSpecial == "Charge" then
+			
+		elseif weapSpecial == "Spirit" then
+			
+		elseif weapSpecial == "Berserk" then
+			
+		end
 		
-		lib_helpers.Text(true, "[ATP: %i, DFP: %i, MST: %i, ATA: %i, EVP: %i, LCK: %i]",
-							   monster.Atp, monster.Dfp, monster.Mst, monster.Ata, monster.Evp, monster.Lck)
-		lib_helpers.Text(true, "[EFR: %i, EIC: %i, ETH: %i, EDK: %i, ELT: %i, ESP: %i]",
-							   monster.Efr, monster.Eic, monster.Eth, monster.Edk, monster.Elt, monster.Esp)
-
-        -- Draw enemy HP bar
-        lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
-
+		
+		
+		
+		
+		if options.ShowMonsterStats then
+			lib_helpers.Text(true, "[ATP: %i, DFP: %i, MST: %i, ATA: %i, EVP: %i, LCK: %i]", monster.Atp, monster.Dfp, monster.Mst, monster.Ata, monster.Evp, monster.Lck)
+			lib_helpers.Text(true, "[EFR: %i, EIC: %i, ETH: %i, EDK: %i, ELT: %i, ESP: %i]", monster.Efr, monster.Eic, monster.Eth, monster.Edk, monster.Elt, monster.Esp)
+		end
+		
         -- Show J/Z status and Frozen, Confuse, or Paralyzed status
 
 		if atkTech.type == 0 then
@@ -496,28 +701,6 @@ local function PresentTargetMonster(monster)
 
 		imgui.NextColumn()
 
-
-        -- Determine if we have v501/v502 equip for it's bonuses
-        local inventory = lib_items.GetInventory(lib_items.Me)
-        local itemCount = table.getn(inventory.items)
-        local v50xHellBoost = 1.0
-        local v50xStatusBoost = 1.0
-        for i=1,itemCount,1 do
-            local item = inventory.items[i]
-            if item.equipped and item.data[1] == 0x01 and item.data[2] == 0x03 then
-                -- V501
-                if item.data[3] == 0x4A then
-                    v50xHellBoost = 1.5
-                    v50xStatusBoost = 1.5
-                -- V502
-                elseif item.data[3] == 0x4B then
-                    v50xHellBoost = 2.0
-                    v50xStatusBoost = 1.5
-                    break
-                end
-            end
-        end
-
         -- Show accuracy assistance if feature is enabled
         if options.targetShowAccuracyAssist then
             -- Determine if player gets a bonus due to enemy status
@@ -531,56 +714,57 @@ local function PresentTargetMonster(monster)
 
             -- Calculate all 9 types of attack combinations
             local myAta = lib_characters.GetPlayerATA(playerAddr)
-            local normAtk1_Acc = (myAta * 1.0 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2)
-            local hardAtk1_Acc = (myAta * 0.7 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2)
-            local specAtk1_Acc = (myAta * 0.5 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2)
-            local normAtk2_Acc = (myAta * 1.0 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2)
-            local hardAtk2_Acc = (myAta * 0.7 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2)
-            local specAtk2_Acc = (myAta * 0.5 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2)
-            local normAtk3_Acc = (myAta * 1.0 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2)
-            local hardAtk3_Acc = (myAta * 0.7 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2)
-            local specAtk3_Acc = (myAta * 0.5 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2)
+            local normAtk1_Acc = math.min((myAta * 1.0 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local hardAtk1_Acc = math.min((myAta * 0.7 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local specAtk1_Acc = math.min((myAta * 0.5 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local normAtk2_Acc = math.min((myAta * 1.0 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local hardAtk2_Acc = math.min((myAta * 0.7 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local specAtk2_Acc = math.min((myAta * 0.5 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local normAtk3_Acc = math.min((myAta * 1.0 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local hardAtk3_Acc = math.min((myAta * 0.7 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+            local specAtk3_Acc = math.min((myAta * 0.5 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
 
             -- Display best first attack
             lib_helpers.Text(true, "Ata: %i, Recommended Attack:", myAta)
             lib_helpers.Text(true, "[")
-            if specAtk1_Acc >= options.targetAccuracyThreshold then
-                lib_helpers.TextC(false, 0xFFFF0000, "Spec1: %i%%%% ", specAtk1_Acc)
+            if specAtk1_Acc >= options.targetAccuracyThreshold and weapSpecial ~= "None" then
+                lib_helpers.TextC(false, 0xFFFF0000, "Spec1: %i%% ", specAtk1_Acc)
             elseif hardAtk1_Acc >= options.targetAccuracyThreshold then
-                lib_helpers.TextC(false, 0xFFFFAA00, "Hard1: %i%%%% ", hardAtk1_Acc)
-            else
-                lib_helpers.TextC(false, 0xFF00FF00, "Norm1: %i%%%% ", normAtk1_Acc)
+                lib_helpers.TextC(false, 0xFFFFAA00, "Hard1: %i%% ", hardAtk1_Acc)
+            elseif normAtk1_Acc > 0 then
+                lib_helpers.TextC(false, 0xFF00FF00, "Norm1: %i%% ", normAtk1_Acc)
+			else
+				lib_helpers.TextC(false, 0xFFBB0000, "Norm1: 0%%")
             end
 
             -- Display best second attack
-            lib_helpers.Text(false, "> ")
-            if specAtk2_Acc >= options.targetAccuracyThreshold then
-                lib_helpers.TextC(false, 0xFFFF0000, "Spec2: %i%%%% ", specAtk2_Acc)
+            lib_helpers.Text(false, " > ")
+            if specAtk2_Acc >= options.targetAccuracyThreshold and weapSpecial ~= "None" then
+                lib_helpers.TextC(false, 0xFFFF0000, "Spec2: %i%% ", specAtk2_Acc)
             elseif hardAtk2_Acc >= options.targetAccuracyThreshold then
-                lib_helpers.TextC(false, 0xFFFFAA00, "Hard2: %i%%%% ", hardAtk2_Acc)
-            else
-                lib_helpers.TextC(false, 0xFF00FF00, "Norm2: %i%%%% ", normAtk2_Acc)
+                lib_helpers.TextC(false, 0xFFFFAA00, "Hard2: %i%% ", hardAtk2_Acc)
+            elseif normAtk2_Acc > 0 then
+                lib_helpers.TextC(false, 0xFF00FF00, "Norm2: %i%% ", normAtk2_Acc)
+			else
+				lib_helpers.TextC(false, 0xFFBB0000, "Norm2: 0%%")
             end
 
             -- Display best third attack
             lib_helpers.Text(false, "> ")
-            if specAtk3_Acc >= options.targetAccuracyThreshold then
-                lib_helpers.TextC(false, 0xFFFF0000, "Spec3: %i%%%%", specAtk3_Acc)
+            if specAtk3_Acc >= options.targetAccuracyThreshold and weapSpecial ~= "None" then
+                lib_helpers.TextC(false, 0xFFFF0000, "Spec3: %i%%", specAtk3_Acc)
             elseif hardAtk3_Acc >= options.targetAccuracyThreshold then
-                lib_helpers.TextC(false, 0xFFFFAA00, "Hard3: %i%%%%", hardAtk3_Acc)
-            else
-                lib_helpers.TextC(false, 0xFF00FF00, "Norm3: %i%%%%", normAtk3_Acc)
+                lib_helpers.TextC(false, 0xFFFFAA00, "Hard3: %i%%", hardAtk3_Acc)
+            elseif normAtk3_Acc > 0 then
+                lib_helpers.TextC(false, 0xFF00FF00, "Norm3: %i%%", normAtk3_Acc)
+			else
+				lib_helpers.TextC(false, 0xFFBB0000, "Norm3: 0%%")
             end
             lib_helpers.Text(false, "]")
         end
 
         -- Show special activation rate if feature is enabled
         if options.targetEnableActivationRates == true then
-            -- Determine if the Android Boost Applies
-            local androidBoost = 0
-            if lib_characters.GetPlayerIsCast(playerAddr) == true then
-                androidBoost = 30
-            end
 
             -- Calculate Rates of success of differing attack types
             local rate_list = {}
@@ -657,7 +841,7 @@ local function PresentTargetMonsterWindow()
         targetCache = monster
     end
 
-    if options.targetEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
+    if options.enable and monster ~= nil and monster.unitxtID ~= 0 then
         if firstPresent or options.targetChanged then
           options.targetChanged = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.targetX, options.targetY, options.targetW, options.targetH, options.targetAnchor)
