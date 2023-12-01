@@ -252,8 +252,6 @@ local function PresentPlayer(address, sd, inv)
             return
         end
 
-	-- if string.sub(lib_unitxt.GetClassName(lib_characters.GetPlayerClass(playerAddr)),1,2) == "FO" then
-
 	lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC))
 	lib_helpers.Text(false, " - Base ATP (S)")
 	lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE))

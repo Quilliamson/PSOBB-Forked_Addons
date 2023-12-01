@@ -49,8 +49,8 @@ return
         havoc = true,
     },
 
-    foRecEnableWindow = false,
-    foRecShowEfficiencyBased = false,
+    foRecEnableWindow = true,
+    foRecShowEfficiencyBased = true,
     foRecChanged = false,
     foRecAnchor = 6,
     foRecX = 0,

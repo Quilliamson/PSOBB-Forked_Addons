@@ -1,10 +1,12 @@
 return
 {
     configurationEnableWindow = false,
-    enable = true,
+    enable = false,
 
-    ShowHealthBar = false,
-    ShowMonsterStats = true,
+    ShowHealthBar = true,
+    ShowDamage = true,
+    ShowAilment = true,
+    ShowMonsterStats = false,
     targetChanged = false,
     targetAnchor = 6,
     targetX = 0,
@@ -16,16 +18,6 @@ return
     targetNoMove = "",
     targetNoScrollbar = "",
     targetTransparentWindow = false,
-    targetShowAccuracyAssist = true,
-    targetAccuracyThreshold = 90,
-    targetEnableActivationRates = false,
-    targetEnableActivationRateItems = {
-        hell = true,
-        dark = true,
-        blizzard = true,
-        arrest = true,
-        seize = true,
-        chaos = true,
-        havoc = true,
-    },
+    targetHardThreshold = 90,
+    targetSpecialThreshold = 90,
 }

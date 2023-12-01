@@ -102,9 +102,9 @@ else
         showMonsterID = false,
 
         mhpEnableWindow = true,
-		mhpHideWhenMenu = false,
-        mhpHideWhenSymbolChat = false,
-        mhpHideWhenMenuUnavailable = false,
+		mhpHideWhenMenu = true,
+        mhpHideWhenSymbolChat = true,
+        mhpHideWhenMenuUnavailable = true,
         mhpChanged = false,
         mhpAnchor = 6,
         mhpX = 100,
@@ -763,7 +763,7 @@ local function foRec(monster)
 		local pClassId = lib_characters.GetPlayerClass(playerAddr)
 		local pClass = lib_unitxt.GetClassName(pClassId)
 
-		local myAtp = lib_characters.GetPlayerMaxATP(playerAddr)
+		local myAtp = lib_characters.GetPlayerMaxATP(playerAddr,0)
 		local myDfp = lib_characters.GetPlayerDFP(playerAddr)
 		local myMst = lib_characters.GetPlayerMST(playerAddr)
 		local myAta = lib_characters.GetPlayerATA(playerAddr)
@@ -1075,8 +1075,6 @@ local function foRec(monster)
 		end
 
         lib_helpers.TextC(true, monster.color, monster.name)
-		
-		lib_helpers.Text(true, myAtp)
 
 		techtable = {foie,gifoie,rafoie,zonde,gizonde,razonde,barta,gibarta,rabarta,grants}
 		dpstable = {foie/foieFps,gifoie/gifoieFps,rafoie/rafoieFps,zonde/zondeFps,gizonde/gizondeFps,razonde/razondeFps,barta/bartaFps,gibarta/gibartaFps,rabarta/rabartaFps,grants/grantsFps}

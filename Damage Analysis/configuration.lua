@@ -28,77 +28,46 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 			
+			if imgui.Checkbox("Show Min Max Damage", _configuration.ShowDamage) then
+                _configuration.ShowDamage = not _configuration.ShowDamage
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Show Special Ailment", _configuration.ShowAilment) then
+                _configuration.ShowAilment = not _configuration.ShowAilment
+                this.changed = true
+            end
+			
 			if imgui.Checkbox("Show Monster Stats", _configuration.ShowMonsterStats) then
                 _configuration.ShowMonsterStats = not _configuration.ShowMonsterStats
                 this.changed = true
             end
 
-            if imgui.Checkbox("Show Accuracy Assist", _configuration.targetShowAccuracyAssist) then
-                _configuration.targetShowAccuracyAssist = not _configuration.targetShowAccuracyAssist
-                this.changed = true
-            end
-
             imgui.PushItemWidth(100)
-            success, _configuration.targetAccuracyThreshold = imgui.InputInt("Accuracy Threshold %", _configuration.targetAccuracyThreshold)
+            success, _configuration.targetHardThreshold = imgui.InputInt("Hard Accuracy Threshold %", _configuration.targetHardThreshold)
             imgui.PopItemWidth()
             if success then
-                if _configuration.targetAccuracyThreshold < 50 then
-                    _configuration.targetAccuracyThreshold = 50
+                if _configuration.targetHardThreshold < 50 then
+                    _configuration.targetHardThreshold = 50
                 end
-                if _configuration.targetAccuracyThreshold > 100 then
-                    _configuration.targetAccuracyThreshold = 100
+                if _configuration.targetHardThreshold > 100 then
+                    _configuration.targetHardThreshold = 100
                 end
                 this.changed = true
             end   
-            
-            if imgui.Checkbox("Enable Activation Rates", _configuration.targetEnableActivationRates) then
-                _configuration.targetEnableActivationRates = not _configuration.targetEnableActivationRates
-                this.changed = true
-            end            
-            if _configuration.targetEnableActivationRates then
-                if imgui.TreeNodeEx("Specials to Display") then 
-                    if imgui.Checkbox("Hell", _configuration.targetEnableActivationRateItems.hell) then
-                        _configuration.targetEnableActivationRateItems.hell = not _configuration.targetEnableActivationRateItems.hell
-                        _configuration.changed = true
-                        this.changed = true
-                    end
-                    imgui.SameLine(0, 43)
-                    if imgui.Checkbox("Dark", _configuration.targetEnableActivationRateItems.dark) then
-                        _configuration.targetEnableActivationRateItems.dark = not _configuration.targetEnableActivationRateItems.dark
-                        _configuration.changed = true
-                        this.changed = true
-                    end
-                    if imgui.Checkbox("Blizzard", _configuration.targetEnableActivationRateItems.blizzard) then
-                        _configuration.targetEnableActivationRateItems.blizzard = not _configuration.targetEnableActivationRateItems.blizzard
-                        _configuration.changed = true
-                        this.changed = true
-                    end
-                    imgui.SameLine(0, 15)
-                    if imgui.Checkbox("Arrest", _configuration.targetEnableActivationRateItems.arrest) then
-                        _configuration.targetEnableActivationRateItems.arrest = not _configuration.targetEnableActivationRateItems.arrest
-                        _configuration.changed = true
-                        this.changed = true
-                    end                    
-                    imgui.SameLine(0, 15)
-                    if imgui.Checkbox("Seize", _configuration.targetEnableActivationRateItems.seize) then
-                        _configuration.targetEnableActivationRateItems.seize = not _configuration.targetEnableActivationRateItems.seize
-                        _configuration.changed = true
-                        this.changed = true
-                    end
-                    if imgui.Checkbox("Chaos", _configuration.targetEnableActivationRateItems.chaos) then
-                        _configuration.targetEnableActivationRateItems.chaos = not _configuration.targetEnableActivationRateItems.chaos
-                        _configuration.changed = true
-                        this.changed = true
-                    end
-                    imgui.SameLine(0, 36)
-                    if imgui.Checkbox("Havoc", _configuration.targetEnableActivationRateItems.havoc) then
-                        _configuration.targetEnableActivationRateItems.havoc = not _configuration.targetEnableActivationRateItems.havoc
-                        _configuration.changed = true
-                        this.changed = true
-                    end
-                    imgui.TreePop()
+			
+			imgui.PushItemWidth(100)
+            success, _configuration.targetSpecialThreshold = imgui.InputInt("Special Accuracy Threshold %", _configuration.targetSpecialThreshold)
+            imgui.PopItemWidth()
+            if success then
+                if _configuration.targetSpecialThreshold < 25 then
+                    _configuration.targetSpecialThreshold = 25
                 end
-            end 
+                if _configuration.targetSpecialThreshold > 100 then
+                    _configuration.targetSpecialThreshold = 100
+                end
+                this.changed = true
+            end   
             
             if imgui.Checkbox("No title bar", _configuration.targetNoTitleBar == "NoTitleBar") then
                 if _configuration.targetNoTitleBar == "NoTitleBar" then
