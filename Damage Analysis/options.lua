@@ -1,11 +1,10 @@
 return
 {
     configurationEnableWindow = false,
-    enable = false,
+    enable = true,
 
-    ShowHealthBar = true,
+    ShowHealthBar = false,
     ShowDamage = true,
-    ShowAilment = true,
     ShowMonsterStats = false,
     targetChanged = false,
     targetAnchor = 6,

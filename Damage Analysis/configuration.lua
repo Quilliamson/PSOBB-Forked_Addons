@@ -33,11 +33,6 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 			
-			if imgui.Checkbox("Show Special Ailment", _configuration.ShowAilment) then
-                _configuration.ShowAilment = not _configuration.ShowAilment
-                this.changed = true
-            end
-			
 			if imgui.Checkbox("Show Monster Stats", _configuration.ShowMonsterStats) then
                 _configuration.ShowMonsterStats = not _configuration.ShowMonsterStats
                 this.changed = true

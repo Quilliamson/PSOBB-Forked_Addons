@@ -21,7 +21,6 @@ if optionsLoaded then
 
     options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
 	options.ShowDamage   	     	  = lib_helpers.NotNilOrDefault(options.ShowDamage , true)
-	options.ShowAilment   	     	  = lib_helpers.NotNilOrDefault(options.ShowAilment , true)
 	options.ShowMonsterStats   	      = lib_helpers.NotNilOrDefault(options.ShowMonsterStats , true)
     options.targetChanged             = lib_helpers.NotNilOrDefault(options.targetChanged, false)
     options.targetAnchor              = lib_helpers.NotNilOrDefault(options.targetAnchor, 6)
@@ -45,7 +44,6 @@ else
 		
         ShowHealthBar = true,
 		ShowDamage = true,
-		ShowAilment = true,
 		ShowMonsterStats  = true,
         targetChanged = false,
         targetAnchor = 6,
@@ -76,7 +74,6 @@ local function SaveOptions(options)
         io.write("\n")
         io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
 		io.write(string.format("    ShowDamage = %s,\n", tostring(options.ShowDamage)))
-		io.write(string.format("    ShowAilment = %s,\n", tostring(options.ShowAilment)))
 		io.write(string.format("    ShowMonsterStats = %s,\n", tostring(options.ShowMonsterStats)))
         io.write(string.format("    targetChanged = %s,\n", tostring(options.targetChanged)))
         io.write(string.format("    targetAnchor = %i,\n", options.targetAnchor))
@@ -435,8 +432,9 @@ local function PresentTargetMonster(monster)
 		local numHits = 0
         local androidBoost = 0
 		local specRedux = 1
-		local specDMG = 0
+		local specDMG = -1
 		local specAilment = 0
+		local specDraw = 0
 		local v50xHellBoost = 1
         local v50xStatusBoost = 1
 		local ailRedux = 1
@@ -597,132 +595,98 @@ local function PresentTargetMonster(monster)
 	
 		if weapSpecial == "Heat" or weapSpecial == "Fire" or weapSpecial == "Flame" or weapSpecial == "Burning" then
 			specDMG = (((lib_characters.GetPlayerLevel(playerAddr)-1)+((specPower+1)*20))*(100-(monster.Efr))*0.01)
-			lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", specDMG)
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
+			specAilment = 100
 		elseif weapSpecial == "Ice" or weapSpecial == "Frost" or weapSpecial == "Freeze" or weapSpecial == "Blizzard" then
 			specAilment = math.min((((specPower+androidBoost)-monster.Esp)*specRedux),40)*v50xStatusBoost
-			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
-			lib_helpers.Text(false, "-")
-			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.Text(true, "[")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
-			if monster.isBoss == 1 or monster.name == "Epsilon" or monster.name == "Zu" or monster.name == "Pazuzu" or monster.name == "Dorphon" or monster.name == "Dorphon Eclair" or monster.name == "Girtablulu" then
-				
-			else
-				lib_helpers.Text(false, "chance to Freeze")
-				lib_helpers.Text(true, "[Spec1: ")
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", 3*(specAtk1_Acc*math.max(specAilment,0))/100)
-				lib_helpers.Text(false, " > Spec2: ")
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", 3*(specAtk2_Acc*math.max(specAilment,0))/100)
-				lib_helpers.Text(false, " > Spec3: ")
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", 3*(specAtk3_Acc*math.max(specAilment,0))/100)	
-				lib_helpers.Text(false, "]")
-			end
 		elseif weapSpecial == "Shock" or weapSpecial == "Thunder" or weapSpecial == "Storm" or weapSpecial == "Tempest" then
 			specDMG = (((lib_characters.GetPlayerLevel(playerAddr)-1)+((specPower+1)*20))*(100-(monster.Eth))*0.01)
-			specAilment = ailRedux*v50xStatusBoost
-			lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", specDMG)
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
-			if monster.attribute == 4 and monster.isBoss == 0 and monster.name ~= "Epsilon" then
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specAilment,0))
-				lib_helpers.Text(false, "%% chance to Shock")
-			end
+			specAilment = 100
 		elseif weapSpecial == "Bind" or weapSpecial == "Hold" or weapSpecial == "Seize" or weapSpecial == "Arrest" then
 			specAilment = (((specPower+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
-			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
-			lib_helpers.Text(false, "-")
-			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
-			if (monster.attribute == 1 or monster.attribute == 2 or monster.attribute == 8) and monster.isBoss == 0 then
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specAilment,0))
-				lib_helpers.Text(false, "%% chance to Paralyze")
-			end
 		elseif weapSpecial == "Panic" or weapSpecial == "Riot" or weapSpecial == "Havoc" or weapSpecial == "Chaos" then
 			specAilment = (((specPower+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
-			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
-			lib_helpers.Text(false, "-")
-			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
-			if monster.isBoss == 0 then
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specAilment,0))
-				lib_helpers.Text(false, "%% chance to Confuse")
-			end
 		elseif (weapSpecial == "Dim" or weapSpecial == "Shadow" or weapSpecial == "Dark" or weapSpecial == "Hell") and monster.isBoss == 0 then
 			specAilment = ((specPower-monster.Edk)*specRedux)*v50xHellBoost
-			lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", mHP)
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] chance to Instant Kill")
+			specDMG = mHP
+		elseif weapSpecial == "Draw" or weapSpecial == "Drain" or weapSpecial == "Fill" or weapSpecial == "Gush" then
+			specDraw = math.min(((specPower+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
+			specAilment = 100
+		elseif weapSpecial == "Heart" or weapSpecial == "Mind" or weapSpecial == "Soul" or weapSpecial == "Geist" then
+			if lib_characters.GetPlayerIsCast(playerAddr) == false then
+				specDraw = math.min((specPower/100)*myMaxTP,(difficulty+1)*25)*specRedux
+				specAilment = 100
+			else
+				weapSpecial = "None"
+			end
+		elseif weapSpecial == "Master's" or weapSpecial == "Lord's" or weapSpecial == "King's" then
+			specDraw = math.min(((specPower+androidBoost)/100)*monster.exp,(difficulty+1)*20)*specRedux
+			specAilment = 100
+		elseif (weapSpecial == "Devil's" or weapSpecial == "Demon's") and monster.isBoss == 0 then
+			specDMG = (mHP*(1-(((specPower+androidBoost)/100))))*specRedux
+			specAilment = 50
+		elseif weapSpecial == "Charge" or weapSpecial == "Spirit" or weapSpecial == "Berserk" or weapName == "Vjaya" then
+			specAilment = 100
+		end	
+		if weapSpecial ~= "None" then
+			if options.ShowDamage then
+				if weapSpecial == "Charge" or weapSpecial == "Spirit" or weapSpecial == "Berserk" then
+					if weapName == "Vjaya" then
+						lib_helpers.Text(true, "%i", (myMinDamage*5.67))
+						lib_helpers.Text(false, "-")
+						lib_helpers.Text(false, "%i", (myMaxDamage*5.67))
+					else
+						lib_helpers.Text(true, "%i", (myMinDamage*3.33))
+						lib_helpers.Text(false, "-")
+						lib_helpers.Text(false, "%i", (myMaxDamage*3.33))
+					end
+				elseif specDMG >= 0 then
+					lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", specDMG)
+				elseif specDMG < 0 then
+					lib_helpers.Text(true, "%i", (myMinDamage*0.56))
+					lib_helpers.Text(false, "-")
+					lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
+				end
+				lib_helpers.Text(false, " Special Hit [")
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
+				lib_helpers.Text(false, "] ")
+				if specAilment > 0 then
+						if weapSpecial == "Master's" or weapSpecial == "Lord's" or weapSpecial == "King's" then
+							lib_helpers.Text(false, "steal ")
+							lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specDraw,0))
+							lib_helpers.Text(false, " EXP")
+						elseif (weapSpecial == "Heart" or weapSpecial == "Mind" or weapSpecial == "Soul" or weapSpecial == "Geist") and lib_characters.GetPlayerIsCast(playerAddr) == false then
+							lib_helpers.Text(false, "steal ")
+							lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specDraw,0))
+							lib_helpers.Text(false, " TP")
+						elseif weapSpecial == "Draw" or weapSpecial == "Drain" or weapSpecial == "Fill" or weapSpecial == "Gush" then	
+							lib_helpers.Text(false, "steal ")
+							lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specDraw,0))
+							lib_helpers.Text(false, " HP")
+						elseif (weapSpecial == "Dim" or weapSpecial == "Shadow" or weapSpecial == "Dark" or weapSpecial == "Hell") and monster.isBoss == 0 then	
+							lib_helpers.Text(false, "chance to Instant Kill")
+						elseif weapSpecial == "Panic" or weapSpecial == "Riot" or weapSpecial == "Havoc" or weapSpecial == "Chaos"  and monster.isBoss == 0 then
+							lib_helpers.Text(false, "chance to Confuse")
+						elseif weapSpecial == "Bind" or weapSpecial == "Hold" or weapSpecial == "Seize" or weapSpecial == "Arrest" and (monster.attribute == 1 or monster.attribute == 2 or monster.attribute == 8) and monster.isBoss == 0 then	
+							lib_helpers.Text(false, "chance to Paralyze")
+						elseif weapSpecial == "Shock" or weapSpecial == "Thunder" or weapSpecial == "Storm" or weapSpecial == "Tempest" and monster.attribute == 4 and monster.isBoss == 0 and monster.name ~= "Epsilon" then	
+							specAilment = ailRedux*v50xStatusBoost
+							lib_helpers.Text(false, "chance to Shock")
+						elseif weapSpecial == "Ice" or weapSpecial == "Frost" or weapSpecial == "Freeze" or weapSpecial == "Blizzard" and not (monster.isBoss == 1 or monster.name == "Epsilon" or monster.name == "Zu" or monster.name == "Pazuzu" or monster.name == "Dorphon" or monster.name == "Dorphon Eclair" or monster.name == "Girtablulu" ) then
+							lib_helpers.Text(false, "chance to Freeze")
+						end
+				end
+			end
 			lib_helpers.Text(true, "Spec1: ")
 			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk1_Acc*math.max(specAilment,0))/100)
 			lib_helpers.Text(false, " > Spec2: ")
 			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk2_Acc*math.max(specAilment,0))/100)
 			lib_helpers.Text(false, " > Spec3: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk3_Acc*math.max(specAilment,0))/100)	
-		elseif weapSpecial == "Draw" or weapSpecial == "Drain" or weapSpecial == "Fill" or weapSpecial == "Gush" then
-			specAilment = math.min(((specPower+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
-			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
-			lib_helpers.Text(false, "-")
-			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] steal ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specAilment,0))
-			lib_helpers.Text(false, " HP")
-		elseif (weapSpecial == "Heart" or weapSpecial == "Mind" or weapSpecial == "Soul" or weapSpecial == "Geist") and lib_characters.GetPlayerIsCast(playerAddr) == false then
-			specAilment = math.min((specPower/100)*myMaxTP,(difficulty+1)*25)*specRedux
-			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
-			lib_helpers.Text(false, "-")
-			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] steal ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specAilment,0))
-			lib_helpers.Text(false, " TP")
-		elseif weapSpecial == "Master's" or weapSpecial == "Lord's" or weapSpecial == "King's" then
-			specAilment = math.min(((specPower+androidBoost)/100)*monster.exp,(difficulty+1)*20)*specRedux
-			lib_helpers.Text(true, "%i", (myMinDamage*0.56))
-			lib_helpers.Text(false, "-")
-			lib_helpers.Text(false, "%i", (myMaxDamage*0.56))
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] steal ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", math.max(specAilment,0))
-			lib_helpers.Text(false, " EXP")
-		elseif (weapSpecial == "Devil's" or weapSpecial == "Demon's") and monster.isBoss == 0 then
-			specDMG = mHP*(1-((specPower+androidBoost)/100))
-			lib_helpers.TextC(true, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i", specDMG)
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
-		elseif weapSpecial == "Charge" or weapSpecial == "Spirit" or weapSpecial == "Berserk" then
-			if weapName == "Vjaya" then
-				lib_helpers.Text(true, "%i", (myMinDamage*5.67))
-				lib_helpers.Text(false, "-")
-				lib_helpers.Text(false, "%i", (myMaxDamage*5.67))
-			else
-				lib_helpers.Text(true, "%i", (myMinDamage*3.33))
-				lib_helpers.Text(false, "-")
-				lib_helpers.Text(false, "%i", (myMaxDamage*3.33))
-			end
-			lib_helpers.Text(false, " Special Hit [")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], lib_unitxt.GetSpecialName(weapEquipped))
-			lib_helpers.Text(false, "] ")
-		end	
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk3_Acc*math.max(specAilment,0))/100)
+		end
 
 		-- Display best first attack
 		lib_helpers.Text(true, "[")
-		if specAtk1_Acc >= options.targetHardThreshold and weapSpecial ~= "None" then
+		if specAtk1_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
 			lib_helpers.TextC(false, 0xFFFF0000, "Spec1: %i%% ", specAtk1_Acc)
 		elseif hardAtk1_Acc >= options.targetHardThreshold then
 			lib_helpers.TextC(false, 0xFFFFAA00, "Hard1: %i%% ", hardAtk1_Acc)
@@ -734,7 +698,7 @@ local function PresentTargetMonster(monster)
 
 		-- Display best second attack
 		lib_helpers.Text(false, " > ")
-		if specAtk2_Acc >= options.targetHardThreshold and weapSpecial ~= "None" then
+		if specAtk2_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
 			lib_helpers.TextC(false, 0xFFFF0000, "Spec2: %i%% ", specAtk2_Acc)
 		elseif hardAtk2_Acc >= options.targetHardThreshold then
 			lib_helpers.TextC(false, 0xFFFFAA00, "Hard2: %i%% ", hardAtk2_Acc)
@@ -746,7 +710,7 @@ local function PresentTargetMonster(monster)
 
 		-- Display best third attack
 		lib_helpers.Text(false, "> ")
-		if specAtk3_Acc >= options.targetHardThreshold and weapSpecial ~= "None" then
+		if specAtk3_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
 			lib_helpers.TextC(false, 0xFFFF0000, "Spec3: %i%%", specAtk3_Acc)
 		elseif hardAtk3_Acc >= options.targetHardThreshold then
 			lib_helpers.TextC(false, 0xFFFFAA00, "Hard3: %i%%", hardAtk3_Acc)

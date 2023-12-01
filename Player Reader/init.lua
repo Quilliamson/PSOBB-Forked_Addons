@@ -252,15 +252,15 @@ local function PresentPlayer(address, sd, inv)
             return
         end
 
-	lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC))
-	lib_helpers.Text(false, " - Base ATP (S)")
-	lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE))
-	lib_helpers.Text(false, " - ATP Range (S)")
-	lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE50))
-	lib_helpers.Text(false, " - ATP from gear")
-	lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE)+pso.read_u16(playerAddr+ 0xE50)+pso.read_u16(playerAddr + 0x2CC))
-	lib_helpers.Text(false, " - Maximum ATP")
-	lib_helpers.Text(true, "---")
+	-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CC))
+	-- lib_helpers.Text(false, " - Base ATP (S)")
+	-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE))
+	-- lib_helpers.Text(false, " - ATP Range (S)")
+	-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0xE50))
+	-- lib_helpers.Text(false, " - ATP from gear")
+	-- lib_helpers.Text(true, pso.read_u16(playerAddr + 0x2CE)+pso.read_u16(playerAddr+ 0xE50)+pso.read_u16(playerAddr + 0x2CC))
+	-- lib_helpers.Text(false, " - Maximum ATP")
+	-- lib_helpers.Text(true, "---")
 
     lib_helpers.Text(true, "%s Lv%d", name, level)
     if options.singlePlayersShowBarText then
