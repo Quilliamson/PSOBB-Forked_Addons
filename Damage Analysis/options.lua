@@ -3,7 +3,7 @@ return
     configurationEnableWindow = false,
     enable = true,
 
-    ShowHealthBar = false,
+    ShowHealthBar = true,
     ShowDamage = true,
     ShowMonsterStats = false,
     targetChanged = false,

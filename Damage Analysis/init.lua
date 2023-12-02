@@ -435,6 +435,7 @@ local function PresentTargetMonster(monster)
 		local specDMG = -1
 		local specAilment = 0
 		local specDraw = 0
+		local weapHex = 0
 		local v50xHellBoost = 1
         local v50xStatusBoost = 1
 		local ailRedux = 1
@@ -450,6 +451,7 @@ local function PresentTargetMonster(monster)
 				DAstat = item.weapon.stats[5]/100
 				weapEquipped = item.weapon.special
 				weapSpecial = lib_unitxt.GetSpecialName(weapEquipped)
+				weapHex = item.data[2]
 				weapName = item.name
 				weapon_group = pso.read_u8(item.address + 0xf3)
 				pmt_data = pso.read_u32(0xA8DC94)
@@ -515,12 +517,13 @@ local function PresentTargetMonster(monster)
             androidBoost = 30
         end
 		
-		if weapon_animation_type == 2 or weapon_animation_type == 3 or weapon_animation_type == 4 then
-			specRedux = 0.5
-		elseif weapon_animation_type == 5 or weapon_animation_type == 8 or weapon_animation_type == 9 then
-			specRedux = 0.333
+		if (0x1 < weapHex) then
+			if (weapHex < 0x5) then
+				specRedux = 0.50
+			elseif (weapHex == 0x5) or (7 < weapHex and (weapHex < 0xA)) then
+				specRedux = 0.33
+			end
 		end
-		
 		
 		if difficulty == 3 then
 			ailRedux = 2.5
@@ -602,11 +605,11 @@ local function PresentTargetMonster(monster)
 			specDMG = (((lib_characters.GetPlayerLevel(playerAddr)-1)+((specPower+1)*20))*(100-(monster.Eth))*0.01)
 			specAilment = 100
 		elseif weapSpecial == "Bind" or weapSpecial == "Hold" or weapSpecial == "Seize" or weapSpecial == "Arrest" then
-			specAilment = (((specPower+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			specAilment = ((specPower+androidBoost)-monster.Esp)*specRedux*v50xStatusBoost
 		elseif weapSpecial == "Panic" or weapSpecial == "Riot" or weapSpecial == "Havoc" or weapSpecial == "Chaos" then
-			specAilment = (((specPower+androidBoost)-monster.Esp)*specRedux)*v50xStatusBoost
+			specAilment = ((specPower+androidBoost)-monster.Esp)*specRedux*v50xStatusBoost
 		elseif (weapSpecial == "Dim" or weapSpecial == "Shadow" or weapSpecial == "Dark" or weapSpecial == "Hell") and monster.isBoss == 0 then
-			specAilment = ((specPower-monster.Edk)*specRedux)*v50xHellBoost
+			specAilment = (specPower-monster.Edk)*specRedux*v50xHellBoost
 			specDMG = mHP
 		elseif weapSpecial == "Draw" or weapSpecial == "Drain" or weapSpecial == "Fill" or weapSpecial == "Gush" then
 			specDraw = math.min(((specPower+androidBoost)/100)*mHP,(difficulty+1)*30)*specRedux
@@ -627,6 +630,7 @@ local function PresentTargetMonster(monster)
 		elseif weapSpecial == "Charge" or weapSpecial == "Spirit" or weapSpecial == "Berserk" or weapName == "Vjaya" then
 			specAilment = 100
 		end	
+		
 		if weapSpecial ~= "None" then
 			if options.ShowDamage then
 				if weapSpecial == "Charge" or weapSpecial == "Spirit" or weapSpecial == "Berserk" then
@@ -683,7 +687,7 @@ local function PresentTargetMonster(monster)
 			lib_helpers.Text(false, " > Spec3: ")
 			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk3_Acc*math.max(specAilment,0))/100)
 		end
-
+		
 		-- Display best first attack
 		lib_helpers.Text(true, "[")
 		if specAtk1_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
