@@ -23,6 +23,15 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
+            imgui.TreePop()
+        end
+		
+		if imgui.TreeNodeEx("Special Weapon Damage Analysis") then
+			if imgui.Checkbox("Enable", _configuration.targetEnableWindow) then
+                _configuration.targetEnableWindow = not _configuration.targetEnableWindow
+                this.changed = true
+            end
+			
 			if imgui.Checkbox("Show Health Bar", _configuration.ShowHealthBar) then
                 _configuration.ShowHealthBar = not _configuration.ShowHealthBar
                 this.changed = true
@@ -144,6 +153,308 @@ local function ConfigurationWindow(configuration)
                 _configuration.targetChanged = true
                 this.changed = true
             end
+			imgui.TreePop()
+		end
+		
+		if imgui.TreeNodeEx("Monster HP - Room View") then
+            if imgui.Checkbox("Enable", _configuration.mhpEnableWindow) then
+                _configuration.mhpEnableWindow = not _configuration.mhpEnableWindow
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Invert monster list", _configuration.invertMonsterList) then
+				_configuration.invertMonsterList = not _configuration.invertMonsterList
+				this.changed = true
+			end
+			if imgui.Checkbox("Show current room only", _configuration.showCurrentRoomOnly) then
+				_configuration.showCurrentRoomOnly = not _configuration.showCurrentRoomOnly
+				this.changed = true
+			end
+			if imgui.Checkbox("Show monster status ailment", _configuration.showMonsterStatus) then
+				_configuration.showMonsterStatus = not _configuration.showMonsterStatus
+				this.changed = true
+			end
+			if imgui.Checkbox("Show Megid %", _configuration.showMonsterID) then
+				_configuration.showMonsterID = not _configuration.showMonsterID
+				this.changed = true
+			end
+
+            if imgui.Checkbox("Hide when menus are open", _configuration.mhpHideWhenMenu) then
+                _configuration.mhpHideWhenMenu = not _configuration.mhpHideWhenMenu
+                this.changed = true
+            end
+            if imgui.Checkbox("Hide when symbol chat/word select is open", _configuration.mhpHideWhenSymbolChat) then
+                _configuration.mhpHideWhenSymbolChat = not _configuration.mhpHideWhenSymbolChat
+                this.changed = true
+            end
+            if imgui.Checkbox("Hide when the menu is unavailable", _configuration.mhpHideWhenMenuUnavailable) then
+                _configuration.mhpHideWhenMenuUnavailable = not _configuration.mhpHideWhenMenuUnavailable
+                this.changed = true
+            end
+
+            if imgui.Checkbox("No title bar", _configuration.mhpNoTitleBar == "NoTitleBar") then
+                if _configuration.mhpNoTitleBar == "NoTitleBar" then
+                    _configuration.mhpNoTitleBar = ""
+                else
+                    _configuration.mhpNoTitleBar = "NoTitleBar"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No resize", _configuration.mhpNoResize == "NoResize") then
+                if _configuration.mhpNoResize == "NoResize" then
+                    _configuration.mhpNoResize = ""
+                else
+                    _configuration.mhpNoResize = "NoResize"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No move", _configuration.mhpNoMove == "NoMove") then
+                if _configuration.mhpNoMove == "NoMove" then
+                    _configuration.mhpNoMove = ""
+                else
+                    _configuration.mhpNoMove = "NoMove"
+                end
+                this.changed = true
+            end
+
+            if imgui.Checkbox("Transparent window", _configuration.mhpTransparentWindow) then
+                _configuration.mhpTransparentWindow = not _configuration.mhpTransparentWindow
+                this.changed = true
+            end
+
+            imgui.Text("Position and Size")
+            imgui.PushItemWidth(200)
+            success, _configuration.mhpAnchor = imgui.Combo("Anchor", _configuration.mhpAnchor, anchorList, table.getn(anchorList))
+            imgui.PopItemWidth()
+            if success then
+                _configuration.mhpChanged = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.mhpX = imgui.InputInt("X", _configuration.mhpX)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.mhpChanged = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 38)
+            imgui.PushItemWidth(100)
+            success, _configuration.mhpY = imgui.InputInt("Y", _configuration.mhpY)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.mhpChanged = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.mhpW = imgui.InputInt("Width", _configuration.mhpW)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.mhpChanged = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 10)
+            imgui.PushItemWidth(100)
+            success, _configuration.mhpH = imgui.InputInt("Height", _configuration.mhpH)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.mhpChanged = true
+                this.changed = true
+            end
+
+            imgui.TreePop()
+        end
+		
+		if imgui.TreeNodeEx("Force - Recommended Techs") then
+            if imgui.Checkbox("Enable", _configuration.foRecEnableWindow) then
+                _configuration.foRecEnableWindow = not _configuration.foRecEnableWindow
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Show Efficiency-Based Casts", _configuration.foRecShowEfficiencyBased) then
+                _configuration.foRecShowEfficiencyBased = not _configuration.foRecShowEfficiencyBased
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Show Monster Stats", _configuration.foRecShowMonsterStats) then
+                _configuration.foRecShowMonsterStats = not _configuration.foRecShowMonsterStats
+                this.changed = true
+            end
+
+            if imgui.Checkbox("No title bar", _configuration.foRecNoTitleBar == "NoTitleBar") then
+                if _configuration.foRecNoTitleBar == "NoTitleBar" then
+                    _configuration.foRecNoTitleBar = ""
+                else
+                    _configuration.foRecNoTitleBar = "NoTitleBar"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No resize", _configuration.foRecNoResize == "NoResize") then
+                if _configuration.foRecNoResize == "NoResize" then
+                    _configuration.foRecNoResize = ""
+                else
+                    _configuration.foRecNoResize = "NoResize"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No move", _configuration.foRecNoMove == "NoMove") then
+                if _configuration.foRecNoMove == "NoMove" then
+                    _configuration.foRecNoMove = ""
+                else
+                    _configuration.foRecNoMove = "NoMove"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No scrollbar", _configuration.foRecNoScrollbar == "NoScrollbar") then
+                if _configuration.foRecNoScrollbar == "NoScrollbar" then
+                    _configuration.foRecNoScrollbar = ""
+                else
+                    _configuration.foRecNoScrollbar = "NoScrollbar"
+                end
+                this.changed = true
+            end
+
+            if imgui.Checkbox("Transparent window", _configuration.foRecTransparentWindow) then
+                _configuration.foRecTransparentWindow = not _configuration.foRecTransparentWindow
+                this.changed = true
+            end
+
+            imgui.Text("Position and Size")
+            imgui.PushItemWidth(200)
+            success, _configuration.foRecAnchor = imgui.Combo("Anchor", _configuration.foRecAnchor, anchorList, table.getn(anchorList))
+            imgui.PopItemWidth()
+            if success then
+                _configuration.foRecChanged = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.foRecX = imgui.InputInt("X", _configuration.foRecX)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.foRecChanged = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 38)
+            imgui.PushItemWidth(100)
+            success, _configuration.foRecY = imgui.InputInt("Y", _configuration.foRecY)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.foRecChanged = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.foRecW = imgui.InputInt("Width", _configuration.foRecW)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.foRecChanged = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 10)
+            imgui.PushItemWidth(100)
+            success, _configuration.foRecH = imgui.InputInt("Height", _configuration.foRecH)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.foRecChanged = true
+                this.changed = true
+            end
+
+            imgui.TreePop()
+        end
+		
+		if imgui.TreeNodeEx("Separated Enemy Stats - Vertical") then
+            if imgui.Checkbox("Enable", _configuration.target2EnableWindow) then
+                _configuration.target2EnableWindow = not _configuration.target2EnableWindow
+                this.changed = true
+            end
+
+            if imgui.Checkbox("No title bar", _configuration.target2NoTitleBar == "NoTitleBar") then
+                if _configuration.target2NoTitleBar == "NoTitleBar" then
+                    _configuration.target2NoTitleBar = ""
+                else
+                    _configuration.target2NoTitleBar = "NoTitleBar"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No resize", _configuration.target2NoResize == "NoResize") then
+                if _configuration.target2NoResize == "NoResize" then
+                    _configuration.target2NoResize = ""
+                else
+                    _configuration.target2NoResize = "NoResize"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No move", _configuration.target2NoMove == "NoMove") then
+                if _configuration.target2NoMove == "NoMove" then
+                    _configuration.target2NoMove = ""
+                else
+                    _configuration.target2NoMove = "NoMove"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No scrollbar", _configuration.target2NoScrollbar == "NoScrollbar") then
+                if _configuration.target2NoScrollbar == "NoScrollbar" then
+                    _configuration.target2NoScrollbar = ""
+                else
+                    _configuration.target2NoScrollbar = "NoScrollbar"
+                end
+                this.changed = true
+            end
+
+            if imgui.Checkbox("Transparent window", _configuration.target2TransparentWindow) then
+                _configuration.target2TransparentWindow = not _configuration.target2TransparentWindow
+                this.changed = true
+            end
+
+            imgui.Text("Position and Size")
+            imgui.PushItemWidth(200)
+            success, _configuration.target2Anchor = imgui.Combo("Anchor", _configuration.target2Anchor, anchorList, table.getn(anchorList))
+            imgui.PopItemWidth()
+            if success then
+                _configuration.target2Changed = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.target2X = imgui.InputInt("X", _configuration.target2X)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.target2Changed = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 38)
+            imgui.PushItemWidth(100)
+            success, _configuration.target2Y = imgui.InputInt("Y", _configuration.target2Y)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.target2Changed = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.target2W = imgui.InputInt("Width", _configuration.target2W)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.target2Changed = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 10)
+            imgui.PushItemWidth(100)
+            success, _configuration.target2H = imgui.InputInt("Height", _configuration.target2H)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.target2Changed = true
+                this.changed = true
+            end
+
             imgui.TreePop()
         end
 		
