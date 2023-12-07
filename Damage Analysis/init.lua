@@ -39,9 +39,9 @@ if optionsLoaded then
 	
 	options.mhpEnableWindow      = lib_helpers.NotNilOrDefault(options.mhpEnableWindow, true)
 	options.invertMonsterList         = lib_helpers.NotNilOrDefault(options.invertMonsterList, false)
-    options.showCurrentRoomOnly       = lib_helpers.NotNilOrDefault(options.showCurrentRoomOnly, false)
-    options.showMonsterStatus         = lib_helpers.NotNilOrDefault(options.showMonsterStatus, false)
-    options.showMonsterID             = lib_helpers.NotNilOrDefault(options.showMonsterID, false)
+    options.showCurrentRoomOnly       = lib_helpers.NotNilOrDefault(options.showCurrentRoomOnly, true)
+    options.showMonsterStatus         = lib_helpers.NotNilOrDefault(options.showMonsterStatus, true)
+    options.showMonsterID             = lib_helpers.NotNilOrDefault(options.showMonsterID, true)
 	options.mhpHideWhenMenu            = lib_helpers.NotNilOrDefault(options.mhpHideWhenMenu, true)
     options.mhpHideWhenSymbolChat      = lib_helpers.NotNilOrDefault(options.mhpHideWhenSymbolChat, true)
     options.mhpHideWhenMenuUnavailable = lib_helpers.NotNilOrDefault(options.mhpHideWhenMenuUnavailable, true)
@@ -58,12 +58,12 @@ if optionsLoaded then
 	
 	options.foRecEnableWindow        = lib_helpers.NotNilOrDefault(options.foRecEnableWindow, true)
 	options.foRecShowEfficiencyBased = lib_helpers.NotNilOrDefault(options.foRecShowEfficiencyBased, false)
-	options.foRecShowMonsterStats	 = lib_helpers.NotNilOrDefault(options.foRecShowMonsterStats, false)
+	options.foRecShowDamage	 		 = lib_helpers.NotNilOrDefault(options.foRecShowDamage, true)
     options.foRecChanged             = lib_helpers.NotNilOrDefault(options.foRecChanged, false)
     options.foRecAnchor              = lib_helpers.NotNilOrDefault(options.foRecAnchor, 6)
-    options.foRecX                   = lib_helpers.NotNilOrDefault(options.foRecX, -262)
+    options.foRecX                   = lib_helpers.NotNilOrDefault(options.foRecX, -279)
     options.foRecY                   = lib_helpers.NotNilOrDefault(options.foRecY, -257)
-    options.foRecW                   = lib_helpers.NotNilOrDefault(options.foRecW, 150)
+    options.foRecW                   = lib_helpers.NotNilOrDefault(options.foRecW, 185)
     options.foRecH                   = lib_helpers.NotNilOrDefault(options.foRecH, 155)
     options.foRectNoTitleBar         = lib_helpers.NotNilOrDefault(options.foRecNoTitleBar, "NoTitleBar")
     options.foRecNoResize            = lib_helpers.NotNilOrDefault(options.foRecNoResize, "NoResize")
@@ -110,9 +110,9 @@ else
 		
 		mhpEnableWindow = true,
 		invertMonsterList = false,
-        showCurrentRoomOnly = false,
-        showMonsterStatus = false,
-        showMonsterID = false,
+        showCurrentRoomOnly = true,
+        showMonsterStatus = true,
+        showMonsterID = true,
 		mhpHideWhenMenu = true,
         mhpHideWhenSymbolChat = true,
         mhpHideWhenMenuUnavailable = true,
@@ -129,12 +129,12 @@ else
 		
 		foRecEnableWindow = true,
 		foRecShowEfficiencyBased = false,
-		foRecShowMonsterStats = false,
+		foRecShowDamage = true,
         foRecChanged = false,
         foRecAnchor = 6,
-        foRecX = -262,
+        foRecX = -279,
         foRecY = -257,
-        foRecW = 150,
+        foRecW = 185,
         foRecH = 155,
         foRecNoTitleBar = "NoTitleBar",
         foRecNoResize = "NoResize",
@@ -207,7 +207,7 @@ local function SaveOptions(options)
 		io.write("\n")
 		io.write(string.format("    foRecEnableWindow = %s,\n", tostring(options.foRecEnableWindow)))
 		io.write(string.format("    foRecShowEfficiencyBased = %s,\n", tostring(options.foRecShowEfficiencyBased)))
-		io.write(string.format("    foRecShowMonsterStats = %s,\n", tostring(options.foRecShowMonsterStats)))
+		io.write(string.format("    foRecShowDamage = %s,\n", tostring(options.foRecShowDamage)))
         io.write(string.format("    foRecChanged = %s,\n", tostring(options.foRecChanged)))
         io.write(string.format("    foRecAnchor = %i,\n", options.foRecAnchor))
         io.write(string.format("    foRecX = %i,\n", options.foRecX))
@@ -322,7 +322,6 @@ local function CopyMonster(monster)
     copy.HP2Max   = monster.HP2Max
     copy.name     = monster.name
 	copy.attribute  = monster.attribute
-	copy.exp 	  = monster.exp
 	copy.isBoss   = monster.isBoss
     copy.color    = monster.color
     copy.display  = monster.display
@@ -403,14 +402,13 @@ end
 
 local function GetMonsterData(monster)
     local ephineaMonsters = pso.read_u32(_ephineaMonsterArrayPointer)
-	local battleparams_stats = pso.read_u32(monster.address + 0x2b4)
 	
     monster.id = pso.read_u16(monster.address + _ID)
     monster.unitxtID = pso.read_u32(monster.address + _MonsterUnitxtID)
 
 	monster.HP = 0
 	monster.HPMax = 0
-	
+
 	monster.isBoss = 0
 	
 	if ephineaMonsters ~= 0 then
@@ -450,17 +448,10 @@ local function GetMonsterData(monster)
     monster.posX = pso.read_f32(monster.address + _PosX)
     monster.posY = pso.read_f32(monster.address + _PosY)
     monster.posZ = pso.read_f32(monster.address + _PosZ)
-	
-	
-	
+		
     -- Other stuff
     monster.name = lib_unitxt.GetMonsterName(monster.unitxtID, _Ultimate)
 	monster.attribute = pso.read_u16(monster.address + 0x2e8)
-	if  pso.read_u32(_Episode) == 1 then
-		monster.exp = pso.read_u32(battleparams_stats + 0x1c)*1.3
-	else
-		monster.exp = pso.read_u32(battleparams_stats + 0x1c)
-	end
 	if monster.unitxtID == 44 or monster.unitxtID == 45 or monster.unitxtID == 46 or monster.unitxtID == 47 or monster.unitxtID == 73 or monster.unitxtID == 76 or monster.unitxtID == 77 or monster.unitxtID == 78 or monster.unitxtID == 106 then
 		monster.isBoss = 1
 	end
@@ -798,7 +789,14 @@ local function PresentTargetMonster(monster)
         local v50xStatusBoost = 1
 		local ailRedux = 1
 		local specPower = pso.read_u16(playerAddr + 0x118)
-            
+		local mExp = 0
+		
+		local battleparams_stats = pso.read_u32(monster.address + 0x2b4)
+		if  pso.read_u32(_Episode) == 1 then
+			mExp = pso.read_u32(battleparams_stats + 0x1c)*1.3
+		else
+			mExp = pso.read_u32(battleparams_stats + 0x1c)
+		end
 		
 		for i=1,itemCount,1 do
             local item = inventory.items[i]
@@ -982,7 +980,7 @@ local function PresentTargetMonster(monster)
 				weapSpecial = "None"
 			end
 		elseif weapSpecial == "Master's" or weapSpecial == "Lord's" or weapSpecial == "King's" then
-			specDraw = math.min(((specPower+androidBoost)/100)*monster.exp,(difficulty+1)*20)*specRedux
+			specDraw = math.min(((specPower+androidBoost)/100)*mExp,(difficulty+1)*20)*specRedux
 			specAilment = 100
 		elseif (weapSpecial == "Devil's" or weapSpecial == "Demon's") and monster.isBoss == 0 then
 			specDMG = (mHP*(1-(((specPower+androidBoost)/100))))*specRedux
@@ -1041,11 +1039,11 @@ local function PresentTargetMonster(monster)
 				end
 			end
 			lib_helpers.Text(true, "Spec1: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk1_Acc*math.max(specAilment,0))/100)
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk1_Acc,0)*math.max(specAilment,0))/100)
 			lib_helpers.Text(false, " > Spec2: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk2_Acc*math.max(specAilment,0))/100)
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk2_Acc,0)*math.max(specAilment,0))/100)
 			lib_helpers.Text(false, " > Spec3: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (specAtk3_Acc*math.max(specAilment,0))/100)
+			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk3_Acc,0)*math.max(specAilment,0))/100)
 		end
 		
 		-- Display best first attack
@@ -1535,14 +1533,23 @@ local function foRec(monster)
 			else
 				lib_helpers.Text(false, " Target: ")
 			end
+			if options.foRecShowDamage then
+				lib_helpers.Text(false, "(")
+				lib_helpers.TextC(false, color1, "%i", tech1)
+				lib_helpers.Text(false, ") ")
+			end
 			lib_helpers.TextC(false, color1, name1)
-			lib_helpers.Text(false, "x")
+			lib_helpers.Text(false, " x ")
 			lib_helpers.TextC(false, color1, "%i", mHP/tech1 +.5)
-			
 			lib_helpers.Text(true, "%i", tech1/techtable[1] +.5)
 			lib_helpers.Text(false, "+ Targets: ")
+			if options.foRecShowDamage then
+				lib_helpers.Text(false, "(")
+				lib_helpers.TextC(false, colortable[1], "%i", techtable[1])
+				lib_helpers.Text(false, ") ")
+			end
 			lib_helpers.TextC(false, colortable[1], nametable[1])
-			lib_helpers.Text(false, "x")
+			lib_helpers.Text(false, " x ")
 			lib_helpers.TextC(false, colortable[1], "%i", mHP/techtable[1] +.5)
 		--DPS-Based recommended cast
 		else
@@ -1596,14 +1603,23 @@ local function foRec(monster)
 			else
 				lib_helpers.Text(false, " Target: ")
 			end
+			if options.foRecShowDamage then
+				lib_helpers.Text(false, "(")
+				lib_helpers.TextC(false, color1, "%i", tech1)
+				lib_helpers.Text(false, ") ")
+			end
 			lib_helpers.TextC(false, color1, name1)
-			lib_helpers.Text(false, "x")
+			lib_helpers.Text(false, " x ")
 			lib_helpers.TextC(false, color1, "%i", mHP/tech1 +.5)
-			
 			lib_helpers.Text(true, "%i", tech1/techtable[1] +.5)
 			lib_helpers.Text(false, "+ Targets: ")
+			if options.foRecShowDamage then
+				lib_helpers.Text(false, "(")
+				lib_helpers.TextC(false, colortable[1], "%i", techtable[1])
+				lib_helpers.Text(false, ") ")
+			end
 			lib_helpers.TextC(false, colortable[1], nametable[1])
-			lib_helpers.Text(false, "x")
+			lib_helpers.Text(false, " x ")
 			lib_helpers.TextC(false, colortable[1], "%i", mHP/techtable[1] +.5)
 		end
 		if megid >= 0 then
@@ -1643,11 +1659,6 @@ local function foRec(monster)
             imgui.NextColumn()
         end
 		
-		if options.foRecShowMonsterStats then
-			lib_helpers.Text(true, "[ATP: %i, DFP: %i, MST: %i, ATA: %i, EVP: %i, LCK: %i]", monster.Atp, monster.Dfp, monster.Mst, monster.Ata, monster.Evp, monster.Lck)
-			lib_helpers.Text(true, "[EFR: %i, EIC: %i, ETH: %i, EDK: %i, ELT: %i, ESP: %i]", monster.Efr, monster.Eic, monster.Eth, monster.Edk, monster.Elt, monster.Esp)
-		end
-		
 	end
 end
 
@@ -1683,7 +1694,7 @@ local function PresentTarget2MonsterWindow()
             imgui.PushStyleColor("WindowBg", 0.0, 0.0, 0.0, 0.0)
         end
 
-        if imgui.Begin("Monster Reader - Target2", nil, { options.target2NoTitleBar, options.target2NoResize, options.target2NoMove, options.target2NoScrollbar }) then
+        if imgui.Begin("Monster Stats", nil, { options.target2NoTitleBar, options.target2NoResize, options.target2NoMove, options.target2NoScrollbar }) then
             PresentTarget2Monster(monster)
         end
         imgui.End()
@@ -1726,7 +1737,7 @@ local function foRecWindow()
             imgui.PushStyleColor("WindowBg", 0.0, 0.0, 0.0, 0.0)
         end
 
-        if imgui.Begin("Monster Reader - foRec", nil, { options.foRecNoTitleBar, options.foRecNoResize, options.foRecNoMove, options.foRecNoScrollbar }) then
+        if imgui.Begin("Recommended Tech", nil, { options.foRecNoTitleBar, options.foRecNoResize, options.foRecNoMove, options.foRecNoScrollbar }) then
             foRec(monster)
         end
         imgui.End()
@@ -1780,41 +1791,6 @@ local function PresentTargetMonsterWindow()
     end
 end
 
--- local function present()
-
-    -- if _EntityArray == 0 then
-        -- -- Get the address of the entity array from one of the instructions that references it.
-        -- -- Works on base client and on a client patched with a different array.
-        -- _EntityArray = pso.read_u32(0x7B4BA0 + 2)
-    -- end
-
-    -- -- If the addon has never been used, open the config window
-    -- -- and disable the config window setting
-    -- if options.configurationEnableWindow then
-        -- ConfigurationWindow.open = true
-        -- options.configurationEnableWindow = false
-    -- end
-
-    -- ConfigurationWindow.Update()
-    -- if ConfigurationWindow.changed then
-        -- ConfigurationWindow.changed = false
-        -- SaveOptions(options)
-    -- end
-
-    -- -- Global enable here to let the configuration window work
-    -- if options.enable == false then
-        -- return
-    -- end
-
-    -- PresentTargetMonsterWindow()
-	-- foRecWindow()
-	-- PresentTarget2MonsterWindow()
-
-    -- if firstPresent then
-        -- firstPresent = false
-    -- end
--- end
-
 local function present()
 
     if _EntityArray == 0 then
@@ -1840,8 +1816,8 @@ local function present()
     if options.enable == false then
         return
     end
-
-    if (options.mhpEnableWindow == true)
+	
+	if (options.mhpEnableWindow == true)
         and (options.mhpHideWhenMenu == false or lib_menu.IsMenuOpen() == false)
         and (options.mhpHideWhenSymbolChat == false or lib_menu.IsSymbolChatOpen() == false)
         and (options.mhpHideWhenMenuUnavailable == false or lib_menu.IsMenuUnavailable() == false)

@@ -279,8 +279,8 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 			
-			if imgui.Checkbox("Show Monster Stats", _configuration.foRecShowMonsterStats) then
-                _configuration.foRecShowMonsterStats = not _configuration.foRecShowMonsterStats
+			if imgui.Checkbox("Show Tech Damage", _configuration.foRecShowDamage) then
+                _configuration.foRecShowDamage = not _configuration.foRecShowDamage
                 this.changed = true
             end
 
