@@ -22,13 +22,12 @@ if optionsLoaded then
 	options.targetEnableWindow        = lib_helpers.NotNilOrDefault(options.targetEnableWindow, true)
     options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
 	options.ShowDamage   	     	  = lib_helpers.NotNilOrDefault(options.ShowDamage , true)
-	options.ShowMonsterStats   	      = lib_helpers.NotNilOrDefault(options.ShowMonsterStats , true)
     options.targetChanged             = lib_helpers.NotNilOrDefault(options.targetChanged, false)
     options.targetAnchor              = lib_helpers.NotNilOrDefault(options.targetAnchor, 6)
     options.targetX                   = lib_helpers.NotNilOrDefault(options.targetX, 0)
-    options.targetY                   = lib_helpers.NotNilOrDefault(options.targetY, -200)
-    options.targetW                   = lib_helpers.NotNilOrDefault(options.targetW, 370)
-    options.targetH                   = lib_helpers.NotNilOrDefault(options.targetH, 210)
+    options.targetY                   = lib_helpers.NotNilOrDefault(options.targetY, -240)
+    options.targetW                   = lib_helpers.NotNilOrDefault(options.targetW, 275)
+    options.targetH                   = lib_helpers.NotNilOrDefault(options.targetH, 170)
     options.targetNoTitleBar          = lib_helpers.NotNilOrDefault(options.targetNoTitleBar, "NoTitleBar")
     options.targetNoResize            = lib_helpers.NotNilOrDefault(options.targetNoResize, "NoResize")
     options.targetNoMove              = lib_helpers.NotNilOrDefault(options.targetNoMove, "NoMove")
@@ -61,10 +60,10 @@ if optionsLoaded then
 	options.foRecShowDamage	 		 = lib_helpers.NotNilOrDefault(options.foRecShowDamage, true)
     options.foRecChanged             = lib_helpers.NotNilOrDefault(options.foRecChanged, false)
     options.foRecAnchor              = lib_helpers.NotNilOrDefault(options.foRecAnchor, 6)
-    options.foRecX                   = lib_helpers.NotNilOrDefault(options.foRecX, -279)
-    options.foRecY                   = lib_helpers.NotNilOrDefault(options.foRecY, -257)
+    options.foRecX                   = lib_helpers.NotNilOrDefault(options.foRecX, -235)
+    options.foRecY                   = lib_helpers.NotNilOrDefault(options.foRecY, -300)
     options.foRecW                   = lib_helpers.NotNilOrDefault(options.foRecW, 185)
-    options.foRecH                   = lib_helpers.NotNilOrDefault(options.foRecH, 155)
+    options.foRecH                   = lib_helpers.NotNilOrDefault(options.foRecH, 110)
     options.foRectNoTitleBar         = lib_helpers.NotNilOrDefault(options.foRecNoTitleBar, "NoTitleBar")
     options.foRecNoResize            = lib_helpers.NotNilOrDefault(options.foRecNoResize, "NoResize")
     options.foRecNoMove              = lib_helpers.NotNilOrDefault(options.foRecNoMove, "NoMove")
@@ -74,7 +73,7 @@ if optionsLoaded then
 	options.target2EnableWindow        = lib_helpers.NotNilOrDefault(options.target2EnableWindow, true)
     options.target2Changed             = lib_helpers.NotNilOrDefault(options.target2Changed, false)
     options.target2Anchor              = lib_helpers.NotNilOrDefault(options.target2Anchor, 6)
-    options.target2X                   = lib_helpers.NotNilOrDefault(options.target2X, 260)
+    options.target2X                   = lib_helpers.NotNilOrDefault(options.target2X, 215)
     options.target2Y                   = lib_helpers.NotNilOrDefault(options.target2Y, -275)
     options.target2W                   = lib_helpers.NotNilOrDefault(options.target2W, 145)
     options.target2H                   = lib_helpers.NotNilOrDefault(options.target2H, 135)
@@ -83,6 +82,31 @@ if optionsLoaded then
     options.target2NoMove              = lib_helpers.NotNilOrDefault(options.target2NoMove, "NoMove")
     options.target2NoScrollbar         = lib_helpers.NotNilOrDefault(options.target2NoScrollbar, "NoScrollbar")
     options.target2TransparentWindow   = lib_helpers.NotNilOrDefault(options.target2TransparentWindow, false)
+	
+	options.RateEnableWindow        = lib_helpers.NotNilOrDefault(options.RateEnableWindow, true)
+    options.RateChanged             = lib_helpers.NotNilOrDefault(options.RateChanged, false)
+    options.RateAnchor              = lib_helpers.NotNilOrDefault(options.RateAnchor, 6)
+    options.RateX                   = lib_helpers.NotNilOrDefault(options.RateX, 350)
+    options.RateY                   = lib_helpers.NotNilOrDefault(options.RateY, -240)
+    options.RateW                   = lib_helpers.NotNilOrDefault(options.RateW, 115)
+    options.RateH                   = lib_helpers.NotNilOrDefault(options.RateH, 170)
+    options.targe2tNoTitleBar       = lib_helpers.NotNilOrDefault(options.RateNoTitleBar, "NoTitleBar")
+    options.RateNoResize            = lib_helpers.NotNilOrDefault(options.RateNoResize, "NoResize")
+    options.RateNoMove              = lib_helpers.NotNilOrDefault(options.RateNoMove, "NoMove")
+    options.RateNoScrollbar         = lib_helpers.NotNilOrDefault(options.RateNoScrollbar, "NoScrollbar")
+    options.RateTransparentWindow   = lib_helpers.NotNilOrDefault(options.RateTransparentWindow, false)
+	options.RateEnableActivationRates = lib_helpers.NotNilOrDefault(options.RateEnableActivationRates, false)
+	
+	 if options.RateEnableActivationRateItems == nil or type(options.RateEnableActivationRateItems) ~= "table" then
+        options.RateEnableActivationRateItems = {}
+    end
+    options.RateEnableActivationRateItems.Hell     = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.hell, false)
+    options.RateEnableActivationRateItems.Dark     = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.dark, false)
+    options.RateEnableActivationRateItems.Blizzard = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.blizzard, false)
+    options.RateEnableActivationRateItems.Arrest   = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.arrest, false)
+    options.RateEnableActivationRateItems.Seize    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.seize, false)
+    options.RateEnableActivationRateItems.Chaos    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.chaos, false)
+    options.RateEnableActivationRateItems.Havoc    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.havoc, false)
     
 else
     options =
@@ -93,13 +117,13 @@ else
 		targetEnableWindow = true,
         ShowHealthBar = true,
 		ShowDamage = true,
-		ShowMonsterStats  = true,
         targetChanged = false,
         targetAnchor = 6,
         targetX = 0,
-        targetY = -200,
-        targetW = 370,
-        targetH = 210,
+        targetY = -240,
+        targetY = -240,
+        targetW = 275,
+        targetH = 170,
         targetNoTitleBar = "NoTitleBar",
         targetNoResize = "NoResize",
         targetNoMove = "NoMove",
@@ -132,10 +156,10 @@ else
 		foRecShowDamage = true,
         foRecChanged = false,
         foRecAnchor = 6,
-        foRecX = -279,
-        foRecY = -257,
+        foRecX = -235,
+        foRecY = -300,
         foRecW = 185,
-        foRecH = 155,
+        foRecH = 110,
         foRecNoTitleBar = "NoTitleBar",
         foRecNoResize = "NoResize",
         foRecNoMove = "NoMove",
@@ -145,7 +169,7 @@ else
 		target2EnableWindow = true,
         target2Changed = false,
         target2Anchor = 6,
-        target2X = 260,
+        target2X = 215,
         target2Y = -275,
         target2W = 145,
         target2H = 135,
@@ -154,6 +178,29 @@ else
         target2NoMove = "NoMove",
         target2NoScrollbar = "NoScrollbar",
         target2TransparentWindow = false,
+		
+		RateEnableWindow = true,
+        RateChanged = false,
+        RateAnchor = 6,
+        RateX = 350,
+        RateY = -240,
+        RateW = 115,
+        RateH = 170,
+        RateNoTitleBar = "NoTitleBar",
+        RateNoResize = "NoResize",
+        RateNoMove = "NoMove",
+        RateNoScrollbar = "NoScrollbar",
+        RateTransparentWindow = false,
+		RateEnableActivationRates = false,
+        RateEnableActivationRateItems = {
+            hell = false,
+            dark = false,
+            blizzard = false,
+            arrest = false,
+            seize = false,
+            chaos = false,
+            havoc = false,
+        },
 
     }
 end
@@ -171,7 +218,6 @@ local function SaveOptions(options)
 		io.write(string.format("    targetEnableWindow = %s,\n", tostring(options.targetEnableWindow)))
         io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
 		io.write(string.format("    ShowDamage = %s,\n", tostring(options.ShowDamage)))
-		io.write(string.format("    ShowMonsterStats = %s,\n", tostring(options.ShowMonsterStats)))
         io.write(string.format("    targetChanged = %s,\n", tostring(options.targetChanged)))
         io.write(string.format("    targetAnchor = %i,\n", options.targetAnchor))
         io.write(string.format("    targetX = %i,\n", options.targetX))
@@ -232,6 +278,29 @@ local function SaveOptions(options)
         io.write(string.format("    target2NoMove = \"%s\",\n", options.target2NoMove))
         io.write(string.format("    target2NoScrollbar = \"%s\",\n", options.target2NoScrollbar))
         io.write(string.format("    target2TransparentWindow = %s,\n", tostring(options.target2TransparentWindow)))
+		io.write("\n")
+		io.write(string.format("    RateEnableWindow = %s,\n", tostring(options.RateEnableWindow)))
+        io.write(string.format("    RateChanged = %s,\n", tostring(options.RateChanged)))
+        io.write(string.format("    RateAnchor = %i,\n", options.RateAnchor))
+        io.write(string.format("    RateX = %i,\n", options.RateX))
+        io.write(string.format("    RateY = %i,\n", options.RateY))
+        io.write(string.format("    RateW = %i,\n", options.RateW))
+        io.write(string.format("    RateH = %i,\n", options.RateH))
+        io.write(string.format("    RateNoTitleBar = \"%s\",\n", options.RateNoTitleBar))
+        io.write(string.format("    RateNoResize = \"%s\",\n", options.RateNoResize))
+        io.write(string.format("    RateNoMove = \"%s\",\n", options.RateNoMove))
+        io.write(string.format("    RateNoScrollbar = \"%s\",\n", options.RateNoScrollbar))
+        io.write(string.format("    RateTransparentWindow = %s,\n", tostring(options.RateTransparentWindow)))
+		io.write(string.format("    RateEnableActivationRates = %s,\n", tostring(options.RateEnableActivationRates)))
+		io.write(string.format("    RateEnableActivationRateItems = {\n"))
+        io.write(string.format("        hell = %s,\n", options.RateEnableActivationRateItems.hell))
+        io.write(string.format("        dark = %s,\n", options.RateEnableActivationRateItems.dark))
+        io.write(string.format("        blizzard = %s,\n", options.RateEnableActivationRateItems.blizzard))
+        io.write(string.format("        arrest = %s,\n", options.RateEnableActivationRateItems.arrest))
+        io.write(string.format("        seize = %s,\n", options.RateEnableActivationRateItems.seize))
+        io.write(string.format("        chaos = %s,\n", options.RateEnableActivationRateItems.chaos))
+        io.write(string.format("        havoc = %s,\n", options.RateEnableActivationRateItems.havoc))
+        io.write(string.format("    },\n"))
         io.write("}\n")
 
         io.close(file)
@@ -1082,11 +1151,6 @@ local function PresentTargetMonster(monster)
 			lib_helpers.TextC(false, 0xFFBB0000, "Norm3: 0%%")
 		end
 		lib_helpers.Text(false, "]")
-		
-		if options.ShowMonsterStats then
-			lib_helpers.Text(true, "[ATP: %i, DFP: %i, MST: %i, ATA: %i, EVP: %i, LCK: %i]", monster.Atp, monster.Dfp, monster.Mst, monster.Ata, monster.Evp, monster.Lck)
-			lib_helpers.Text(true, "[EFR: %i, EIC: %i, ETH: %i, EDK: %i, ELT: %i, ESP: %i]", monster.Efr, monster.Eic, monster.Eth, monster.Edk, monster.Elt, monster.Esp)
-		end
 
     end
 end
@@ -1113,28 +1177,121 @@ local function PresentTarget2Monster(monster)
 
 		lib_helpers.Text(true, "ATP: %i", monster.Atp)
 		imgui.NextColumn()
-		lib_helpers.Text(true, "EFR: %i", monster.Efr)
+		lib_helpers.Text(true, "EFR: ")
+		lib_helpers.TextC(false, 0xFFFF6600, "%i", monster.Efr)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "DFP: %i", monster.Dfp)
 		imgui.NextColumn()
-		lib_helpers.Text(true, "EIC: %i", monster.Eic)
+		lib_helpers.Text(true, "EIC: ")
+		lib_helpers.TextC(false, 0xFF00FFFF, "%i", monster.Eic)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "MST: %i", monster.Mst)
 		imgui.NextColumn()
-		lib_helpers.Text(true, "ETH: %i", monster.Eth)
+		lib_helpers.Text(true, "ETH: ")
+		lib_helpers.TextC(false, 0xFFFFFF00, "%i", monster.Eth)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "ATA: %i", monster.Ata)
 		imgui.NextColumn()
-		lib_helpers.Text(true, "EDK: %i", monster.Edk)
+		lib_helpers.Text(true, "EDK: ")
+		lib_helpers.TextC(false, 0xFF6A0DAD, "%i", monster.Edk)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "EVP: %i", monster.Evp)
 		imgui.NextColumn()
-		lib_helpers.Text(true, "ELT: %i", monster.Elt)
+		lib_helpers.Text(true, "ELT: ")
+		lib_helpers.TextC(false, 0xFFFFFFB3, "%i", monster.Elt)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "LCK: %i", monster.Lck)
 		imgui.NextColumn()
-		lib_helpers.Text(true, "ESP: %i", monster.Esp)
+		lib_helpers.Text(true, "ESP: ")
+		lib_helpers.TextC(false, 0xFFFF0000, "%i", monster.Esp)
 		imgui.NextColumn()
+
+	end
+end
+
+local function PresentRateMonster(monster)
+	if monster ~= nil then
+		local playerAddr = lib_characters.GetSelf()
+        if playerAddr == 0 then
+            return
+        end
+		
+		-- Determine if we have v501/v502 equip for it's bonuses
+        local inventory = lib_items.GetInventory(lib_items.Me)
+        local itemCount = table.getn(inventory.items)
+        local v50xHellBoost = 1.0
+        local v50xStatusBoost = 1.0
+        for i=1,itemCount,1 do
+            local item = inventory.items[i]
+            if item.equipped and item.data[1] == 0x01 and item.data[2] == 0x03 then
+                -- V501
+                if item.data[3] == 0x4A then
+                    v50xHellBoost = 1.5
+                    v50xStatusBoost = 1.5
+                -- V502
+                elseif item.data[3] == 0x4B then
+                    v50xHellBoost = 2.0
+                    v50xStatusBoost = 1.5
+                    break
+                end
+            end
+        end
+		
+		-- Show special activation rate if feature is enabled
+        if options.RateEnableActivationRates == true then
+            -- Determine if the Android Boost Applies
+            local androidBoost = 0
+            if lib_characters.GetPlayerIsCast(playerAddr) == true then
+                androidBoost = 30
+            end
+
+            -- Calculate Rates of success of differing attack types
+            local rate_list = {}
+
+            -- Add Hell rate if enabled
+            if options.RateEnableActivationRateItems.hell == true then
+                local str = string.format("Hell: %i", (93 - monster.Edk)*(v50xHellBoost))
+                table.insert(rate_list, str)
+            end
+            -- Add Dark rate if enabled
+            if options.RateEnableActivationRateItems.dark == true then
+                local str = string.format("Dark: %i", (78 - monster.Edk)*(v50xHellBoost))
+                table.insert(rate_list, str)
+            end
+            -- Add Arrest rate if enabled
+            if options.RateEnableActivationRateItems.arrest == true then
+                local str = string.format("Arrest: %i", (80 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                table.insert(rate_list, str)
+            end
+            -- Add Blizzard rate if enabled
+            if options.RateEnableActivationRateItems.blizzard == true then
+                local str = string.format("Blizzard: %i", (80 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                table.insert(rate_list, str)
+            end
+            -- Add Seize rate if enabled
+            if options.RateEnableActivationRateItems.seize == true then
+                local str = string.format("Seize: %i", (64 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                table.insert(rate_list, str)
+            end
+            -- Add Chaos rate if enabled
+            if options.RateEnableActivationRateItems.chaos == true then
+                local str = string.format("Chaos: %i", (76 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                table.insert(rate_list, str)
+            end
+            -- Add Havoc rate if enabled
+            if options.RateEnableActivationRateItems.havoc == true then
+                local str = string.format("Havoc: %i", (60 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                table.insert(rate_list, str)
+            end
+
+            -- Display all of the specials selected, only allow 3 per row
+            if table.getn(rate_list) > 0 then
+                lib_helpers.Text(true, "Activation Rates:")
+                for i, str in ipairs(rate_list) do
+					lib_helpers.Text(true, str)
+                end
+            end
+        end
 
 	end
 end
@@ -1706,6 +1863,49 @@ local function PresentTarget2MonsterWindow()
 end
 
 -- Need to use this so I can hide the window when nothing is targetted
+local RateCache = nil
+local RateWindowTimeOut = 0
+local function PresentRateMonsterWindow()
+    local monster = GetTargetMonster()
+
+    if monster == nil then
+        if RateWindowTimeOut > 0 then
+            RateWindowTimeOut = RateWindowTimeOut - 1
+        end
+
+        monster = RateCache
+        if RateWindowTimeOut <= 0 then
+            return
+        end
+    else
+        RateWindowTimeOut = 90
+        RateCache = monster
+    end
+
+    if options.RateEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
+        if firstPresent or options.RateChanged then
+          options.RateChanged = false
+          local ps = lib_helpers.GetPosBySizeAndAnchor(options.RateX, options.RateY, options.RateW, options.RateH, options.RateAnchor)
+          imgui.SetNextWindowPos(ps[1], ps[2], "Always");
+          imgui.SetNextWindowSize(options.RateW, options.RateH, "Always");
+        end
+
+        if options.RateTransparentWindow == true then
+            imgui.PushStyleColor("WindowBg", 0.0, 0.0, 0.0, 0.0)
+        end
+
+        if imgui.Begin("Activation Rates", nil, { options.RateNoTitleBar, options.RateNoResize, options.RateNoMove, options.RateNoScrollbar }) then
+            PresentRateMonster(monster)
+        end
+        imgui.End()
+
+        if options.RateTransparentWindow == true then
+          imgui.PopStyleColor()
+        end
+    end
+end
+
+-- Need to use this so I can hide the window when nothing is targetted
 local foRecCache = nil
 local foRecWindowTimeOut = 0
 local function foRecWindow()
@@ -1831,7 +2031,7 @@ local function present()
         if options.mhpTransparentWindow == true then
             imgui.PushStyleColor("WindowBg", 0.0, 0.0, 0.0, 0.0)
         end
-        if imgui.Begin("Monster Reader - HP", nil, { options.mhpNoTitleBar, options.mhpNoResize, options.mhpNoMove }) then
+        if imgui.Begin("Monster Reader - Room", nil, { options.mhpNoTitleBar, options.mhpNoResize, options.mhpNoMove }) then
             PresentMonsters()
         end
         imgui.End()
@@ -1843,6 +2043,7 @@ local function present()
     PresentTargetMonsterWindow()
 	foRecWindow()
 	PresentTarget2MonsterWindow()
+	PresentRateMonsterWindow()
 
     if firstPresent then
         firstPresent = false

@@ -41,11 +41,6 @@ local function ConfigurationWindow(configuration)
                 _configuration.ShowDamage = not _configuration.ShowDamage
                 this.changed = true
             end
-			
-			if imgui.Checkbox("Show Monster Stats", _configuration.ShowMonsterStats) then
-                _configuration.ShowMonsterStats = not _configuration.ShowMonsterStats
-                this.changed = true
-            end
 
             imgui.PushItemWidth(100)
             success, _configuration.targetHardThreshold = imgui.InputInt("Hard Accuracy Threshold %", _configuration.targetHardThreshold)
@@ -368,7 +363,7 @@ local function ConfigurationWindow(configuration)
             imgui.TreePop()
         end
 		
-		if imgui.TreeNodeEx("Separated Enemy Stats - Vertical") then
+		if imgui.TreeNodeEx("Separate Enemy Stats") then
             if imgui.Checkbox("Enable", _configuration.target2EnableWindow) then
                 _configuration.target2EnableWindow = not _configuration.target2EnableWindow
                 this.changed = true
@@ -457,6 +452,147 @@ local function ConfigurationWindow(configuration)
 
             imgui.TreePop()
         end
+		
+		if imgui.TreeNodeEx("Separate Activation Rates") then
+            if imgui.Checkbox("Enable", _configuration.RateEnableWindow) then
+                _configuration.RateEnableWindow = not _configuration.RateEnableWindow
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Show Activation Rates", _configuration.RateEnableActivationRates) then
+                _configuration.RateEnableActivationRates = not _configuration.RateEnableActivationRates
+                this.changed = true
+            end            
+            if _configuration.RateEnableActivationRates then
+                if imgui.TreeNodeEx("Specials to Display") then 
+                    if imgui.Checkbox("Hell", _configuration.RateEnableActivationRateItems.hell) then
+                        _configuration.RateEnableActivationRateItems.hell = not _configuration.RateEnableActivationRateItems.hell
+                        _configuration.changed = true
+                        this.changed = true
+                    end
+                    imgui.SameLine(0, 43)
+                    if imgui.Checkbox("Dark", _configuration.RateEnableActivationRateItems.dark) then
+                        _configuration.RateEnableActivationRateItems.dark = not _configuration.RateEnableActivationRateItems.dark
+                        _configuration.changed = true
+                        this.changed = true
+                    end
+                    if imgui.Checkbox("Blizzard", _configuration.RateEnableActivationRateItems.blizzard) then
+                        _configuration.RateEnableActivationRateItems.blizzard = not _configuration.RateEnableActivationRateItems.blizzard
+                        _configuration.changed = true
+                        this.changed = true
+                    end
+                    imgui.SameLine(0, 15)
+                    if imgui.Checkbox("Arrest", _configuration.RateEnableActivationRateItems.arrest) then
+                        _configuration.RateEnableActivationRateItems.arrest = not _configuration.RateEnableActivationRateItems.arrest
+                        _configuration.changed = true
+                        this.changed = true
+                    end                    
+                    imgui.SameLine(0, 15)
+                    if imgui.Checkbox("Seize", _configuration.RateEnableActivationRateItems.seize) then
+                        _configuration.RateEnableActivationRateItems.seize = not _configuration.RateEnableActivationRateItems.seize
+                        _configuration.changed = true
+                        this.changed = true
+                    end
+                    if imgui.Checkbox("Chaos", _configuration.RateEnableActivationRateItems.chaos) then
+                        _configuration.RateEnableActivationRateItems.chaos = not _configuration.RateEnableActivationRateItems.chaos
+                        _configuration.changed = true
+                        this.changed = true
+                    end
+                    imgui.SameLine(0, 36)
+                    if imgui.Checkbox("Havoc", _configuration.RateEnableActivationRateItems.havoc) then
+                        _configuration.RateEnableActivationRateItems.havoc = not _configuration.RateEnableActivationRateItems.havoc
+                        _configuration.changed = true
+                        this.changed = true
+                    end
+                    imgui.TreePop()
+                end
+            end 
+
+            if imgui.Checkbox("No title bar", _configuration.RateNoTitleBar == "NoTitleBar") then
+                if _configuration.RateNoTitleBar == "NoTitleBar" then
+                    _configuration.RateNoTitleBar = ""
+                else
+                    _configuration.RateNoTitleBar = "NoTitleBar"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No resize", _configuration.RateNoResize == "NoResize") then
+                if _configuration.RateNoResize == "NoResize" then
+                    _configuration.RateNoResize = ""
+                else
+                    _configuration.RateNoResize = "NoResize"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No move", _configuration.RateNoMove == "NoMove") then
+                if _configuration.RateNoMove == "NoMove" then
+                    _configuration.RateNoMove = ""
+                else
+                    _configuration.RateNoMove = "NoMove"
+                end
+                this.changed = true
+            end
+            if imgui.Checkbox("No scrollbar", _configuration.RateNoScrollbar == "NoScrollbar") then
+                if _configuration.RateNoScrollbar == "NoScrollbar" then
+                    _configuration.RateNoScrollbar = ""
+                else
+                    _configuration.RateNoScrollbar = "NoScrollbar"
+                end
+                this.changed = true
+            end
+
+            if imgui.Checkbox("Transparent window", _configuration.RateTransparentWindow) then
+                _configuration.RateTransparentWindow = not _configuration.RateTransparentWindow
+                this.changed = true
+            end
+
+            imgui.Text("Position and Size")
+            imgui.PushItemWidth(200)
+            success, _configuration.RateAnchor = imgui.Combo("Anchor", _configuration.RateAnchor, anchorList, table.getn(anchorList))
+            imgui.PopItemWidth()
+            if success then
+                _configuration.RateChanged = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.RateX = imgui.InputInt("X", _configuration.RateX)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.RateChanged = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 38)
+            imgui.PushItemWidth(100)
+            success, _configuration.RateY = imgui.InputInt("Y", _configuration.RateY)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.RateChanged = true
+                this.changed = true
+            end
+
+            imgui.PushItemWidth(100)
+            success, _configuration.RateW = imgui.InputInt("Width", _configuration.RateW)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.RateChanged = true
+                this.changed = true
+            end
+
+            imgui.SameLine(0, 10)
+            imgui.PushItemWidth(100)
+            success, _configuration.RateH = imgui.InputInt("Height", _configuration.RateH)
+            imgui.PopItemWidth()
+            if success then
+                _configuration.RateChanged = true
+                this.changed = true
+            end
+
+            imgui.TreePop()
+        end
+		
+		
 		
     end
 
