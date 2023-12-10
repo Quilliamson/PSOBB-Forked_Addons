@@ -867,11 +867,13 @@ local function PresentTargetMonster(monster)
 		local mExp = 0
 		
 		local battleparams_stats = pso.read_u32(monster.address + _MonsterBpPtr)
-		if battleparams_stats ~= 0 then
-			if  pso.read_u32(_Episode) == 1 then
-				mExp = pso.read_u32(battleparams_stats + 0x1c)*1.3
-			else
-				mExp = pso.read_u32(battleparams_stats + 0x1c)
+		if battleparams_stats ~= 0 and battleparams_stats ~= nil then
+			if pso.read_u32(battleparams_stats + 0x1c) ~= 0 and pso.read_u32(battleparams_stats + 0x1c) ~= nil then
+				if  pso.read_u32(_Episode) == 1 then
+					mExp = pso.read_u32(battleparams_stats + 0x1c)*1.3
+				else
+					mExp = pso.read_u32(battleparams_stats + 0x1c)
+				end
 			end
 		end
 		
