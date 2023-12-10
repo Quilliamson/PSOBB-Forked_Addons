@@ -869,11 +869,14 @@ local function PresentTargetMonster(monster)
 		local battleparams_stats = pso.read_u32(monster.address + _MonsterBpPtr)
 		if battleparams_stats ~= 0 then
 			if  pso.read_u32(_Episode) == 1 then
-				mExp = pso.read_u32(battleparams_stats + 0x1c)*1.3
+				mExp = pso.read_u16(battleparams_stats + 0x1c)*1.3
 			else
-				mExp = pso.read_u32(battleparams_stats + 0x1c)
+				mExp = pso.read_u16(battleparams_stats + 0x1c)
 			end
 		end
+		
+		lib_helpers.Text(true, battleparams_stats)
+		lib_helpers.Text(true, mExp)
 		
 		for i=1,itemCount,1 do
             local item = inventory.items[i]
