@@ -875,9 +875,6 @@ local function PresentTargetMonster(monster)
 			end
 		end
 		
-		lib_helpers.Text(true, battleparams_stats)
-		lib_helpers.Text(true, mExp)
-		
 		for i=1,itemCount,1 do
             local item = inventory.items[i]
             if item.equipped and item.data[1] == 0x00 then
