@@ -22,6 +22,16 @@ local function ConfigurationWindow(configuration)
                 _configuration.enable = not _configuration.enable
                 this.changed = true
             end
+			
+			if imgui.Checkbox("Show Monster Name", _configuration.ShowMonsterName) then
+                _configuration.ShowMonsterName = not _configuration.ShowMonsterName
+                this.changed = true
+            end
+			
+			if imgui.Checkbox("Show Health Bar", _configuration.ShowHealthBar) then
+                _configuration.ShowHealthBar = not _configuration.ShowHealthBar
+                this.changed = true
+            end
 
             imgui.TreePop()
         end
@@ -32,13 +42,13 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 			
-			if imgui.Checkbox("Show Health Bar", _configuration.ShowHealthBar) then
-                _configuration.ShowHealthBar = not _configuration.ShowHealthBar
+			if imgui.Checkbox("Show Min Max Damage", _configuration.ShowDamage) then
+                _configuration.ShowDamage = not _configuration.ShowDamage
                 this.changed = true
             end
 			
-			if imgui.Checkbox("Show Min Max Damage", _configuration.ShowDamage) then
-                _configuration.ShowDamage = not _configuration.ShowDamage
+			if imgui.Checkbox("Show Special & Hit Chance", _configuration.ShowHit) then
+                _configuration.ShowHit = not _configuration.ShowHit
                 this.changed = true
             end
 

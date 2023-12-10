@@ -18,10 +18,12 @@ if optionsLoaded then
     -- If options loaded, make sure we have all those we need
     options.configurationEnableWindow = lib_helpers.NotNilOrDefault(options.configurationEnableWindow, true)
     options.enable                    = lib_helpers.NotNilOrDefault(options.enable, true)
+	options.ShowMonsterName     	  = lib_helpers.NotNilOrDefault(options.ShowMonsterName   , true)
+	options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
 
 	options.targetEnableWindow        = lib_helpers.NotNilOrDefault(options.targetEnableWindow, true)
-    options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
 	options.ShowDamage   	     	  = lib_helpers.NotNilOrDefault(options.ShowDamage , true)
+	options.ShowHit 	     		  = lib_helpers.NotNilOrDefault(options.ShowHit , true)
     options.targetChanged             = lib_helpers.NotNilOrDefault(options.targetChanged, false)
     options.targetAnchor              = lib_helpers.NotNilOrDefault(options.targetAnchor, 6)
     options.targetX                   = lib_helpers.NotNilOrDefault(options.targetX, 0)
@@ -113,10 +115,12 @@ else
     {
         configurationEnableWindow = true,
         enable = true,
+		ShowMonsterName = true,
+		ShowHealthBar = true,
 		
 		targetEnableWindow = true,
-        ShowHealthBar = true,
 		ShowDamage = true,
+		ShowHit = true,
         targetChanged = false,
         targetAnchor = 6,
         targetX = 0,
@@ -214,10 +218,12 @@ local function SaveOptions(options)
         io.write("{\n")
         io.write(string.format("    configurationEnableWindow = %s,\n", tostring(options.configurationEnableWindow)))
         io.write(string.format("    enable = %s,\n", tostring(options.enable)))
+		io.write(string.format("    ShowMonsterName = %s,\n", tostring(options.ShowMonsterName)))
+		io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
         io.write("\n")
 		io.write(string.format("    targetEnableWindow = %s,\n", tostring(options.targetEnableWindow)))
-        io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
 		io.write(string.format("    ShowDamage = %s,\n", tostring(options.ShowDamage)))
+		io.write(string.format("    ShowHit = %s,\n", tostring(options.ShowHit)))
         io.write(string.format("    targetChanged = %s,\n", tostring(options.targetChanged)))
         io.write(string.format("    targetAnchor = %i,\n", options.targetAnchor))
         io.write(string.format("    targetX = %i,\n", options.targetX))
@@ -958,7 +964,9 @@ local function PresentTargetMonster(monster)
 			ailRedux = 6.67
 		end
 		
-		lib_helpers.Text(true, monster.name)
+		if options.ShowMonsterName then
+			lib_helpers.Text(true, monster.name)
+		end
 		
 		-- Show J/Z status and Frozen, Confuse, or Paralyzed status
 
@@ -1107,51 +1115,54 @@ local function PresentTargetMonster(monster)
 						end
 				end
 			end
-			lib_helpers.Text(true, "Spec1: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk1_Acc,0)*math.max(specAilment,0))/100)
-			lib_helpers.Text(false, " > Spec2: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk2_Acc,0)*math.max(specAilment,0))/100)
-			lib_helpers.Text(false, " > Spec3: ")
-			lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk3_Acc,0)*math.max(specAilment,0))/100)
+			if options.ShowHit then
+				lib_helpers.Text(true, "Spec1: ")
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk1_Acc,0)*math.max(specAilment,0))/100)
+				lib_helpers.Text(false, " > Spec2: ")
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk2_Acc,0)*math.max(specAilment,0))/100)
+				lib_helpers.Text(false, " > Spec3: ")
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk3_Acc,0)*math.max(specAilment,0))/100)
+			end
 		end
 		
-		-- Display best first attack
-		lib_helpers.Text(true, "[")
-		if specAtk1_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
-			lib_helpers.TextC(false, 0xFFFF0000, "Spec1: %i%% ", specAtk1_Acc)
-		elseif hardAtk1_Acc >= options.targetHardThreshold then
-			lib_helpers.TextC(false, 0xFFFFAA00, "Hard1: %i%% ", hardAtk1_Acc)
-		elseif normAtk1_Acc > 0 then
-			lib_helpers.TextC(false, 0xFF00FF00, "Norm1: %i%% ", normAtk1_Acc)
-		else
-			lib_helpers.TextC(false, 0xFFBB0000, "Norm1: 0%%")
-		end
+		if options.ShowHit then
+			-- Display best first attack
+			lib_helpers.Text(true, "[")
+			if specAtk1_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
+				lib_helpers.TextC(false, 0xFFFF0000, "Spec1: %i%% ", specAtk1_Acc)
+			elseif hardAtk1_Acc >= options.targetHardThreshold then
+				lib_helpers.TextC(false, 0xFFFFAA00, "Hard1: %i%% ", hardAtk1_Acc)
+			elseif normAtk1_Acc > 0 then
+				lib_helpers.TextC(false, 0xFF00FF00, "Norm1: %i%% ", normAtk1_Acc)
+			else
+				lib_helpers.TextC(false, 0xFFBB0000, "Norm1: 0%%")
+			end
 
-		-- Display best second attack
-		lib_helpers.Text(false, " > ")
-		if specAtk2_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
-			lib_helpers.TextC(false, 0xFFFF0000, "Spec2: %i%% ", specAtk2_Acc)
-		elseif hardAtk2_Acc >= options.targetHardThreshold then
-			lib_helpers.TextC(false, 0xFFFFAA00, "Hard2: %i%% ", hardAtk2_Acc)
-		elseif normAtk2_Acc > 0 then
-			lib_helpers.TextC(false, 0xFF00FF00, "Norm2: %i%% ", normAtk2_Acc)
-		else
-			lib_helpers.TextC(false, 0xFFBB0000, "Norm2: 0%%")
-		end
+			-- Display best second attack
+			lib_helpers.Text(false, " > ")
+			if specAtk2_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
+				lib_helpers.TextC(false, 0xFFFF0000, "Spec2: %i%% ", specAtk2_Acc)
+			elseif hardAtk2_Acc >= options.targetHardThreshold then
+				lib_helpers.TextC(false, 0xFFFFAA00, "Hard2: %i%% ", hardAtk2_Acc)
+			elseif normAtk2_Acc > 0 then
+				lib_helpers.TextC(false, 0xFF00FF00, "Norm2: %i%% ", normAtk2_Acc)
+			else
+				lib_helpers.TextC(false, 0xFFBB0000, "Norm2: 0%%")
+			end
 
-		-- Display best third attack
-		lib_helpers.Text(false, "> ")
-		if specAtk3_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
-			lib_helpers.TextC(false, 0xFFFF0000, "Spec3: %i%%", specAtk3_Acc)
-		elseif hardAtk3_Acc >= options.targetHardThreshold then
-			lib_helpers.TextC(false, 0xFFFFAA00, "Hard3: %i%%", hardAtk3_Acc)
-		elseif normAtk3_Acc > 0 then
-			lib_helpers.TextC(false, 0xFF00FF00, "Norm3: %i%%", normAtk3_Acc)
-		else
-			lib_helpers.TextC(false, 0xFFBB0000, "Norm3: 0%%")
+			-- Display best third attack
+			lib_helpers.Text(false, "> ")
+			if specAtk3_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
+				lib_helpers.TextC(false, 0xFFFF0000, "Spec3: %i%%", specAtk3_Acc)
+			elseif hardAtk3_Acc >= options.targetHardThreshold then
+				lib_helpers.TextC(false, 0xFFFFAA00, "Hard3: %i%%", hardAtk3_Acc)
+			elseif normAtk3_Acc > 0 then
+				lib_helpers.TextC(false, 0xFF00FF00, "Norm3: %i%%", normAtk3_Acc)
+			else
+				lib_helpers.TextC(false, 0xFFBB0000, "Norm3: 0%%")
+			end
+			lib_helpers.Text(false, "]")
 		end
-		lib_helpers.Text(false, "]")
-
     end
 end
 
@@ -1626,7 +1637,9 @@ local function foRec(monster)
 			megid = ((megid * 2 + 40) - monster.Edk)
 		end
 
-        lib_helpers.TextC(true, monster.color, monster.name)
+		if options.ShowMonsterName then
+			lib_helpers.TextC(true, monster.color, monster.name)
+		end
 
 		techtable = {foie,gifoie,rafoie,zonde,gizonde,razonde,barta,gibarta,rabarta,grants}
 		dpstable = {foie/foieFps,gifoie/gifoieFps,rafoie/rafoieFps,zonde/zondeFps,gizonde/gizondeFps,razonde/razondeFps,barta/bartaFps,gibarta/gibartaFps,rabarta/rabartaFps,grants/grantsFps}
@@ -1785,9 +1798,11 @@ local function foRec(monster)
 			lib_helpers.Text(false, "%% ")
 		end
 		
-		 -- Draw enemy HP bar
-        lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
-
+		if options.ShowHealthBar then
+			 -- Draw enemy HP bar
+			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
+		end
+		
         -- Show J/Z status and Frozen, Confuse, or Paralyzed status
         if options.showMonsterStatus then
             if atkTech.type == 0 then
