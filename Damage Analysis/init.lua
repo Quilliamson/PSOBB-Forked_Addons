@@ -869,9 +869,9 @@ local function PresentTargetMonster(monster)
 		local battleparams_stats = pso.read_u32(monster.address + _MonsterBpPtr)
 		if battleparams_stats ~= 0 then
 			if  pso.read_u32(_Episode) == 1 then
-				mExp = pso.read_u16(battleparams_stats + 0x1c)*1.3
+				mExp = pso.read_u32(battleparams_stats + 0x1c)*1.3
 			else
-				mExp = pso.read_u16(battleparams_stats + 0x1c)
+				mExp = pso.read_u32(battleparams_stats + 0x1c)
 			end
 		end
 		
@@ -1012,15 +1012,15 @@ local function PresentTargetMonster(monster)
 		end
 
 		-- Calculate all 9 types of attack combinations
-		local normAtk1_Acc = math.min((myAta * 1.0 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local hardAtk1_Acc = math.min((myAta * 0.7 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local specAtk1_Acc = math.min((myAta * 0.5 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local normAtk2_Acc = math.min((myAta * 1.0 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local hardAtk2_Acc = math.min((myAta * 0.7 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local specAtk2_Acc = math.min((myAta * 0.5 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local normAtk3_Acc = math.min((myAta * 1.0 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local hardAtk3_Acc = math.min((myAta * 0.7 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
-		local specAtk3_Acc = math.min((myAta * 0.5 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100)
+		local normAtk1_Acc = math.max(math.min((myAta * 1.0 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local hardAtk1_Acc = math.max(math.min((myAta * 0.7 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local specAtk1_Acc = math.max(math.min((myAta * 0.5 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local normAtk2_Acc = math.max(math.min((myAta * 1.0 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local hardAtk2_Acc = math.max(math.min((myAta * 0.7 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local specAtk2_Acc = math.max(math.min((myAta * 0.5 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local normAtk3_Acc = math.max(math.min((myAta * 1.0 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local hardAtk3_Acc = math.max(math.min((myAta * 0.7 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local specAtk3_Acc = math.max(math.min((myAta * 0.5 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
 		
 		if options.ShowDamage then
 			lib_helpers.Text(true, "%i", myMinDamage)
@@ -1119,11 +1119,11 @@ local function PresentTargetMonster(monster)
 			end
 			if options.ShowHit then
 				lib_helpers.Text(true, "Spec1: ")
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk1_Acc,0)*math.max(specAilment,0))/100)
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", math.min(specAtk1_Acc*(math.max(specAilment,0)/100),100))
 				lib_helpers.Text(false, " > Spec2: ")
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk2_Acc,0)*math.max(specAilment,0))/100)
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", math.min(specAtk2_Acc*(math.max(specAilment,0)/100),100))
 				lib_helpers.Text(false, " > Spec3: ")
-				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", (math.max(specAtk3_Acc,0)*math.max(specAilment,0))/100)
+				lib_helpers.TextC(false, lib_items_cfg.weaponSpecial[weapEquipped + 1], "%i%% ", math.min(specAtk3_Acc*(math.max(specAilment,0)/100),100))
 			end
 		end
 		
