@@ -357,6 +357,7 @@ local _MonsterBpDfp = 0x8
 local _MonsterBpAta = 0xA
 local _MonsterBpLck = 0xC
 local _MonsterBpEsp = 0xE
+local _MonsterBpExp = 0x1C
 
 -- Special addresses for De Rol Le
 local _BPDeRolLeData = 0x00A43CC8
@@ -398,6 +399,7 @@ local function CopyMonster(monster)
     copy.name     = monster.name
 	copy.attribute  = monster.attribute
 	copy.isBoss   = monster.isBoss
+	copy.Exp      = monster.Exp
     copy.color    = monster.color
     copy.display  = monster.display
 	copy.Efr	  = monster.Efr
@@ -503,6 +505,11 @@ local function GetMonsterData(monster)
         monster.Ata = pso.read_u16(bpPointer + _MonsterBpAta)
         monster.Lck = pso.read_u16(bpPointer + _MonsterBpLck)
         monster.Esp = pso.read_u16(bpPointer + _MonsterBpEsp)
+		if  pso.read_u32(_Episode) == 1 then
+			monster.Exp = pso.read_u16(bpPointer + _MonsterBpExp) * 1.3
+		else
+			monster.Exp = pso.read_u16(bpPointer + _MonsterBpExp)
+		end
     else
         monster.Atp = pso.read_u16(monster.address + _MonsterAtp)
         monster.Dfp = pso.read_u16(monster.address + _MonsterDfp)
@@ -511,6 +518,7 @@ local function GetMonsterData(monster)
         monster.Ata = pso.read_u16(monster.address + _MonsterAta)
         monster.Lck = pso.read_u16(monster.address + _MonsterLck)
         monster.Esp = 0
+		monster.Exp = 0
     end
 
     monster.Efr = pso.read_u16(monster.address + _MonsterEfr)
@@ -864,18 +872,7 @@ local function PresentTargetMonster(monster)
         local v50xStatusBoost = 1
 		local ailRedux = 1
 		local specPower = pso.read_u16(playerAddr + 0x118)
-		local mExp = 0
 		
-		local battleparams_stats = pso.read_u32(monster.address + _MonsterBpPtr)
-		if battleparams_stats ~= 0 and battleparams_stats ~= nil then
-			if pso.read_u32(battleparams_stats + 0x1c) ~= 0 and pso.read_u32(battleparams_stats + 0x1c) ~= nil then
-				if  pso.read_u32(_Episode) == 1 then
-					mExp = pso.read_u32(battleparams_stats + 0x1c)*1.3
-				else
-					mExp = pso.read_u32(battleparams_stats + 0x1c)
-				end
-			end
-		end
 		
 		for i=1,itemCount,1 do
             local item = inventory.items[i]
@@ -1061,7 +1058,7 @@ local function PresentTargetMonster(monster)
 				weapSpecial = "None"
 			end
 		elseif weapSpecial == "Master's" or weapSpecial == "Lord's" or weapSpecial == "King's" then
-			specDraw = math.min(((specPower+androidBoost)/100)*mExp,(difficulty+1)*20)*specRedux
+			specDraw = math.min(((specPower+androidBoost)/100)*monster.Exp,(difficulty+1)*20)*specRedux
 			specAilment = 100
 		elseif (weapSpecial == "Devil's" or weapSpecial == "Demon's") and monster.isBoss == 0 then
 			specDMG = (mHP*(1-(((specPower+androidBoost)/100))))*specRedux
