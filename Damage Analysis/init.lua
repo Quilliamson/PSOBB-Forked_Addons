@@ -996,11 +996,6 @@ local function PresentTargetMonster(monster)
 
 		imgui.NextColumn()
 		
-		if options.ShowHealthBar then
-			-- Draw enemy HP bar
-			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
-		end
-		
 		-- Determine if player gets a bonus due to enemy status
 		local badStatusReduc = 1.0
 		if frozen then
@@ -1163,6 +1158,10 @@ local function PresentTargetMonster(monster)
 				lib_helpers.TextC(false, 0xFFBB0000, "Norm3: 0%%")
 			end
 			lib_helpers.Text(false, "]")
+		end
+		if options.ShowHealthBar then
+			-- Draw enemy HP bar
+			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
 		end
     end
 end
@@ -1641,6 +1640,34 @@ local function foRec(monster)
 		if options.ShowMonsterName then
 			lib_helpers.TextC(true, monster.color, monster.name)
 		end
+		
+		-- Show J/Z status and Frozen, Confuse, or Paralyzed status
+        if options.showMonsterStatus then
+            if atkTech.type == 0 then
+                lib_helpers.TextC(true, 0, "    ")
+            else
+                lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
+            end
+
+            if defTech.type == 0 then
+                lib_helpers.TextC(false, 0, "    ")
+            else
+                lib_helpers.TextC(false, 0xFF0088F4, defTech.name .. defTech.level .. string.rep(" ", 2 - #tostring(defTech.level)) .. " ")
+            end
+
+            if frozen then
+                lib_helpers.TextC(false, 0xFF00FFFF, "F ")
+            elseif confused then
+                lib_helpers.TextC(false, 0xFFFF00FF, "C ")
+            else
+                lib_helpers.TextC(false, 0, "  ")
+            end
+            if paralyzed then
+                lib_helpers.TextC(false, 0xFFFF4000, "P ")
+            end
+
+            imgui.NextColumn()
+        end
 
 		techtable = {foie,gifoie,rafoie,zonde,gizonde,razonde,barta,gibarta,rabarta,grants}
 		dpstable = {foie/foieFps,gifoie/gifoieFps,rafoie/rafoieFps,zonde/zondeFps,gizonde/gizondeFps,razonde/razondeFps,barta/bartaFps,gibarta/gibartaFps,rabarta/rabartaFps,grants/grantsFps}
@@ -1803,35 +1830,6 @@ local function foRec(monster)
 			 -- Draw enemy HP bar
 			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
 		end
-		
-        -- Show J/Z status and Frozen, Confuse, or Paralyzed status
-        if options.showMonsterStatus then
-            if atkTech.type == 0 then
-                lib_helpers.TextC(true, 0, "    ")
-            else
-                lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
-            end
-
-            if defTech.type == 0 then
-                lib_helpers.TextC(false, 0, "    ")
-            else
-                lib_helpers.TextC(false, 0xFF0088F4, defTech.name .. defTech.level .. string.rep(" ", 2 - #tostring(defTech.level)) .. " ")
-            end
-
-            if frozen then
-                lib_helpers.TextC(false, 0xFF00FFFF, "F ")
-            elseif confused then
-                lib_helpers.TextC(false, 0xFFFF00FF, "C ")
-            else
-                lib_helpers.TextC(false, 0, "  ")
-            end
-            if paralyzed then
-                lib_helpers.TextC(false, 0xFFFF4000, "P ")
-            end
-
-            imgui.NextColumn()
-        end
-		
 	end
 end
 
