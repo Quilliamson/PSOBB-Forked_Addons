@@ -59,7 +59,7 @@ return
     target2EnableWindow = true,
     target2Changed = false,
     target2Anchor = 6,
-    target2X = 215,
+    target2X = 218,
     target2Y = -275,
     target2W = 145,
     target2H = 135,

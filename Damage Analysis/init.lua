@@ -996,6 +996,11 @@ local function PresentTargetMonster(monster)
 
 		imgui.NextColumn()
 		
+		if options.ShowHealthBar then
+			-- Draw enemy HP bar
+			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
+		end
+		
 		-- Determine if player gets a bonus due to enemy status
 		local badStatusReduc = 1.0
 		if frozen then
@@ -1159,10 +1164,6 @@ local function PresentTargetMonster(monster)
 			end
 			lib_helpers.Text(false, "]")
 		end
-		if options.ShowHealthBar then
-			-- Draw enemy HP bar
-			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
-		end
     end
 end
 
@@ -1261,37 +1262,37 @@ local function PresentRateMonster(monster)
 
             -- Add Hell rate if enabled
             if options.RateEnableActivationRateItems.hell == true then
-                local str = string.format("Hell: %i", (93 - monster.Edk)*(v50xHellBoost))
+                local str = string.format("Hell: %i", math.max((93 - monster.Edk)*(v50xHellBoost),0))
                 table.insert(rate_list, str)
             end
             -- Add Dark rate if enabled
             if options.RateEnableActivationRateItems.dark == true then
-                local str = string.format("Dark: %i", (78 - monster.Edk)*(v50xHellBoost))
+                local str = string.format("Dark: %i", math.max((78 - monster.Edk)*(v50xHellBoost),0))
                 table.insert(rate_list, str)
             end
             -- Add Arrest rate if enabled
             if options.RateEnableActivationRateItems.arrest == true then
-                local str = string.format("Arrest: %i", (80 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                local str = string.format("Arrest: %i", math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
                 table.insert(rate_list, str)
             end
             -- Add Blizzard rate if enabled
             if options.RateEnableActivationRateItems.blizzard == true then
-                local str = string.format("Blizzard: %i", (80 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                local str = string.format("Blizzard: %i", math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
                 table.insert(rate_list, str)
             end
             -- Add Seize rate if enabled
             if options.RateEnableActivationRateItems.seize == true then
-                local str = string.format("Seize: %i", (64 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                local str = string.format("Seize: %i", math.max((64 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
                 table.insert(rate_list, str)
             end
             -- Add Chaos rate if enabled
             if options.RateEnableActivationRateItems.chaos == true then
-                local str = string.format("Chaos: %i", (76 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                local str = string.format("Chaos: %i", math.max((76 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
                 table.insert(rate_list, str)
             end
             -- Add Havoc rate if enabled
             if options.RateEnableActivationRateItems.havoc == true then
-                local str = string.format("Havoc: %i", (60 + androidBoost - monster.Esp)*(v50xStatusBoost))
+                local str = string.format("Havoc: %i", math.max((60 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
                 table.insert(rate_list, str)
             end
 
@@ -1640,34 +1641,6 @@ local function foRec(monster)
 		if options.ShowMonsterName then
 			lib_helpers.TextC(true, monster.color, monster.name)
 		end
-		
-		-- Show J/Z status and Frozen, Confuse, or Paralyzed status
-        if options.showMonsterStatus then
-            if atkTech.type == 0 then
-                lib_helpers.TextC(true, 0, "    ")
-            else
-                lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
-            end
-
-            if defTech.type == 0 then
-                lib_helpers.TextC(false, 0, "    ")
-            else
-                lib_helpers.TextC(false, 0xFF0088F4, defTech.name .. defTech.level .. string.rep(" ", 2 - #tostring(defTech.level)) .. " ")
-            end
-
-            if frozen then
-                lib_helpers.TextC(false, 0xFF00FFFF, "F ")
-            elseif confused then
-                lib_helpers.TextC(false, 0xFFFF00FF, "C ")
-            else
-                lib_helpers.TextC(false, 0, "  ")
-            end
-            if paralyzed then
-                lib_helpers.TextC(false, 0xFFFF4000, "P ")
-            end
-
-            imgui.NextColumn()
-        end
 
 		techtable = {foie,gifoie,rafoie,zonde,gizonde,razonde,barta,gibarta,rabarta,grants}
 		dpstable = {foie/foieFps,gifoie/gifoieFps,rafoie/rafoieFps,zonde/zondeFps,gizonde/gizondeFps,razonde/razondeFps,barta/bartaFps,gibarta/gibartaFps,rabarta/rabartaFps,grants/grantsFps}
@@ -1830,6 +1803,35 @@ local function foRec(monster)
 			 -- Draw enemy HP bar
 			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
 		end
+		
+        -- Show J/Z status and Frozen, Confuse, or Paralyzed status
+        if options.showMonsterStatus then
+            if atkTech.type == 0 then
+                lib_helpers.TextC(true, 0, "    ")
+            else
+                lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
+            end
+
+            if defTech.type == 0 then
+                lib_helpers.TextC(false, 0, "    ")
+            else
+                lib_helpers.TextC(false, 0xFF0088F4, defTech.name .. defTech.level .. string.rep(" ", 2 - #tostring(defTech.level)) .. " ")
+            end
+
+            if frozen then
+                lib_helpers.TextC(false, 0xFF00FFFF, "F ")
+            elseif confused then
+                lib_helpers.TextC(false, 0xFFFF00FF, "C ")
+            else
+                lib_helpers.TextC(false, 0, "  ")
+            end
+            if paralyzed then
+                lib_helpers.TextC(false, 0xFFFF4000, "P ")
+            end
+
+            imgui.NextColumn()
+        end
+		
 	end
 end
 
