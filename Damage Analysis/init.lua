@@ -9,6 +9,12 @@ local lib_menu = require("solylib.menu")
 local cfg = require("Damage Analysis.configuration")
 local cfgMonsters = require("Damage Analysis.monsters")
 local optionsLoaded, options = pcall(require, "Damage Analysis.options")
+local drop_charts = {
+  ["Normal"] = require("Damage Analysis/Drops.normal"),
+  ["Hard"] = require("Damage Analysis/Drops.hard"),
+  ["Very Hard"] = require("Damage Analysis/Drops.very-hard"),
+  ["Ultimate"] = require("Damage Analysis/Drops.ultimate")
+}
 
 local optionsFileName = "addons/Damage Analysis/options.lua"
 local firstPresent = true
@@ -18,7 +24,9 @@ if optionsLoaded then
     -- If options loaded, make sure we have all those we need
     options.configurationEnableWindow = lib_helpers.NotNilOrDefault(options.configurationEnableWindow, true)
     options.enable                    = lib_helpers.NotNilOrDefault(options.enable, true)
-	options.ShowMonsterName     	  = lib_helpers.NotNilOrDefault(options.ShowMonsterName   , true)
+	--options.reso4K					  = lib_helpers.NotNilOrDefault(options.reso4K, false)
+	options.ShowRares 	     		  = lib_helpers.NotNilOrDefault(options.ShowRares , true)
+	options.ShowMonsterName     	  = lib_helpers.NotNilOrDefault(options.ShowMonsterName, true)
 	options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
 
 	options.targetEnableWindow        = lib_helpers.NotNilOrDefault(options.targetEnableWindow, true)
@@ -28,8 +36,8 @@ if optionsLoaded then
     options.targetAnchor              = lib_helpers.NotNilOrDefault(options.targetAnchor, 6)
     options.targetX                   = lib_helpers.NotNilOrDefault(options.targetX, 0)
     options.targetY                   = lib_helpers.NotNilOrDefault(options.targetY, -240)
-    options.targetW                   = lib_helpers.NotNilOrDefault(options.targetW, 275)
-    options.targetH                   = lib_helpers.NotNilOrDefault(options.targetH, 170)
+    options.targetW                   = lib_helpers.NotNilOrDefault(options.targetW, 285)
+    options.targetH                   = lib_helpers.NotNilOrDefault(options.targetH, 190)
     options.targetNoTitleBar          = lib_helpers.NotNilOrDefault(options.targetNoTitleBar, "NoTitleBar")
     options.targetNoResize            = lib_helpers.NotNilOrDefault(options.targetNoResize, "NoResize")
     options.targetNoMove              = lib_helpers.NotNilOrDefault(options.targetNoMove, "NoMove")
@@ -38,34 +46,35 @@ if optionsLoaded then
     options.targetHardThreshold       = lib_helpers.NotNilOrDefault(options.targetHardThreshold, 90)
 	options.targetSpecialThreshold    = lib_helpers.NotNilOrDefault(options.targetSpecialThreshold, 90)
 	
-	options.mhpEnableWindow      = lib_helpers.NotNilOrDefault(options.mhpEnableWindow, true)
-	options.invertMonsterList         = lib_helpers.NotNilOrDefault(options.invertMonsterList, false)
-    options.showCurrentRoomOnly       = lib_helpers.NotNilOrDefault(options.showCurrentRoomOnly, true)
-    options.showMonsterStatus         = lib_helpers.NotNilOrDefault(options.showMonsterStatus, true)
-    options.showMonsterID             = lib_helpers.NotNilOrDefault(options.showMonsterID, true)
-	options.mhpHideWhenMenu            = lib_helpers.NotNilOrDefault(options.mhpHideWhenMenu, true)
-    options.mhpHideWhenSymbolChat      = lib_helpers.NotNilOrDefault(options.mhpHideWhenSymbolChat, true)
-    options.mhpHideWhenMenuUnavailable = lib_helpers.NotNilOrDefault(options.mhpHideWhenMenuUnavailable, true)
-    options.mhpChanged           = lib_helpers.NotNilOrDefault(options.mhpChanged, false)
-    options.mhpAnchor            = lib_helpers.NotNilOrDefault(options.mhpAnchor, 6)
-    options.mhpX                 = lib_helpers.NotNilOrDefault(options.mhpX, 0)
-    options.mhpY                 = lib_helpers.NotNilOrDefault(options.mhpY, -800)
-    options.mhpW                 = lib_helpers.NotNilOrDefault(options.mhpW, 900)
-    options.mhpH                 = lib_helpers.NotNilOrDefault(options.mhpH, 275)
-    options.mhpNoTitleBar        = lib_helpers.NotNilOrDefault(options.mhpNoTitleBar, "")
-    options.mhpNoResize          = lib_helpers.NotNilOrDefault(options.mhpNoResize, "")
-    options.mhpNoMove            = lib_helpers.NotNilOrDefault(options.mhpNoMove, "")
-    options.mhpTransparentWindow = lib_helpers.NotNilOrDefault(options.mhpTransparentWindow, false)
+	options.mhpEnableWindow				= lib_helpers.NotNilOrDefault(options.mhpEnableWindow, true)
+	options.invertMonsterList         	= lib_helpers.NotNilOrDefault(options.invertMonsterList, false)
+    options.showCurrentRoomOnly       	= lib_helpers.NotNilOrDefault(options.showCurrentRoomOnly, true)
+	options.showMonsterResist         	= lib_helpers.NotNilOrDefault(options.showMonsterResist, true)
+    options.showMonsterStatus         	= lib_helpers.NotNilOrDefault(options.showMonsterStatus, true)
+    options.showMonsterID             	= lib_helpers.NotNilOrDefault(options.showMonsterID, true)
+	options.mhpHideWhenMenu           	= lib_helpers.NotNilOrDefault(options.mhpHideWhenMenu, true)
+    options.mhpHideWhenSymbolChat     	= lib_helpers.NotNilOrDefault(options.mhpHideWhenSymbolChat, true)
+    options.mhpHideWhenMenuUnavailable	= lib_helpers.NotNilOrDefault(options.mhpHideWhenMenuUnavailable, true)
+    options.mhpChanged           		= lib_helpers.NotNilOrDefault(options.mhpChanged, false)
+    options.mhpAnchor            		= lib_helpers.NotNilOrDefault(options.mhpAnchor, 4)
+    options.mhpX                 		= lib_helpers.NotNilOrDefault(options.mhpX, 0)
+    options.mhpY                 		= lib_helpers.NotNilOrDefault(options.mhpY, 55)
+    options.mhpW                 		= lib_helpers.NotNilOrDefault(options.mhpW, 900)
+    options.mhpH                 		= lib_helpers.NotNilOrDefault(options.mhpH, 200)
+    options.mhpNoTitleBar        		= lib_helpers.NotNilOrDefault(options.mhpNoTitleBar, "NoTitleBar")
+    options.mhpNoResize          		= lib_helpers.NotNilOrDefault(options.mhpNoResize, "")
+    options.mhpNoMove            		= lib_helpers.NotNilOrDefault(options.mhpNoMove, "")
+    options.mhpTransparentWindow 		= lib_helpers.NotNilOrDefault(options.mhpTransparentWindow, true)
 	
 	options.foRecEnableWindow        = lib_helpers.NotNilOrDefault(options.foRecEnableWindow, true)
 	options.foRecShowEfficiencyBased = lib_helpers.NotNilOrDefault(options.foRecShowEfficiencyBased, false)
 	options.foRecShowDamage	 		 = lib_helpers.NotNilOrDefault(options.foRecShowDamage, true)
     options.foRecChanged             = lib_helpers.NotNilOrDefault(options.foRecChanged, false)
     options.foRecAnchor              = lib_helpers.NotNilOrDefault(options.foRecAnchor, 6)
-    options.foRecX                   = lib_helpers.NotNilOrDefault(options.foRecX, -235)
+    options.foRecX                   = lib_helpers.NotNilOrDefault(options.foRecX, -280)
     options.foRecY                   = lib_helpers.NotNilOrDefault(options.foRecY, -300)
-    options.foRecW                   = lib_helpers.NotNilOrDefault(options.foRecW, 185)
-    options.foRecH                   = lib_helpers.NotNilOrDefault(options.foRecH, 110)
+    options.foRecW                   = lib_helpers.NotNilOrDefault(options.foRecW, 270)
+    options.foRecH                   = lib_helpers.NotNilOrDefault(options.foRecH, 150)
     options.foRectNoTitleBar         = lib_helpers.NotNilOrDefault(options.foRecNoTitleBar, "NoTitleBar")
     options.foRecNoResize            = lib_helpers.NotNilOrDefault(options.foRecNoResize, "NoResize")
     options.foRecNoMove              = lib_helpers.NotNilOrDefault(options.foRecNoMove, "NoMove")
@@ -78,43 +87,45 @@ if optionsLoaded then
     options.target2X                   = lib_helpers.NotNilOrDefault(options.target2X, 215)
     options.target2Y                   = lib_helpers.NotNilOrDefault(options.target2Y, -275)
     options.target2W                   = lib_helpers.NotNilOrDefault(options.target2W, 145)
-    options.target2H                   = lib_helpers.NotNilOrDefault(options.target2H, 135)
+    options.target2H                   = lib_helpers.NotNilOrDefault(options.target2H, 130)
     options.targe2tNoTitleBar          = lib_helpers.NotNilOrDefault(options.target2NoTitleBar, "NoTitleBar")
     options.target2NoResize            = lib_helpers.NotNilOrDefault(options.target2NoResize, "NoResize")
     options.target2NoMove              = lib_helpers.NotNilOrDefault(options.target2NoMove, "NoMove")
     options.target2NoScrollbar         = lib_helpers.NotNilOrDefault(options.target2NoScrollbar, "NoScrollbar")
     options.target2TransparentWindow   = lib_helpers.NotNilOrDefault(options.target2TransparentWindow, false)
 	
-	options.RateEnableWindow        = lib_helpers.NotNilOrDefault(options.RateEnableWindow, true)
-    options.RateChanged             = lib_helpers.NotNilOrDefault(options.RateChanged, false)
-    options.RateAnchor              = lib_helpers.NotNilOrDefault(options.RateAnchor, 6)
-    options.RateX                   = lib_helpers.NotNilOrDefault(options.RateX, 350)
-    options.RateY                   = lib_helpers.NotNilOrDefault(options.RateY, -240)
-    options.RateW                   = lib_helpers.NotNilOrDefault(options.RateW, 115)
-    options.RateH                   = lib_helpers.NotNilOrDefault(options.RateH, 170)
-    options.targe2tNoTitleBar       = lib_helpers.NotNilOrDefault(options.RateNoTitleBar, "NoTitleBar")
-    options.RateNoResize            = lib_helpers.NotNilOrDefault(options.RateNoResize, "NoResize")
-    options.RateNoMove              = lib_helpers.NotNilOrDefault(options.RateNoMove, "NoMove")
-    options.RateNoScrollbar         = lib_helpers.NotNilOrDefault(options.RateNoScrollbar, "NoScrollbar")
-    options.RateTransparentWindow   = lib_helpers.NotNilOrDefault(options.RateTransparentWindow, false)
-	options.RateEnableActivationRates = lib_helpers.NotNilOrDefault(options.RateEnableActivationRates, false)
+	options.RateEnableWindow          = lib_helpers.NotNilOrDefault(options.RateEnableWindow, true)
+    options.RateChanged               = lib_helpers.NotNilOrDefault(options.RateChanged, false)
+    options.RateAnchor                = lib_helpers.NotNilOrDefault(options.RateAnchor, 6)
+    options.RateX                     = lib_helpers.NotNilOrDefault(options.RateX, 350)
+    options.RateY                     = lib_helpers.NotNilOrDefault(options.RateY, -240)
+    options.RateW                     = lib_helpers.NotNilOrDefault(options.RateW, 120)
+    options.RateH                     = lib_helpers.NotNilOrDefault(options.RateH, 170)
+    options.targe2tNoTitleBar         = lib_helpers.NotNilOrDefault(options.RateNoTitleBar, "NoTitleBar")
+    options.RateNoResize              = lib_helpers.NotNilOrDefault(options.RateNoResize, "NoResize")
+    options.RateNoMove                = lib_helpers.NotNilOrDefault(options.RateNoMove, "NoMove")
+    options.RateNoScrollbar           = lib_helpers.NotNilOrDefault(options.RateNoScrollbar, "NoScrollbar")
+    options.RateTransparentWindow     = lib_helpers.NotNilOrDefault(options.RateTransparentWindow, false)
+	options.RateEnableActivationRates = lib_helpers.NotNilOrDefault(options.RateEnableActivationRates, true)
 	
 	 if options.RateEnableActivationRateItems == nil or type(options.RateEnableActivationRateItems) ~= "table" then
         options.RateEnableActivationRateItems = {}
     end
-    options.RateEnableActivationRateItems.Hell     = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.hell, false)
-    options.RateEnableActivationRateItems.Dark     = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.dark, false)
-    options.RateEnableActivationRateItems.Blizzard = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.blizzard, false)
-    options.RateEnableActivationRateItems.Arrest   = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.arrest, false)
-    options.RateEnableActivationRateItems.Seize    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.seize, false)
-    options.RateEnableActivationRateItems.Chaos    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.chaos, false)
-    options.RateEnableActivationRateItems.Havoc    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.havoc, false)
+    options.RateEnableActivationRateItems.Hell     = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.hell, true)
+    options.RateEnableActivationRateItems.Dark     = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.dark, true)
+    options.RateEnableActivationRateItems.Blizzard = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.blizzard, true)
+    options.RateEnableActivationRateItems.Arrest   = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.arrest, true)
+    options.RateEnableActivationRateItems.Seize    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.seize, true)
+    options.RateEnableActivationRateItems.Chaos    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.chaos, true)
+    options.RateEnableActivationRateItems.Havoc    = lib_helpers.NotNilOrDefault(options.RateEnableActivationRateItems.havoc, true)
     
 else
     options =
     {
         configurationEnableWindow = true,
         enable = true,
+		--reso4K = false,
+		ShowRares = true,
 		ShowMonsterName = true,
 		ShowHealthBar = true,
 		
@@ -125,9 +136,8 @@ else
         targetAnchor = 6,
         targetX = 0,
         targetY = -240,
-        targetY = -240,
-        targetW = 275,
-        targetH = 170,
+        targetW = 285,
+        targetH = 190,
         targetNoTitleBar = "NoTitleBar",
         targetNoResize = "NoResize",
         targetNoMove = "NoMove",
@@ -139,31 +149,32 @@ else
 		mhpEnableWindow = true,
 		invertMonsterList = false,
         showCurrentRoomOnly = true,
+		showMonsterResist = true,
         showMonsterStatus = true,
         showMonsterID = true,
 		mhpHideWhenMenu = true,
         mhpHideWhenSymbolChat = true,
         mhpHideWhenMenuUnavailable = true,
         mhpChanged = false,
-        mhpAnchor = 6,
+        mhpAnchor = 4,
         mhpX = 0,
-        mhpY = -800,
+        mhpY = 55,
         mhpW = 900,
-        mhpH = 275,
-        mhpNoTitleBar = "",
+        mhpH = 200,
+        mhpNoTitleBar = "NoTitleBar",
         mhpNoResize = "",
         mhpNoMove = "",
-        mhpTransparentWindow = false,
+        mhpTransparentWindow = true,
 		
 		foRecEnableWindow = true,
 		foRecShowEfficiencyBased = false,
 		foRecShowDamage = true,
         foRecChanged = false,
         foRecAnchor = 6,
-        foRecX = -235,
+        foRecX = -280,
         foRecY = -300,
-        foRecW = 185,
-        foRecH = 110,
+        foRecW = 270,
+        foRecH = 150,
         foRecNoTitleBar = "NoTitleBar",
         foRecNoResize = "NoResize",
         foRecNoMove = "NoMove",
@@ -176,7 +187,7 @@ else
         target2X = 215,
         target2Y = -275,
         target2W = 145,
-        target2H = 135,
+        target2H = 130,
         target2NoTitleBar = "NoTitleBar",
         target2NoResize = "NoResize",
         target2NoMove = "NoMove",
@@ -188,22 +199,22 @@ else
         RateAnchor = 6,
         RateX = 350,
         RateY = -240,
-        RateW = 115,
+        RateW = 120,
         RateH = 170,
         RateNoTitleBar = "NoTitleBar",
         RateNoResize = "NoResize",
         RateNoMove = "NoMove",
         RateNoScrollbar = "NoScrollbar",
         RateTransparentWindow = false,
-		RateEnableActivationRates = false,
+		RateEnableActivationRates = true,
         RateEnableActivationRateItems = {
-            hell = false,
-            dark = false,
-            blizzard = false,
-            arrest = false,
-            seize = false,
-            chaos = false,
-            havoc = false,
+            hell = true,
+            dark = true,
+            blizzard = true,
+            arrest = true,
+            seize = true,
+            chaos = true,
+            havoc = true,
         },
 
     }
@@ -218,6 +229,8 @@ local function SaveOptions(options)
         io.write("{\n")
         io.write(string.format("    configurationEnableWindow = %s,\n", tostring(options.configurationEnableWindow)))
         io.write(string.format("    enable = %s,\n", tostring(options.enable)))
+		--io.write(string.format("    reso4K = %s,\n", tostring(options.reso4K)))
+		io.write(string.format("    ShowRares = %s,\n", tostring(options.ShowRares)))
 		io.write(string.format("    ShowMonsterName = %s,\n", tostring(options.ShowMonsterName)))
 		io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
         io.write("\n")
@@ -241,6 +254,7 @@ local function SaveOptions(options)
         io.write(string.format("    mhpEnableWindow = %s,\n", tostring(options.mhpEnableWindow)))
 		io.write(string.format("    invertMonsterList = %s,\n", tostring(options.invertMonsterList)))
         io.write(string.format("    showCurrentRoomOnly = %s,\n", tostring(options.showCurrentRoomOnly)))
+		io.write(string.format("    showMonsterResist = %s,\n", tostring(options.showMonsterResist)))
         io.write(string.format("    showMonsterStatus = %s,\n", tostring(options.showMonsterStatus)))
         io.write(string.format("    showMonsterID = %s,\n", tostring(options.showMonsterID)))
 		io.write(string.format("    mhpHideWhenMenu = %s,\n", tostring(options.mhpHideWhenMenu)))
@@ -313,12 +327,70 @@ local function SaveOptions(options)
     end
 end
 
+-- section id list 
+local section = {
+  "Bluefull",
+  "Greenill",
+  "Oran",
+  "Pinkal",
+  "Purplenum",
+  "Redria",
+  "Skyly",
+  "Viridia",
+  "Yellowboze",
+  "Whitill"
+}
+-- section id colors
+local section_color = {
+	["Bluefull"] = 0xFF0088F4,
+	["Greenill"] = 0xFF00FF00,
+	["Oran"] = 0xFFFFAA00,
+	["Pinkal"] = 0xFFFF3898,
+	["Purplenum"] = 0xFFA020F0,
+	["Redria"] = 0xFFFF2031,
+	["Skyly"] = 0xFF00DDF4,
+	["Viridia"] = 0xFF00FF00,
+	["Yellowboze"] = 0xFFEAF718,
+	["Whitill"] = 0xFFFFFFFF
+}
+
+local episodes = {
+  [0] = "EPISODE 1",
+  [1] = "EPISODE 2",
+  [2] = "EPISODE 4"
+}
+
+-- episode order
+local episode = {
+  "EPISODE 1",
+  "EPISODE 1 Boxes",
+  "EPISODE 2",
+  "EPISODE 2 Boxes",
+  "EPISODE 4",
+  "EPISODE 4 Boxes",
+  "QUEST"
+}
+
+-- difficulty list
+local difficulty = {
+  [1] = "Normal",
+  [2] = "Hard",
+  [3] = "Very Hard",
+  [4] = "Ultimate"
+}
+
+-- memory addresses
+local _SideMessage = pso.base_address + 0x006AECC8
 local _PlayerArray = 0x00A94254
 local _PlayerIndex = 0x00A9C4F4
 local _PlayerCount = 0x00AAE168
 local _Difficulty = 0x00A9CD68
 local _Ultimate
 local _Episode = 0xAAFDB8
+local _Episode2 = 0x00A9B1C8
+
+local party = { }
+local cacheSide = false
 
 local _ID = 0x1C
 local _Room = 0x28
@@ -380,6 +452,42 @@ local _MonsterBarbaRayShellHPMax = 0x1C
 -- Special address for Ephinea
 local _ephineaMonsterArrayPointer = 0x00B5F800
 local _ephineaMonsterHPScale = 0x00B5F804
+
+-- read side message from memory buffer
+local function get_side_text()
+	local ptr = pso.read_u32(_SideMessage)
+	if ptr ~= 0 then
+		local text = pso.read_wstr(ptr + 0x14, 0xFF)
+		return text
+	end
+	return ""
+end
+
+-- extract party dar, rare boosts, section id, and grab episode and difficulty
+local function parse_side_message(text)
+	local data = { }
+	
+	-- logic in identifying dar and rare boost
+    local dropIndex = string.find(text, "Drop")
+	local rareIndex = string.find(text, "Rare")
+	local idIndex = string.find(text, "ID")
+
+	local dropStr = string.sub(text, dropIndex, rareIndex-1)
+	local rareStr = string.sub(text, rareIndex, -1)
+	local idStr = string.sub(text, idIndex+2, dropIndex-1)
+
+	-- other data
+	local _difficulty = pso.read_u32(_Difficulty)
+	local _episode = pso.read_u32(_Episode2)
+	
+    data.dar = tonumber(string.match(dropStr, "%d+"))
+    data.rare = tonumber(string.match(rareStr, "%d+"))
+    data.id = string.match(idStr,"%a+")
+    data.difficulty = difficulty[_difficulty + 1]
+    data.episode = episodes[_episode]
+	
+	return data
+end
 
 local function CopyMonster(monster)
     local copy = {}
@@ -488,6 +596,10 @@ local function GetMonsterData(monster)
 
 	monster.isBoss = 0
 	
+	if monster.name == "Unknown" then
+		return monster
+	end
+	
 	if ephineaMonsters ~= 0 then
 		monster.HPMax = pso.read_u32(ephineaMonsters + (monster.id * 32))
 		monster.HP = pso.read_u32(ephineaMonsters + (monster.id * 32) + 0x04)
@@ -497,28 +609,25 @@ local function GetMonsterData(monster)
 	end	
 	
     local bpPointer = pso.read_u32(monster.address + _MonsterBpPtr)
+    
+	monster.Atp = pso.read_u16(monster.address + _MonsterAtp) or pso.read_u16(bpPointer + _MonsterBpAtp)
+    monster.Dfp = pso.read_u16(monster.address + _MonsterDfp) or pso.read_u16(bpPointer + _MonsterBpDfp)
+    monster.Evp = pso.read_u16(monster.address + _MonsterEvp) or pso.read_u16(bpPointer + _MonsterBpEvp)
+    monster.Mst = pso.read_u16(monster.address + _MonsterMst) or pso.read_u16(bpPointer + _MonsterBpMst)
+    monster.Ata = pso.read_u16(monster.address + _MonsterAta) or pso.read_u16(bpPointer + _MonsterBpAta)
+    monster.Lck = pso.read_u16(monster.address + _MonsterLck) or pso.read_u16(bpPointer + _MonsterBpLck)
+    
     if bpPointer ~= 0 then
-        monster.Atp = pso.read_u16(bpPointer + _MonsterBpAtp)
-        monster.Mst = pso.read_u16(bpPointer + _MonsterBpMst)
-        monster.Evp = pso.read_u16(bpPointer + _MonsterBpEvp)
-        monster.Dfp = pso.read_u16(bpPointer + _MonsterBpDfp)
-        monster.Ata = pso.read_u16(bpPointer + _MonsterBpAta)
-        monster.Lck = pso.read_u16(bpPointer + _MonsterBpLck)
         monster.Esp = pso.read_u16(bpPointer + _MonsterBpEsp)
-		if  pso.read_u32(_Episode) == 1 then
+
+        if  pso.read_u32(_Episode) == 1 then
 			monster.Exp = pso.read_u16(bpPointer + _MonsterBpExp) * 1.3
 		else
 			monster.Exp = pso.read_u16(bpPointer + _MonsterBpExp)
 		end
     else
-        monster.Atp = pso.read_u16(monster.address + _MonsterAtp)
-        monster.Dfp = pso.read_u16(monster.address + _MonsterDfp)
-        monster.Evp = pso.read_u16(monster.address + _MonsterEvp)
-        monster.Mst = pso.read_u16(monster.address + _MonsterMst)
-        monster.Ata = pso.read_u16(monster.address + _MonsterAta)
-        monster.Lck = pso.read_u16(monster.address + _MonsterLck)
         monster.Esp = 0
-		monster.Exp = 0
+        monster.Exp = 0
     end
 
     monster.Efr = pso.read_u16(monster.address + _MonsterEfr)
@@ -692,11 +801,6 @@ local function PresentMonsters()
     local monsterList = GetMonsterList()
     local monsterListCount = table.getn(monsterList)
 	
-	local playerAddr = lib_characters.GetSelf()
-    if playerAddr == 0 then
-        return
-    end
-	
     local columnCount = 2
 
     -- Get how many columns we'll need
@@ -708,28 +812,26 @@ local function PresentMonsters()
     end
     imgui.Columns(columnCount)
 
-    if options.showMonsterID == true or options.showMonsterStatus == true then
-        local windowWidth = imgui.GetWindowSize()
-        local charWidth = 0.7 * imgui.GetFontSize()
+	local windowWidth = imgui.GetWindowSize()
+	local charWidth = 0.7 * imgui.GetFontSize()
 
-        local nameColumnWidth = #"XXXXXXXX" * charWidth + 10
-        local idColumnWidth = #"XXXXXXX" * charWidth
-        local statusColumnWidth = #"J30 Z30 F P" * charWidth + 10
+	local nameColumnWidth = #"XXXXXXXX" * charWidth + 10
+	local idColumnWidth = #"XXXXXXX" * charWidth
+	local statusColumnWidth = #"J30 Z30 F P" * charWidth + 10
 
-        if options.showMonsterID == true and options.showMonsterStatus == true then
-            imgui.SetColumnOffset(1, nameColumnWidth)
-            imgui.SetColumnOffset(2, nameColumnWidth + idColumnWidth)
-            imgui.SetColumnOffset(3, nameColumnWidth + idColumnWidth + statusColumnWidth)
-        elseif options.showMonsterID == true then
-            imgui.SetColumnOffset(1, nameColumnWidth)
-            imgui.SetColumnOffset(2, nameColumnWidth + idColumnWidth)
-        elseif options.showMonsterStatus == true then
-            imgui.SetColumnOffset(1, nameColumnWidth)
-            imgui.SetColumnOffset(2, nameColumnWidth + statusColumnWidth)
-        else
-            imgui.SetColumnOffset(1, nameColumnWidth)
-        end
-    end
+	if options.showMonsterID == true and options.showMonsterStatus == true then
+		imgui.SetColumnOffset(1, nameColumnWidth)
+		imgui.SetColumnOffset(2, windowWidth - (nameColumnWidth + idColumnWidth + statusColumnWidth))
+		imgui.SetColumnOffset(3, nameColumnWidth + windowWidth - (nameColumnWidth + idColumnWidth + statusColumnWidth))
+	elseif options.showMonsterID == true then
+		imgui.SetColumnOffset(1, nameColumnWidth)
+		imgui.SetColumnOffset(2, windowWidth - (nameColumnWidth + statusColumnWidth))
+	elseif options.showMonsterStatus == true then
+		imgui.SetColumnOffset(1, nameColumnWidth)
+		imgui.SetColumnOffset(2, windowWidth - (nameColumnWidth + idColumnWidth))
+	else
+		imgui.SetColumnOffset(1, nameColumnWidth)
+	end
 
     local startIndex = 1
     local endIndex = monsterListCount
@@ -743,35 +845,30 @@ local function PresentMonsters()
 
     for i=startIndex, endIndex, step do
         local monster = monsterList[i]
+		local playerAddr = lib_characters.GetSelf()
         if monster.display then
             local mHP = monster.HP
             local mHPMax = monster.HPMax
-
-			if (monster.Efr <= monster.Eth) and (monster.Efr <= monster.Eic) then
-				lib_helpers.TextC(true, 0xFFFF6600, monster.name)
-			elseif (monster.Eth <= monster.Efr) and (monster.Eth <= monster.Eic) then
-				lib_helpers.TextC(true, 0xFFFFFF00, monster.name)
-			elseif (monster.Eic <= monster.Efr) and (monster.Eic <= monster.Eth) then
-				lib_helpers.TextC(true, 0xFF00FFFF, monster.name)
+			
+			if options.showMonsterResist then
+				if (monster.Efr <= monster.Eth) and (monster.Efr <= monster.Eic) then
+					lib_helpers.TextC(true, 0xFFFF6600, monster.name)
+				elseif (monster.Eth <= monster.Efr) and (monster.Eth <= monster.Eic) then
+					lib_helpers.TextC(true, 0xFFFFFF00, monster.name)
+				elseif (monster.Eic <= monster.Efr) and (monster.Eic <= monster.Eth) then
+					lib_helpers.TextC(true, 0xFF00FFFF, monster.name)
+				else
+					lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
+				end
+			else
+				lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
 			end
 
             imgui.NextColumn()
-
-            if options.showMonsterID == true then
-				local megid = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Megid)
-				if megid >= 1 and megid < 16 then
-					megid = ((megid * 3 + 24) - monster.Edk)
-				elseif megid >= 16 then
-					megid = ((megid * 2 + 40) - monster.Edk)
-				end
-				if megid >= 0 then
-					lib_helpers.TextC(true, 0xFF6A0DAD, "Megid: ")
-					lib_helpers.Text(false, "%i", megid)
-					lib_helpers.Text(false, "%% ")
-				end
-                imgui.NextColumn()
-            end
-
+			
+			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
+            imgui.NextColumn()
+			
             if options.showMonsterStatus then
                 local atkTech = lib_characters.GetPlayerTechniqueStatus(monster.address, 0)
                 local defTech = lib_characters.GetPlayerTechniqueStatus(monster.address, 1)
@@ -779,7 +876,7 @@ local function PresentMonsters()
                 if atkTech.type == 0 then
                     lib_helpers.TextC(true, 0, "    ")
                 else
-                    lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
+                    lib_helpers.TextC(true, 0xFFFF2031, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
                 end
 
                 if defTech.type == 0 then
@@ -791,11 +888,14 @@ local function PresentMonsters()
                 local frozen = lib_characters.GetPlayerFrozenStatus(monster.address)
                 local confused = lib_characters.GetPlayerConfusedStatus(monster.address)
                 local paralyzed = lib_characters.GetPlayerParalyzedStatus(monster.address)
+				local shocked = lib_characters.GetPlayerShockedStatus(monster.address)
 
                 if frozen then
                     lib_helpers.TextC(false, 0xFF00FFFF, "F ")
                 elseif confused then
                     lib_helpers.TextC(false, 0xFFFF00FF, "C ")
+				elseif shocked then
+					lib_helpers.TextC(false, 0xFFFFFF00, "S ")
                 else
                     lib_helpers.TextC(false, 0, "  ")
                 end
@@ -806,8 +906,20 @@ local function PresentMonsters()
                 imgui.NextColumn()
             end
 			
-			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
-            imgui.NextColumn()
+			if options.showMonsterID == true then
+				local megid = lib_characters.GetPlayerTechniqueLevel(playerAddr, lib_characters.Techniques.Megid)
+				if megid >= 1 and megid < 16 then
+					megid = ((megid * 3 + 24) - monster.Edk)
+				elseif megid >= 16 then
+					megid = ((megid * 2 + 40) - monster.Edk)
+				end
+				if megid >= 0 then
+					lib_helpers.TextC(true, 0xFFEE19DC, "Megid: ")
+					lib_helpers.Text(false, "%i", megid)
+					lib_helpers.Text(false, "%% ")
+				end
+                imgui.NextColumn()
+            end
 			
         end
     end
@@ -836,6 +948,7 @@ local function PresentTargetMonster(monster)
         local frozen = lib_characters.GetPlayerFrozenStatus(monster.address)
         local confused = lib_characters.GetPlayerConfusedStatus(monster.address)
         local paralyzed = lib_characters.GetPlayerParalyzedStatus(monster.address)
+		local shocked = lib_characters.GetPlayerShockedStatus(monster.address)
 		
 		local myMaxTP = lib_characters.GetPlayerMaxTP(playerAddr)
 		local myMaxAtp = lib_characters.GetPlayerMaxATP(playerAddr,0)
@@ -974,19 +1087,21 @@ local function PresentTargetMonster(monster)
 		if atkTech.type == 0 then
 			lib_helpers.TextC(true, 0, "    ")
 		else
-			lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
+			lib_helpers.TextC(true, 0xFFFF2031, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
 		end
 
 		if defTech.type == 0 then
 			lib_helpers.TextC(false, 0, "    ")
 		else
-			lib_helpers.TextC(false, 0xFF0000FF, defTech.name .. defTech.level .. string.rep(" ", 2 - #tostring(defTech.level)) .. " ")
+			lib_helpers.TextC(false, 0xFF0088F4, defTech.name .. defTech.level .. string.rep(" ", 2 - #tostring(defTech.level)) .. " ")
 		end
 
 		if frozen then
 			lib_helpers.TextC(false, 0xFF00FFFF, "F ")
 		elseif confused then
 			lib_helpers.TextC(false, 0xFFFF00FF, "C ")
+		elseif shocked then
+			lib_helpers.TextC(false, 0xFFFFFF00, "S ")
 		else
 			lib_helpers.TextC(false, 0, "  ")
 		end
@@ -1001,25 +1116,16 @@ local function PresentTargetMonster(monster)
 			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
 		end
 		
-		-- Determine if player gets a bonus due to enemy status
-		local badStatusReduc = 1.0
-		if frozen then
-			badStatusReduc = badStatusReduc - 0.3
-		end
-		if paralyzed then
-			badStatusReduc = badStatusReduc - 0.15
-		end
-
 		-- Calculate all 9 types of attack combinations
-		local normAtk1_Acc = math.max(math.min((myAta * 1.0 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local hardAtk1_Acc = math.max(math.min((myAta * 0.7 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local specAtk1_Acc = math.max(math.min((myAta * 0.5 * 1.0 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local normAtk2_Acc = math.max(math.min((myAta * 1.0 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local hardAtk2_Acc = math.max(math.min((myAta * 0.7 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local specAtk2_Acc = math.max(math.min((myAta * 0.5 * 1.3 ) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local normAtk3_Acc = math.max(math.min((myAta * 1.0 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local hardAtk3_Acc = math.max(math.min((myAta * 0.7 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
-		local specAtk3_Acc = math.max(math.min((myAta * 0.5 * 1.69) - ((monster.Evp * badStatusReduc) * 0.2) - MDistance,100),0)
+		local normAtk1_Acc = math.max(math.min((myAta * 1.0 * 1.0 ) - (monster.Evp * 0.2) - MDistance,100),0)
+		local hardAtk1_Acc = math.max(math.min((myAta * 0.7 * 1.0 ) - (monster.Evp * 0.2) - MDistance,100),0)
+		local specAtk1_Acc = math.max(math.min((myAta * 0.5 * 1.0 ) - (monster.Evp * 0.2) - MDistance,100),0)
+		local normAtk2_Acc = math.max(math.min((myAta * 1.0 * 1.3 ) - (monster.Evp * 0.2) - MDistance,100),0)
+		local hardAtk2_Acc = math.max(math.min((myAta * 0.7 * 1.3 ) - (monster.Evp * 0.2) - MDistance,100),0)
+		local specAtk2_Acc = math.max(math.min((myAta * 0.5 * 1.3 ) - (monster.Evp * 0.2) - MDistance,100),0)
+		local normAtk3_Acc = math.max(math.min((myAta * 1.0 * 1.69) - (monster.Evp * 0.2) - MDistance,100),0)
+		local hardAtk3_Acc = math.max(math.min((myAta * 0.7 * 1.69) - (monster.Evp * 0.2) - MDistance,100),0)
+		local specAtk3_Acc = math.max(math.min((myAta * 0.5 * 1.69) - (monster.Evp * 0.2) - MDistance,100),0)
 		
 		if options.ShowDamage then
 			lib_helpers.Text(true, "%i", myMinDamage)
@@ -1130,7 +1236,7 @@ local function PresentTargetMonster(monster)
 			-- Display best first attack
 			lib_helpers.Text(true, "[")
 			if specAtk1_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
-				lib_helpers.TextC(false, 0xFFFF0000, "Spec1: %i%% ", specAtk1_Acc)
+				lib_helpers.TextC(false, 0xFFFF2031, "Spec1: %i%% ", specAtk1_Acc)
 			elseif hardAtk1_Acc >= options.targetHardThreshold then
 				lib_helpers.TextC(false, 0xFFFFAA00, "Hard1: %i%% ", hardAtk1_Acc)
 			elseif normAtk1_Acc > 0 then
@@ -1142,7 +1248,7 @@ local function PresentTargetMonster(monster)
 			-- Display best second attack
 			lib_helpers.Text(false, " > ")
 			if specAtk2_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
-				lib_helpers.TextC(false, 0xFFFF0000, "Spec2: %i%% ", specAtk2_Acc)
+				lib_helpers.TextC(false, 0xFFFF2031, "Spec2: %i%% ", specAtk2_Acc)
 			elseif hardAtk2_Acc >= options.targetHardThreshold then
 				lib_helpers.TextC(false, 0xFFFFAA00, "Hard2: %i%% ", hardAtk2_Acc)
 			elseif normAtk2_Acc > 0 then
@@ -1154,7 +1260,7 @@ local function PresentTargetMonster(monster)
 			-- Display best third attack
 			lib_helpers.Text(false, "> ")
 			if specAtk3_Acc >= options.targetSpecialThreshold and weapSpecial ~= "None" then
-				lib_helpers.TextC(false, 0xFFFF0000, "Spec3: %i%%", specAtk3_Acc)
+				lib_helpers.TextC(false, 0xFFFF2031, "Spec3: %i%%", specAtk3_Acc)
 			elseif hardAtk3_Acc >= options.targetHardThreshold then
 				lib_helpers.TextC(false, 0xFFFFAA00, "Hard3: %i%%", hardAtk3_Acc)
 			elseif normAtk3_Acc > 0 then
@@ -1163,6 +1269,30 @@ local function PresentTargetMonster(monster)
 				lib_helpers.TextC(false, 0xFFBB0000, "Norm3: 0%%")
 			end
 			lib_helpers.Text(false, "]")
+		end
+		
+		if options.ShowRares then
+			local side = get_side_text()
+			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
+				party = parse_side_message(side)
+				cacheSide = true
+			end
+			if cacheSide then
+				local row = drop_charts[party.difficulty][party.episode][party.id]
+				for j = 1, #row do
+					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
+						lib_helpers.TextC(true, section_color[party.id], row[j].item)
+						lib_helpers.Text(false, " - Drop: 1/")
+						lib_helpers.Text(false, "%.2f", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
+						lib_helpers.Text(false, " (")
+						lib_helpers.Text(false, "%.4f", ((party.dar*row[j].dar)*(party.rare*row[j].rare))/1000000)
+						lib_helpers.Text(false, "%%) ")
+						break
+					end
+				end
+			else
+				lib_helpers.Text(true, "Type /partyinfo to refresh...")
+			end
 		end
     end
 end
@@ -1190,32 +1320,56 @@ local function PresentTarget2Monster(monster)
 		lib_helpers.Text(true, "ATP: %i", monster.Atp)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "EFR: ")
-		lib_helpers.TextC(false, 0xFFFF6600, "%i", monster.Efr)
+		if monster.Efr > 100 then
+			lib_helpers.TextC(false, 0xFFFF6600, "100")
+		else
+			lib_helpers.TextC(false, 0xFFFF6600, "%i", monster.Efr)
+		end
 		imgui.NextColumn()
 		lib_helpers.Text(true, "DFP: %i", monster.Dfp)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "EIC: ")
-		lib_helpers.TextC(false, 0xFF00FFFF, "%i", monster.Eic)
+		if monster.Eic > 100 then
+			lib_helpers.TextC(false, 0xFF00FFFF, "100")
+		else
+			lib_helpers.TextC(false, 0xFF00FFFF, "%i", monster.Eic)
+		end
 		imgui.NextColumn()
 		lib_helpers.Text(true, "MST: %i", monster.Mst)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "ETH: ")
-		lib_helpers.TextC(false, 0xFFFFFF00, "%i", monster.Eth)
+		if monster.Eth > 100 then
+			lib_helpers.TextC(false, 0xFFFFFF00, "100")
+		else
+			lib_helpers.TextC(false, 0xFFFFFF00, "%i", monster.Eth)
+		end
 		imgui.NextColumn()
 		lib_helpers.Text(true, "ATA: %i", monster.Ata)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "EDK: ")
-		lib_helpers.TextC(false, 0xFF6A0DAD, "%i", monster.Edk)
+		if monster.Edk > 100 then
+			lib_helpers.TextC(false, 0xFFEE19DC, "100")
+		else
+			lib_helpers.TextC(false, 0xFFEE19DC, "%i", monster.Edk)
+		end
 		imgui.NextColumn()
 		lib_helpers.Text(true, "EVP: %i", monster.Evp)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "ELT: ")
-		lib_helpers.TextC(false, 0xFFFFFFB3, "%i", monster.Elt)
+		if monster.Elt > 100 then
+			lib_helpers.TextC(false, 0xFFFFFFB3, "100")
+		else
+			lib_helpers.TextC(false, 0xFFFFFFB3, "%i", monster.Elt)
+		end
 		imgui.NextColumn()
 		lib_helpers.Text(true, "LCK: %i", monster.Lck)
 		imgui.NextColumn()
 		lib_helpers.Text(true, "ESP: ")
-		lib_helpers.TextC(false, 0xFFFF0000, "%i", monster.Esp)
+		if monster.Esp > 100 then
+			lib_helpers.TextC(false, 0xFFFF2031, "100")
+		else
+			lib_helpers.TextC(false, 0xFFFF2031, "%i", monster.Esp)
+		end
 		imgui.NextColumn()
 
 	end
@@ -1277,7 +1431,7 @@ local function PresentRateMonster(monster)
             end
             -- Add Blizzard rate if enabled
             if options.RateEnableActivationRateItems.blizzard == true then
-                local str = string.format("Blizzard: %i", math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+				local str = string.format("Blizzard: %i", math.min(math.max((80 + androidBoost - monster.Esp),0),40)*(v50xStatusBoost))
                 table.insert(rate_list, str)
             end
             -- Add Seize rate if enabled
@@ -1296,7 +1450,7 @@ local function PresentRateMonster(monster)
                 table.insert(rate_list, str)
             end
 
-            -- Display all of the specials selected, only allow 3 per row
+            -- Display all of the specials selected
             if table.getn(rate_list) > 0 then
                 lib_helpers.Text(true, "Activation Rates:")
                 for i, str in ipairs(rate_list) do
@@ -1314,6 +1468,7 @@ local function foRec(monster)
 		if playerAddr == 0 then
             return
         end
+		
 		local mHP = monster.HP
         local mHPMax = monster.HPMax
 
@@ -1323,6 +1478,7 @@ local function foRec(monster)
         local frozen = lib_characters.GetPlayerFrozenStatus(monster.address)
         local confused = lib_characters.GetPlayerConfusedStatus(monster.address)
         local paralyzed = lib_characters.GetPlayerParalyzedStatus(monster.address)
+		local shocked = lib_characters.GetPlayerShockedStatus(monster.address)
 
 		local pClassId = lib_characters.GetPlayerClass(playerAddr)
 		local pClass = lib_unitxt.GetClassName(pClassId)
@@ -1794,7 +1950,7 @@ local function foRec(monster)
 			lib_helpers.TextC(false, colortable[1], "%i", mHP/techtable[1] +.5)
 		end
 		if megid >= 0 then
-			lib_helpers.TextC(true, 0xFF6A0DAD, "Megid: ")
+			lib_helpers.TextC(true, 0xFFEE19DC, "Megid: ")
 			lib_helpers.Text(false, "%i", megid)
 			lib_helpers.Text(false, "%% ")
 		end
@@ -1803,13 +1959,13 @@ local function foRec(monster)
 			 -- Draw enemy HP bar
 			lib_helpers.imguiProgressBar(true, mHP/mHPMax, -1.0, imgui.GetFontSize(), lib_helpers.HPToGreenRedGradient(mHP/mHPMax), nil, mHP)
 		end
-		
+
         -- Show J/Z status and Frozen, Confuse, or Paralyzed status
         if options.showMonsterStatus then
             if atkTech.type == 0 then
                 lib_helpers.TextC(true, 0, "    ")
             else
-                lib_helpers.TextC(true, 0xFFFF0000, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
+                lib_helpers.TextC(true, 0xFFFF2031, atkTech.name .. atkTech.level .. string.rep(" ", 2 - #tostring(atkTech.level)) .. " ")
             end
 
             if defTech.type == 0 then
@@ -1822,15 +1978,40 @@ local function foRec(monster)
                 lib_helpers.TextC(false, 0xFF00FFFF, "F ")
             elseif confused then
                 lib_helpers.TextC(false, 0xFFFF00FF, "C ")
+			elseif shocked then
+				lib_helpers.TextC(false, 0xFFFFFF00, "S ")
             else
                 lib_helpers.TextC(false, 0, "  ")
             end
-            if paralyzed then
-                lib_helpers.TextC(false, 0xFFFF4000, "P ")
-            end
-
+			if paralyzed then
+				lib_helpers.TextC(false, 0xFFFF4000, "P ")
+			end
             imgui.NextColumn()
         end
+		
+		if options.ShowRares then
+			local side = get_side_text()
+			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
+				party = parse_side_message(side)
+				cacheSide = true
+			end
+			if cacheSide then
+				local row = drop_charts[party.difficulty][party.episode][party.id]
+				for j = 1, #row do
+					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
+						lib_helpers.TextC(true, section_color[party.id], row[j].item)
+						lib_helpers.Text(false, " - Drop: 1/")
+						lib_helpers.Text(false, "%.2f", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
+						lib_helpers.Text(false, " (")
+						lib_helpers.Text(false, "%.4f", ((party.dar*row[j].dar)*(party.rare*row[j].rare))/1000000)
+						lib_helpers.Text(false, "%%) ")
+						break
+					end
+				end
+			else
+				lib_helpers.Text(true, "Type /partyinfo to refresh...")
+			end
+		end
 		
 	end
 end

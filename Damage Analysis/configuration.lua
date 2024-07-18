@@ -23,6 +23,72 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 			
+			-- if imgui.Checkbox("4K Resolution Support", _configuration.reso4K) then
+                -- _configuration.reso4K = not _configuration.reso4K
+				-- this.changed = true
+                -- if _configuration.reso4K then
+					-- _configuration.targetX = 0
+					-- _configuration.targetY = -250
+					-- _configuration.targetW = 565
+					-- _configuration.targetH = 335
+					
+					-- _configuration.foRecX = 0
+					-- _configuration.foRecY = -250
+					-- _configuration.foRecW = 565
+					-- _configuration.foRecH = 265
+					
+					-- _configuration.target2X = -425
+					-- _configuration.target2Y = -250
+					-- _configuration.target2W = 280
+					-- _configuration.target2H = 230
+					
+					-- _configuration.RateX = 395
+					-- _configuration.RateY = -250
+					-- _configuration.RateW = 220
+					-- _configuration.RateH = 300
+					
+					-- _configuration.mhpX = 190
+					-- _configuration.mhpY = 5
+					-- _configuration.mhpW = 1800
+					-- _configuration.mhpH = 500
+				-- else
+					-- _configuration.targetX = 0
+					-- _configuration.targetY = -150
+					-- _configuration.targetW = 285
+					-- _configuration.targetH = 190
+					
+					-- _configuration.foRecX = 0
+					-- _configuration.foRecY = -150
+					-- _configuration.foRecW = 285
+					-- _configuration.foRecH = 150
+					
+					-- _configuration.target2X = -215
+					-- _configuration.target2Y = -150
+					-- _configuration.target2W = 145
+					-- _configuration.target2H = 130
+					
+					-- _configuration.RateX = 205
+					-- _configuration.RateY = -150
+					-- _configuration.RateW = 120
+					-- _configuration.RateH = 170
+					
+					-- _configuration.mhpX = 100
+					-- _configuration.mhpY = 5
+					-- _configuration.mhpW = 900
+					-- _configuration.mhpH = 200
+				-- end
+				-- _configuration.targetChanged = true
+				-- _configuration.foRecChanged = true
+				-- _configuration.target2Changed = true
+				-- _configuration.RateChanged = true
+				-- _configuration.mhpChanged = true
+            -- end
+			
+			if imgui.Checkbox("Show Rare Drops", _configuration.ShowRares) then
+                _configuration.ShowRares = not _configuration.ShowRares
+                this.changed = true
+            end
+			
 			if imgui.Checkbox("Show Monster Name", _configuration.ShowMonsterName) then
                 _configuration.ShowMonsterName = not _configuration.ShowMonsterName
                 this.changed = true
@@ -52,12 +118,12 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.targetHardThreshold = imgui.InputInt("Hard Accuracy Threshold %", _configuration.targetHardThreshold)
             imgui.PopItemWidth()
             if success then
-                if _configuration.targetHardThreshold < 50 then
-                    _configuration.targetHardThreshold = 50
+                if _configuration.targetHardThreshold < 25 then
+                    _configuration.targetHardThreshold = 25
                 end
                 if _configuration.targetHardThreshold > 100 then
                     _configuration.targetHardThreshold = 100
@@ -65,7 +131,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end   
 			
-			imgui.PushItemWidth(100)
+			imgui.PushItemWidth(150)
             success, _configuration.targetSpecialThreshold = imgui.InputInt("Special Accuracy Threshold %", _configuration.targetSpecialThreshold)
             imgui.PopItemWidth()
             if success then
@@ -125,7 +191,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.targetX = imgui.InputInt("X", _configuration.targetX)
             imgui.PopItemWidth()
             if success then
@@ -134,7 +200,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 38)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.targetY = imgui.InputInt("Y", _configuration.targetY)
             imgui.PopItemWidth()
             if success then
@@ -142,7 +208,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.targetW = imgui.InputInt("Width", _configuration.targetW)
             imgui.PopItemWidth()
             if success then
@@ -151,7 +217,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 10)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.targetH = imgui.InputInt("Height", _configuration.targetH)
             imgui.PopItemWidth()
             if success then
@@ -173,6 +239,10 @@ local function ConfigurationWindow(configuration)
 			end
 			if imgui.Checkbox("Show current room only", _configuration.showCurrentRoomOnly) then
 				_configuration.showCurrentRoomOnly = not _configuration.showCurrentRoomOnly
+				this.changed = true
+			end
+			if imgui.Checkbox("Show monster weakness", _configuration.showMonsterResist) then
+				_configuration.showMonsterResist = not _configuration.showMonsterResist
 				this.changed = true
 			end
 			if imgui.Checkbox("Show monster status ailment", _configuration.showMonsterStatus) then
@@ -236,7 +306,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.mhpX = imgui.InputInt("X", _configuration.mhpX)
             imgui.PopItemWidth()
             if success then
@@ -245,7 +315,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 38)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.mhpY = imgui.InputInt("Y", _configuration.mhpY)
             imgui.PopItemWidth()
             if success then
@@ -253,7 +323,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.mhpW = imgui.InputInt("Width", _configuration.mhpW)
             imgui.PopItemWidth()
             if success then
@@ -262,7 +332,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 10)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.mhpH = imgui.InputInt("Height", _configuration.mhpH)
             imgui.PopItemWidth()
             if success then
@@ -336,7 +406,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.foRecX = imgui.InputInt("X", _configuration.foRecX)
             imgui.PopItemWidth()
             if success then
@@ -345,7 +415,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 38)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.foRecY = imgui.InputInt("Y", _configuration.foRecY)
             imgui.PopItemWidth()
             if success then
@@ -353,7 +423,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.foRecW = imgui.InputInt("Width", _configuration.foRecW)
             imgui.PopItemWidth()
             if success then
@@ -362,7 +432,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 10)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.foRecH = imgui.InputInt("Height", _configuration.foRecH)
             imgui.PopItemWidth()
             if success then
@@ -426,7 +496,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.target2X = imgui.InputInt("X", _configuration.target2X)
             imgui.PopItemWidth()
             if success then
@@ -435,7 +505,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 38)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.target2Y = imgui.InputInt("Y", _configuration.target2Y)
             imgui.PopItemWidth()
             if success then
@@ -443,7 +513,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.target2W = imgui.InputInt("Width", _configuration.target2W)
             imgui.PopItemWidth()
             if success then
@@ -452,7 +522,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 10)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.target2H = imgui.InputInt("Height", _configuration.target2H)
             imgui.PopItemWidth()
             if success then
@@ -565,7 +635,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.RateX = imgui.InputInt("X", _configuration.RateX)
             imgui.PopItemWidth()
             if success then
@@ -574,7 +644,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 38)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.RateY = imgui.InputInt("Y", _configuration.RateY)
             imgui.PopItemWidth()
             if success then
@@ -582,7 +652,7 @@ local function ConfigurationWindow(configuration)
                 this.changed = true
             end
 
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.RateW = imgui.InputInt("Width", _configuration.RateW)
             imgui.PopItemWidth()
             if success then
@@ -591,7 +661,7 @@ local function ConfigurationWindow(configuration)
             end
 
             imgui.SameLine(0, 10)
-            imgui.PushItemWidth(100)
+            imgui.PushItemWidth(150)
             success, _configuration.RateH = imgui.InputInt("Height", _configuration.RateH)
             imgui.PopItemWidth()
             if success then
