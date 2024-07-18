@@ -1,7 +1,5 @@
 # PSOBB-Forked_Addons
 
-Addons for https://github.com/Solybum/psobbaddonplugin
-
 Eidolon is the orignal developer of the addon system, however his repository is currently out of date, so Solybum has referenced his own fork. This repository is my own fork of Solybum's repository which includes changes requested from the pioneer2.net/community along with the Ephinea PSO BB Discord server. 
 
 # Installation
