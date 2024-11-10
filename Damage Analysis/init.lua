@@ -17,7 +17,13 @@ local drop_charts = {
 }
 
 local optionsFileName = "addons/Damage Analysis/options.lua"
-local firstPresent = true
+local firstPresent = {
+	foRec   = true,
+	rate    = true,
+	room    = true,
+	target  = true,
+	target2 = true,
+}
 local ConfigurationWindow
 
 if optionsLoaded then
@@ -2037,8 +2043,9 @@ local function PresentTarget2MonsterWindow()
     end
 
     if options.target2EnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.target2Changed then
+        if firstPresent.target2 or options.target2Changed then
           options.target2Changed = false
+		  firstPresent.target2 = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.target2X, options.target2Y, options.target2W, options.target2H, options.target2Anchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.target2W, options.target2H, "Always");
@@ -2080,8 +2087,9 @@ local function PresentRateMonsterWindow()
     end
 
     if options.RateEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.RateChanged then
+        if firstPresent.rate or options.RateChanged then
           options.RateChanged = false
+		  firstPresent.rate = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.RateX, options.RateY, options.RateW, options.RateH, options.RateAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.RateW, options.RateH, "Always");
@@ -2123,8 +2131,9 @@ local function foRecWindow()
     end
 
     if options.foRecEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.foRecChanged then
+        if firstPresent.foRec or options.foRecChanged then
           options.foRecChanged = false
+		  firstPresent.foRec = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.foRecX, options.foRecY, options.foRecW, options.foRecH, options.foRecAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.foRecW, options.foRecH, "Always");
@@ -2166,8 +2175,9 @@ local function PresentTargetMonsterWindow()
     end
 
     if options.targetEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.targetChanged then
+        if firstPresent.target or options.targetChanged then
           options.targetChanged = false
+		  firstPresent.target = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.targetX, options.targetY, options.targetW, options.targetH, options.targetAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.targetW, options.targetH, "Always");
@@ -2213,14 +2223,15 @@ local function present()
     if options.enable == false then
         return
     end
-	
+
 	if (options.mhpEnableWindow == true)
         and (options.mhpHideWhenMenu == false or lib_menu.IsMenuOpen() == false)
         and (options.mhpHideWhenSymbolChat == false or lib_menu.IsSymbolChatOpen() == false)
         and (options.mhpHideWhenMenuUnavailable == false or lib_menu.IsMenuUnavailable() == false)
     then
-        if firstPresent or options.mhpChanged then
+        if firstPresent.room or options.mhpChanged then
             options.mhpChanged = false
+			firstPresent.room = false
             local ps = lib_helpers.GetPosBySizeAndAnchor(options.mhpX, options.mhpY, options.mhpW, options.mhpH, options.mhpAnchor)
             imgui.SetNextWindowPos(ps[1], ps[2], "Always");
             imgui.SetNextWindowSize(options.mhpW, options.mhpH, "Always");
@@ -2241,10 +2252,7 @@ local function present()
 	foRecWindow()
 	PresentTarget2MonsterWindow()
 	PresentRateMonsterWindow()
-
-    if firstPresent then
-        firstPresent = false
-    end
+	
 end
 
 local function init()
