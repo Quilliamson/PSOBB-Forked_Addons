@@ -27,25 +27,53 @@ local function ConfigurationWindow(configuration)
                 -- _configuration.reso4K = not _configuration.reso4K
 				-- this.changed = true
                 -- if _configuration.reso4K then
+					-- _configuration.targetX = 0
+					-- _configuration.targetY = -250
 					-- _configuration.targetW = 565
-					-- _configuration.targetH = 300
-					-- _configuration.foRecW = 375
-					-- _configuration.foRecH = 200
+					-- _configuration.targetH = 335
+					
+					-- _configuration.foRecX = 0
+					-- _configuration.foRecY = -250
+					-- _configuration.foRecW = 565
+					-- _configuration.foRecH = 265
+					
+					-- _configuration.target2X = -425
+					-- _configuration.target2Y = -250
 					-- _configuration.target2W = 280
 					-- _configuration.target2H = 230
+					
+					-- _configuration.RateX = 395
+					-- _configuration.RateY = -250
 					-- _configuration.RateW = 220
 					-- _configuration.RateH = 300
+					
+					-- _configuration.mhpX = 190
+					-- _configuration.mhpY = 5
 					-- _configuration.mhpW = 1800
 					-- _configuration.mhpH = 500
 				-- else
+					-- _configuration.targetX = 0
+					-- _configuration.targetY = -150
 					-- _configuration.targetW = 285
 					-- _configuration.targetH = 190
-					-- _configuration.foRecW = 195
-					-- _configuration.foRecH = 115
+					
+					-- _configuration.foRecX = 0
+					-- _configuration.foRecY = -150
+					-- _configuration.foRecW = 285
+					-- _configuration.foRecH = 150
+					
+					-- _configuration.target2X = -215
+					-- _configuration.target2Y = -150
 					-- _configuration.target2W = 145
 					-- _configuration.target2H = 130
+					
+					-- _configuration.RateX = 205
+					-- _configuration.RateY = -150
 					-- _configuration.RateW = 120
 					-- _configuration.RateH = 170
+					
+					-- _configuration.mhpX = 100
+					-- _configuration.mhpY = 5
 					-- _configuration.mhpW = 900
 					-- _configuration.mhpH = 200
 				-- end
@@ -55,6 +83,11 @@ local function ConfigurationWindow(configuration)
 				-- _configuration.RateChanged = true
 				-- _configuration.mhpChanged = true
             -- end
+			
+			if imgui.Checkbox("Show Rare Drops", _configuration.ShowRares) then
+                _configuration.ShowRares = not _configuration.ShowRares
+                this.changed = true
+            end
 			
 			if imgui.Checkbox("Show Monster Name", _configuration.ShowMonsterName) then
                 _configuration.ShowMonsterName = not _configuration.ShowMonsterName
@@ -72,11 +105,6 @@ local function ConfigurationWindow(configuration)
 		if imgui.TreeNodeEx("Special Weapon Damage Analysis") then
 			if imgui.Checkbox("Enable", _configuration.targetEnableWindow) then
                 _configuration.targetEnableWindow = not _configuration.targetEnableWindow
-                this.changed = true
-            end
-			
-			if imgui.Checkbox("Show Rare Drops", _configuration.ShowRares) then
-                _configuration.ShowRares = not _configuration.ShowRares
                 this.changed = true
             end
 			
@@ -213,7 +241,7 @@ local function ConfigurationWindow(configuration)
 				_configuration.showCurrentRoomOnly = not _configuration.showCurrentRoomOnly
 				this.changed = true
 			end
-			if imgui.Checkbox("Show monster resists", _configuration.showMonsterResist) then
+			if imgui.Checkbox("Show monster weakness", _configuration.showMonsterResist) then
 				_configuration.showMonsterResist = not _configuration.showMonsterResist
 				this.changed = true
 			end

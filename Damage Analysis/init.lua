@@ -17,7 +17,13 @@ local drop_charts = {
 }
 
 local optionsFileName = "addons/Damage Analysis/options.lua"
-local firstPresent = true
+local firstPresent = {
+	foRec   = true,
+	rate    = true,
+	room    = true,
+	target  = true,
+	target2 = true,
+}
 local ConfigurationWindow
 
 if optionsLoaded then
@@ -389,7 +395,8 @@ local _Ultimate
 local _Episode = 0xAAFDB8
 local _Episode2 = 0x00A9B1C8
 
-local party = {}
+local party = { }
+local cacheSide = false
 
 local _ID = 0x1C
 local _Room = 0x28
@@ -464,34 +471,74 @@ end
 
 -- extract party dar, rare boosts, section id, and grab episode and difficulty
 local function parse_side_message(text)
-	local data = {}
-	
+	local data = { }
+
 	-- logic in identifying dar and rare boost
     local dropIndex = string.find(text, "Drop")
 	local rareIndex = string.find(text, "Rare")
+	local dropRareFormated  = string.find(text, "Drop/Rare")
 	local idIndex = string.find(text, "ID")
-	local slashIndex = string.find(text, "%/", rareIndex)	
-	
+
+	local dropStr,rareStr
+	if dropRareFormated then
+		local dropRareStr = string.sub(text, dropRareFormated,-1)
+		for k,v in string.gmatch(dropRareStr, ":(.*)") do
+			dropRareStr = k
+			break
+		end
+		local i = 1
+		for k,v in string.gmatch(dropRareStr, "(%d+)") do
+			if i == 1 then
+				dropStr = k
+			elseif i == 2 then
+				rareStr = k
+			else
+				break
+			end
+			i = i + 1
+		end
+	else
+		dropStr = string.sub(text, dropIndex, rareIndex-1)
+		rareStr = string.sub(text, rareIndex, -1)
+	end
+
+	local idStr = string.sub(text, idIndex+2, dropIndex-1)
+
 	-- other data
 	local _difficulty = pso.read_u32(_Difficulty)
 	local _episode = pso.read_u32(_Episode2)
-
-	local dropStr = string.sub(text, dropIndex, rareIndex-1)
-	local rareStr = string.sub(text, rareIndex, -1)
-	local idStr = string.sub(text, idIndex+2, dropIndex-1)
-	
-	if string.find(text, "%/", rareIndex) then
-		dropStr = string.sub(text, rareIndex, slashIndex-1)
-		rareStr = string.sub(text, slashIndex, slashIndex+3)
-	end
 	
     data.dar = tonumber(string.match(dropStr, "%d+"))
     data.rare = tonumber(string.match(rareStr, "%d+"))
     data.id = string.match(idStr,"%a+")
     data.difficulty = difficulty[_difficulty + 1]
     data.episode = episodes[_episode]
+
+	if data.dar == nil then
+		data.dar = -1
+	end
+	if data.rare == nil then
+		data.rare = -1
+	end
+	if data.id == nil then
+		data.id = -1
+	end
+	if data.difficulty == nil then
+		data.difficulty = -1
+	end
+	if data.episode == nil then
+		data.episode = -1
+	end
 	
 	return data
+end
+
+local function refresh_side_text()
+	local side = get_side_text()
+	if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
+		party = parse_side_message(side)
+		cacheSide = true
+	end
 end
 
 local function CopyMonster(monster)
@@ -1277,14 +1324,7 @@ local function PresentTargetMonster(monster)
 		end
 		
 		if options.ShowRares then
-			local side = get_side_text()
-			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
-				party = parse_side_message(side)
-			end
-			if lib_characters.GetCurrentFloorSelf() == 15 then
-				party = {}
-			end
-			if party.id ~= nil then
+			if cacheSide then
 				local row = drop_charts[party.difficulty][party.episode][party.id]
 				for j = 1, #row do
 					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
@@ -1992,19 +2032,12 @@ local function foRec(monster)
             end
 			if paralyzed then
 				lib_helpers.TextC(false, 0xFFFF4000, "P ")
-			endparty.id
+			end
             imgui.NextColumn()
         end
 		
 		if options.ShowRares then
-			local side = get_side_text()
-			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
-				party = parse_side_message(side)
-			end
-			if lib_characters.GetCurrentFloorSelf() == 15 then
-				party = {}
-			end
-			if party.id ~= nil then
+			if cacheSide then
 				local row = drop_charts[party.difficulty][party.episode][party.id]
 				for j = 1, #row do
 					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
@@ -2046,8 +2079,9 @@ local function PresentTarget2MonsterWindow()
     end
 
     if options.target2EnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.target2Changed then
+        if firstPresent.target2 or options.target2Changed then
           options.target2Changed = false
+		  firstPresent.target2 = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.target2X, options.target2Y, options.target2W, options.target2H, options.target2Anchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.target2W, options.target2H, "Always");
@@ -2089,8 +2123,9 @@ local function PresentRateMonsterWindow()
     end
 
     if options.RateEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.RateChanged then
+        if firstPresent.rate or options.RateChanged then
           options.RateChanged = false
+		  firstPresent.rate = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.RateX, options.RateY, options.RateW, options.RateH, options.RateAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.RateW, options.RateH, "Always");
@@ -2132,8 +2167,9 @@ local function foRecWindow()
     end
 
     if options.foRecEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.foRecChanged then
+        if firstPresent.foRec or options.foRecChanged then
           options.foRecChanged = false
+		  firstPresent.foRec = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.foRecX, options.foRecY, options.foRecW, options.foRecH, options.foRecAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.foRecW, options.foRecH, "Always");
@@ -2175,8 +2211,9 @@ local function PresentTargetMonsterWindow()
     end
 
     if options.targetEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.targetChanged then
+        if firstPresent.target or options.targetChanged then
           options.targetChanged = false
+		  firstPresent.target = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.targetX, options.targetY, options.targetW, options.targetH, options.targetAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.targetW, options.targetH, "Always");
@@ -2222,14 +2259,15 @@ local function present()
     if options.enable == false then
         return
     end
-	
+
 	if (options.mhpEnableWindow == true)
         and (options.mhpHideWhenMenu == false or lib_menu.IsMenuOpen() == false)
         and (options.mhpHideWhenSymbolChat == false or lib_menu.IsSymbolChatOpen() == false)
         and (options.mhpHideWhenMenuUnavailable == false or lib_menu.IsMenuUnavailable() == false)
     then
-        if firstPresent or options.mhpChanged then
+        if firstPresent.room or options.mhpChanged then
             options.mhpChanged = false
+			firstPresent.room = false
             local ps = lib_helpers.GetPosBySizeAndAnchor(options.mhpX, options.mhpY, options.mhpW, options.mhpH, options.mhpAnchor)
             imgui.SetNextWindowPos(ps[1], ps[2], "Always");
             imgui.SetNextWindowSize(options.mhpW, options.mhpH, "Always");
@@ -2246,18 +2284,13 @@ local function present()
         end
     end
 
-	-- ALWAYS GET partyinfo text every frame
-	-- Don't overwrite the previous text if empty "" or nil or blank
-	-- If the partyinfo text changes and is valid, update the text
+	refresh_side_text()
 
     PresentTargetMonsterWindow()
 	foRecWindow()
 	PresentTarget2MonsterWindow()
 	PresentRateMonsterWindow()
-
-    if firstPresent then
-        firstPresent = false
-    end
+	
 end
 
 local function init()
