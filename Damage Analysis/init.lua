@@ -349,13 +349,13 @@ local section = {
 -- section id colors
 local section_color = {
 	["Bluefull"] = 0xFF0088F4,
-	["Greenill"] = 0xFF00FF00,
+	["Greenill"] = 0xFF74FB40,
 	["Oran"] = 0xFFFFAA00,
 	["Pinkal"] = 0xFFFF3898,
 	["Purplenum"] = 0xFFA020F0,
 	["Redria"] = 0xFFFF2031,
 	["Skyly"] = 0xFF00DDF4,
-	["Viridia"] = 0xFF00FF00,
+	["Viridia"] = 0xFF00AE6C,
 	["Yellowboze"] = 0xFFEAF718,
 	["Whitill"] = 0xFFFFFFFF
 }
