@@ -72,9 +72,9 @@ return {
 		},
 		{
 		  ["target"] = "Grass Assassin/\nCrimson Assassin",
-		  ["item"] = "V101",
+		  ["item"] = "Shouren",
 		  ["dar"] = 55,
-		  ["rare"] = 0.07935
+		  ["rare"] = 0.14648
 		},
 		{
 		  ["target"] = "Poison Lily/\nOb Lily",
@@ -171,9 +171,9 @@ return {
 		},
 		{
 		  ["target"] = "Sinow Beat/\nSinow Blue",
-		  ["item"] = "Cure/Confuse",
+		  ["item"] = "V101",
 		  ["dar"] = 60,
-		  ["rare"] = 0.19531
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Sinow Gold/\nSinow Red",
@@ -452,9 +452,9 @@ return {
 		},
 		{
 		  ["target"] = "Sinow Beat/\nSinow Blue",
-		  ["item"] = "Kasami Bracer",
+		  ["item"] = "V101",
 		  ["dar"] = 60,
-		  ["rare"] = 0.19531
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Sinow Gold/\nSinow Red",
@@ -1725,9 +1725,9 @@ return {
 		},
 		{
 		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
-		  ["item"] = "Heart of Twin Chakram",
+		  ["item"] = "God/Mind",
 		  ["dar"] = 45,
-		  ["rare"] = 0.01526
+		  ["rare"] = 0.31738
 		},
 		{
 		  ["target"] = "Booma/\nBartle",
@@ -2075,9 +2075,9 @@ return {
 		},
 		{
 		  ["target"] = "Guil Shark/\nMelqueek",
-		  ["item"] = "Heart of TypeSS/Swords",
+		  ["item"] = "HP/Revival",
 		  ["dar"] = 15,
-		  ["rare"] = 0.04883
+		  ["rare"] = 0.19531
 		},
 		{
 		  ["target"] = "Pofuilly Slime/\nPofuilly Slime",
@@ -2189,9 +2189,9 @@ return {
 		},
 		{
 		  ["target"] = "Death Gunner/\nDeath Gunner",
-		  ["item"] = "Heart of Partisan of Lightning",
+		  ["item"] = "Morning Glory",
 		  ["dar"] = 45,
-		  ["rare"] = 0.03662
+		  ["rare"] = 0.31738
 		},
 		{
 		  ["target"] = "Chaos Bringer/\nDark Bringer",
@@ -2419,15 +2419,15 @@ return {
 		},
 		{
 		  ["target"] = "Sinow Beat/\nSinow Blue",
-		  ["item"] = "Maser Beam",
+		  ["item"] = "Lame d'Argent",
 		  ["dar"] = 60,
-		  ["rare"] = 0.06104
+		  ["rare"] = 0.04272
 		},
 		{
 		  ["target"] = "Sinow Gold/\nSinow Red",
-		  ["item"] = "Lame d'Argent",
+		  ["item"] = "S-red's Arms",
 		  ["dar"] = 55,
-		  ["rare"] = 0.10986
+		  ["rare"] = 0.31738
 		},
 		{
 		  ["target"] = "Canadine/\nCanabin",
@@ -5678,9 +5678,9 @@ return {
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
-		  ["item"] = "Heart of TypeDS/D.Saber",
+		  ["item"] = "Stink Frame",
 		  ["dar"] = 35,
-		  ["rare"] = 0.01984
+		  ["rare"] = 0.31738
 		},
 		{
 		  ["target"] = "Morfos/\nMorfos",
@@ -6357,15 +6357,15 @@ return {
 		},
 		{
 		  ["target"] = "Dorphon",
-		  ["item"] = "Electro Frame",
+		  ["item"] = "Lame d'Argent",
 		  ["dar"] = 80,
 		  ["rare"] = 0.12207
 		},
 		{
 		  ["target"] = "Dorphon Eclair",
-		  ["item"] = "Liberta Kit",
+		  ["item"] = "Blue Odoshi Violet Nimaidou",
 		  ["dar"] = 100,
-		  ["rare"] = 25.00000
+		  ["rare"] = 50.00000
 		},
 		{
 		  ["target"] = "Sand Rappy",
@@ -6426,9 +6426,9 @@ return {
 		},
 		{
 		  ["target"] = "Goran Detonator",
-		  ["item"] = "Lame d'Argent",
+		  ["item"] = "Liberta Kit",
 		  ["dar"] = 35,
-		  ["rare"] = 0.19531
+		  ["rare"] = 0.12207
 		},
 		{
 		  ["target"] = "Merissa A",
