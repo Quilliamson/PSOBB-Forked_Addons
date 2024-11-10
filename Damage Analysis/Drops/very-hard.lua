@@ -921,9 +921,9 @@ return {
 		},
 		{
 		  ["target"] = "Pouilly Slime/\nPouilly Slime",
-		  ["item"] = "HP/Revival",
+		  ["item"] = "Heart of Wok of Akiko's Shop",
 		  ["dar"] = 100,
-		  ["rare"] = 87.50000
+		  ["rare"] = 10.15625
 		},
 		{
 		  ["target"] = "Pan Arms/\nPan Arms",
@@ -3772,9 +3772,9 @@ return {
 		},
 		{
 		  ["target"] = "Gol Dragon/\nGol Dragon",
-		  ["item"] = "Guilty Light",
+		  ["item"] = "Heart of Blade Dance",
 		  ["dar"] = 100,
-		  ["rare"] = 9.37500
+		  ["rare"] = 1.56250
 		},
 		{
 		  ["target"] = "SEPARATOR"
