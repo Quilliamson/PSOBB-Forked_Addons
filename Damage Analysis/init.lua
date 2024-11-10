@@ -472,14 +472,36 @@ end
 -- extract party dar, rare boosts, section id, and grab episode and difficulty
 local function parse_side_message(text)
 	local data = { }
-	
+
 	-- logic in identifying dar and rare boost
     local dropIndex = string.find(text, "Drop")
 	local rareIndex = string.find(text, "Rare")
+	local dropRareFormated  = string.find(text, "Drop/Rare")
 	local idIndex = string.find(text, "ID")
 
-	local dropStr = string.sub(text, dropIndex, rareIndex-1)
-	local rareStr = string.sub(text, rareIndex, -1)
+	local dropStr,rareStr
+	if dropRareFormated then
+		local dropRareStr = string.sub(text, dropRareFormated,-1)
+		for k,v in string.gmatch(dropRareStr, ":(.*)") do
+			dropRareStr = k
+			break
+		end
+		local i = 1
+		for k,v in string.gmatch(dropRareStr, "(%d+)") do
+			if i == 1 then
+				dropStr = k
+			elseif i == 2 then
+				rareStr = k
+			else
+				break
+			end
+			i = i + 1
+		end
+	else
+		dropStr = string.sub(text, dropIndex, rareIndex-1)
+		rareStr = string.sub(text, rareIndex, -1)
+	end
+
 	local idStr = string.sub(text, idIndex+2, dropIndex-1)
 
 	-- other data
@@ -491,8 +513,32 @@ local function parse_side_message(text)
     data.id = string.match(idStr,"%a+")
     data.difficulty = difficulty[_difficulty + 1]
     data.episode = episodes[_episode]
+
+	if data.dar == nil then
+		data.dar = -1
+	end
+	if data.rare == nil then
+		data.rare = -1
+	end
+	if data.id == nil then
+		data.id = -1
+	end
+	if data.difficulty == nil then
+		data.difficulty = -1
+	end
+	if data.episode == nil then
+		data.episode = -1
+	end
 	
 	return data
+end
+
+local function refresh_side_text()
+	local side = get_side_text()
+	if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
+		party = parse_side_message(side)
+		cacheSide = true
+	end
 end
 
 local function CopyMonster(monster)
@@ -1278,11 +1324,6 @@ local function PresentTargetMonster(monster)
 		end
 		
 		if options.ShowRares then
-			local side = get_side_text()
-			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
-				party = parse_side_message(side)
-				cacheSide = true
-			end
 			if cacheSide then
 				local row = drop_charts[party.difficulty][party.episode][party.id]
 				for j = 1, #row do
@@ -1996,11 +2037,6 @@ local function foRec(monster)
         end
 		
 		if options.ShowRares then
-			local side = get_side_text()
-			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
-				party = parse_side_message(side)
-				cacheSide = true
-			end
 			if cacheSide then
 				local row = drop_charts[party.difficulty][party.episode][party.id]
 				for j = 1, #row do
@@ -2247,6 +2283,8 @@ local function present()
             imgui.PopStyleColor()
         end
     end
+
+	refresh_side_text()
 
     PresentTargetMonsterWindow()
 	foRecWindow()
