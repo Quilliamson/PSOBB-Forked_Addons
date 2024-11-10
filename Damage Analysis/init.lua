@@ -30,7 +30,7 @@ if optionsLoaded then
     -- If options loaded, make sure we have all those we need
     options.configurationEnableWindow = lib_helpers.NotNilOrDefault(options.configurationEnableWindow, true)
     options.enable                    = lib_helpers.NotNilOrDefault(options.enable, true)
-	--options.reso4K					  = lib_helpers.NotNilOrDefault(options.reso4K, false)
+	options.reso4K					  = lib_helpers.NotNilOrDefault(options.reso4K, false)
 	options.ShowRares 	     		  = lib_helpers.NotNilOrDefault(options.ShowRares , true)
 	options.ShowMonsterName     	  = lib_helpers.NotNilOrDefault(options.ShowMonsterName, true)
 	options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
@@ -130,7 +130,7 @@ else
     {
         configurationEnableWindow = true,
         enable = true,
-		--reso4K = false,
+		reso4K = false,
 		ShowRares = true,
 		ShowMonsterName = true,
 		ShowHealthBar = true,
@@ -235,7 +235,7 @@ local function SaveOptions(options)
         io.write("{\n")
         io.write(string.format("    configurationEnableWindow = %s,\n", tostring(options.configurationEnableWindow)))
         io.write(string.format("    enable = %s,\n", tostring(options.enable)))
-		--io.write(string.format("    reso4K = %s,\n", tostring(options.reso4K)))
+		io.write(string.format("    reso4K = %s,\n", tostring(options.reso4K)))
 		io.write(string.format("    ShowRares = %s,\n", tostring(options.ShowRares)))
 		io.write(string.format("    ShowMonsterName = %s,\n", tostring(options.ShowMonsterName)))
 		io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
@@ -1330,7 +1330,7 @@ local function PresentTargetMonster(monster)
 					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
 						lib_helpers.TextC(true, section_color[party.id], row[j].item)
 						lib_helpers.Text(false, " - Drop: 1/")
-						lib_helpers.Text(false, "%.2f", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
+						lib_helpers.Text(false, "%i", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
 						lib_helpers.Text(false, " (")
 						lib_helpers.Text(false, "%.4f", ((party.dar*row[j].dar)*(party.rare*row[j].rare))/1000000)
 						lib_helpers.Text(false, "%%) ")
@@ -1463,17 +1463,17 @@ local function PresentRateMonster(monster)
 
             -- Add Hell rate if enabled
             if options.RateEnableActivationRateItems.hell == true then
-                local str = string.format("Hell: %i", math.max((93 - monster.Edk)*(v50xHellBoost),0))
+                local str = string.format("Hell: %i", math.min(math.max((93 - monster.Edk)*(v50xHellBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Dark rate if enabled
             if options.RateEnableActivationRateItems.dark == true then
-                local str = string.format("Dark: %i", math.max((78 - monster.Edk)*(v50xHellBoost),0))
+                local str = string.format("Dark: %i", math.min(math.max((78 - monster.Edk)*(v50xHellBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Arrest rate if enabled
             if options.RateEnableActivationRateItems.arrest == true then
-                local str = string.format("Arrest: %i", math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Arrest: %i", math.min(math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Blizzard rate if enabled
@@ -1483,17 +1483,17 @@ local function PresentRateMonster(monster)
             end
             -- Add Seize rate if enabled
             if options.RateEnableActivationRateItems.seize == true then
-                local str = string.format("Seize: %i", math.max((64 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Seize: %i", math.min(math.max((64 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Chaos rate if enabled
             if options.RateEnableActivationRateItems.chaos == true then
-                local str = string.format("Chaos: %i", math.max((76 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Chaos: %i", math.min(math.max((76 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Havoc rate if enabled
             if options.RateEnableActivationRateItems.havoc == true then
-                local str = string.format("Havoc: %i", math.max((60 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Havoc: %i", math.min(math.max((60 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
 
@@ -2043,7 +2043,7 @@ local function foRec(monster)
 					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
 						lib_helpers.TextC(true, section_color[party.id], row[j].item)
 						lib_helpers.Text(false, " - Drop: 1/")
-						lib_helpers.Text(false, "%.2f", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
+						lib_helpers.Text(false, "%i", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
 						lib_helpers.Text(false, " (")
 						lib_helpers.Text(false, "%.4f", ((party.dar*row[j].dar)*(party.rare*row[j].rare))/1000000)
 						lib_helpers.Text(false, "%%) ")
