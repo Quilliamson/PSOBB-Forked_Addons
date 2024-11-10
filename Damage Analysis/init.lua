@@ -902,7 +902,7 @@ local function PresentMonsters()
             local mHP = monster.HP
             local mHPMax = monster.HPMax
 			
-			if options.showMonsterResist then
+			if options.showMonsterResist and monster.color ~= 0xFFFFFF00 then
 				if (monster.Efr <= monster.Eth) and (monster.Efr <= monster.Eic) then
 					lib_helpers.TextC(true, 0xFFFF6600, monster.name)
 				elseif (monster.Eth <= monster.Efr) and (monster.Eth <= monster.Eic) then
@@ -912,8 +912,10 @@ local function PresentMonsters()
 				else
 					lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
 				end
+			elseif monster.color == 0xFFFFFF00 -- overwrite rare color with gold
+				lib_helpers.TextC(true, 0xFFFFD700, monster.name)
 			else
-				lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
+				lib_helpers.TextC(true, monster.color, monster.name)
 			end
 
             imgui.NextColumn()
