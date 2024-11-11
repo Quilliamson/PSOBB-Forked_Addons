@@ -58,6 +58,10 @@ if optionsLoaded then
 	options.showMonsterResist         	= lib_helpers.NotNilOrDefault(options.showMonsterResist, true)
     options.showMonsterStatus         	= lib_helpers.NotNilOrDefault(options.showMonsterStatus, true)
     options.showMonsterID             	= lib_helpers.NotNilOrDefault(options.showMonsterID, true)
+    options.customRareMonsterColorEnabled = lib_helpers.NotNilOrDefault(options.customRareMonsterColorEnabled, true)
+    options.customRareMonsterSpeed     	= lib_helpers.NotNilOrDefault(options.customRareMonsterSpeed, 15)
+    options.customRareMonsterColorStart	= lib_helpers.NotNilOrDefault(options.customRareMonsterColorStart, 0xFFBF5814)
+    options.customRareMonsterColorEnd	= lib_helpers.NotNilOrDefault(options.customRareMonsterColorEnd,   0xFFFCAA33)
 	options.mhpHideWhenMenu           	= lib_helpers.NotNilOrDefault(options.mhpHideWhenMenu, true)
     options.mhpHideWhenSymbolChat     	= lib_helpers.NotNilOrDefault(options.mhpHideWhenSymbolChat, true)
     options.mhpHideWhenMenuUnavailable	= lib_helpers.NotNilOrDefault(options.mhpHideWhenMenuUnavailable, true)
@@ -158,6 +162,10 @@ else
 		showMonsterResist = true,
         showMonsterStatus = true,
         showMonsterID = true,
+		customRareMonsterColorEnabled = true,
+		customRareMonsterSpeed = 15,
+		customRareMonsterColorStart = 0xFFBF5814,
+		customRareMonsterColorEnd = 0xFFFCAA33,
 		mhpHideWhenMenu = true,
         mhpHideWhenSymbolChat = true,
         mhpHideWhenMenuUnavailable = true,
@@ -263,6 +271,10 @@ local function SaveOptions(options)
 		io.write(string.format("    showMonsterResist = %s,\n", tostring(options.showMonsterResist)))
         io.write(string.format("    showMonsterStatus = %s,\n", tostring(options.showMonsterStatus)))
         io.write(string.format("    showMonsterID = %s,\n", tostring(options.showMonsterID)))
+        io.write(string.format("    customRareMonsterColorEnabled = %s,\n", tostring(options.customRareMonsterColorEnabled)))
+        io.write(string.format("    customRareMonsterSpeed = %s,\n", tostring(options.customRareMonsterSpeed)))
+        io.write(string.format("    customRareMonsterColorStart = %s,\n", tostring(options.customRareMonsterColorStart)))
+        io.write(string.format("    customRareMonsterColorEnd = %s,\n", tostring(options.customRareMonsterColorEnd)))
 		io.write(string.format("    mhpHideWhenMenu = %s,\n", tostring(options.mhpHideWhenMenu)))
         io.write(string.format("    mhpHideWhenSymbolChat = %s,\n", tostring(options.mhpHideWhenSymbolChat)))
         io.write(string.format("    mhpHideWhenMenuUnavailable = %s,\n", tostring(options.mhpHideWhenMenuUnavailable)))
@@ -849,6 +861,56 @@ local function GetMonsterList()
     return monsterList
 end
 
+
+local RareMonsterTextColor = {r=0,g=0,b=0,a=255,trans=0,dir=1}
+
+local function clampVal(clamp, min, max)
+    return clamp < min and min or clamp > max and max or clamp
+end
+local function Lerp(Norm,Min,Max)
+    return (Max - Min) * Norm + Min
+end
+local function transitionColors2(Color1, Color2, Speed, Transition, Direction)
+	-- Speed is 1-100 as a percentage of how fast to change between the colors
+	-- Transition is 0-1 on how much of color1 vs color2 comes through
+	local Ctbl = {}
+	Ctbl.a = Lerp(Transition,Color1.a,Color2.a)
+	Ctbl.r = Lerp(Transition,Color1.r,Color2.r)
+	Ctbl.g = Lerp(Transition,Color1.g,Color2.g)
+	Ctbl.b = Lerp(Transition,Color1.b,Color2.b)
+	if Direction < 0 then
+		Transition = Transition - Speed/100
+		if Transition <= 0.0 then
+			Direction = 1
+		end
+		Transition = clampVal(Transition,0,1) 
+	elseif Direction > 0 then
+		Transition = Transition + Speed/100
+		if Transition >= 1.0 then
+			Direction = -1
+		end
+		Transition = clampVal(Transition,0,1)
+	end
+	Ctbl.trans = Transition
+	Ctbl.dir = Direction
+	return Ctbl
+end
+local function ARGBtoHex(Clr)
+	return 	bit.lshift(Clr.a, 24) +
+			bit.lshift(Clr.r, 16) +
+			bit.lshift(Clr.g, 8) +
+			bit.lshift(Clr.b, 0)
+end
+local function shiftHexColor(color)
+    return
+    {
+        bit.band(bit.rshift(color, 24), 0xFF),
+        bit.band(bit.rshift(color, 16), 0xFF),
+        bit.band(bit.rshift(color, 8), 0xFF),
+        bit.band(color, 0xFF)
+    }
+end
+
 local function PresentMonsters()
     local monsterList = GetMonsterList()
     local monsterListCount = table.getn(monsterList)
@@ -912,8 +974,21 @@ local function PresentMonsters()
 				else
 					lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
 				end
-			elseif monster.color == 0xFFFFFF00 -- overwrite rare color with gold
-				lib_helpers.TextC(true, 0xFFFFD700, monster.name)
+			elseif monster.color == 0xFFFFFF00 then -- overwrite rare color with gold
+				if options.customRareMonsterColorEnabled then
+					local startColor = shiftHexColor(options.customRareMonsterColorStart)
+					local endColor = shiftHexColor(options.customRareMonsterColorEnd)
+					RareMonsterTextColor = transitionColors2(
+						{a=startColor[1], r=startColor[2], g=startColor[3], b=startColor[4]},
+						{a=endColor[1],   r=endColor[2],   g=endColor[3],   b=endColor[4]},
+						options.customRareMonsterSpeed,
+						RareMonsterTextColor.trans,
+						RareMonsterTextColor.dir
+					)
+					lib_helpers.TextC(true, ARGBtoHex(RareMonsterTextColor), monster.name)
+				else
+					lib_helpers.TextC(true, 0xFFFFD700, monster.name)
+				end
 			else
 				lib_helpers.TextC(true, monster.color, monster.name)
 			end
