@@ -17,14 +17,20 @@ local drop_charts = {
 }
 
 local optionsFileName = "addons/Damage Analysis/options.lua"
-local firstPresent = true
+local firstPresent = {
+	foRec   = true,
+	rate    = true,
+	room    = true,
+	target  = true,
+	target2 = true,
+}
 local ConfigurationWindow
 
 if optionsLoaded then
     -- If options loaded, make sure we have all those we need
     options.configurationEnableWindow = lib_helpers.NotNilOrDefault(options.configurationEnableWindow, true)
     options.enable                    = lib_helpers.NotNilOrDefault(options.enable, true)
-	--options.reso4K					  = lib_helpers.NotNilOrDefault(options.reso4K, false)
+	options.reso4K					  = lib_helpers.NotNilOrDefault(options.reso4K, false)
 	options.ShowRares 	     		  = lib_helpers.NotNilOrDefault(options.ShowRares , true)
 	options.ShowMonsterName     	  = lib_helpers.NotNilOrDefault(options.ShowMonsterName, true)
 	options.ShowHealthBar     	      = lib_helpers.NotNilOrDefault(options.ShowHealthBar, true)
@@ -52,6 +58,10 @@ if optionsLoaded then
 	options.showMonsterResist         	= lib_helpers.NotNilOrDefault(options.showMonsterResist, true)
     options.showMonsterStatus         	= lib_helpers.NotNilOrDefault(options.showMonsterStatus, true)
     options.showMonsterID             	= lib_helpers.NotNilOrDefault(options.showMonsterID, true)
+    options.customRareMonsterColorEnabled = lib_helpers.NotNilOrDefault(options.customRareMonsterColorEnabled, true)
+    options.customRareMonsterSpeed     	= lib_helpers.NotNilOrDefault(options.customRareMonsterSpeed, 15)
+    options.customRareMonsterColorStart	= lib_helpers.NotNilOrDefault(options.customRareMonsterColorStart, 0xFFBF5814)
+    options.customRareMonsterColorEnd	= lib_helpers.NotNilOrDefault(options.customRareMonsterColorEnd,   0xFFFCAA33)
 	options.mhpHideWhenMenu           	= lib_helpers.NotNilOrDefault(options.mhpHideWhenMenu, true)
     options.mhpHideWhenSymbolChat     	= lib_helpers.NotNilOrDefault(options.mhpHideWhenSymbolChat, true)
     options.mhpHideWhenMenuUnavailable	= lib_helpers.NotNilOrDefault(options.mhpHideWhenMenuUnavailable, true)
@@ -124,7 +134,7 @@ else
     {
         configurationEnableWindow = true,
         enable = true,
-		--reso4K = false,
+		reso4K = false,
 		ShowRares = true,
 		ShowMonsterName = true,
 		ShowHealthBar = true,
@@ -152,6 +162,10 @@ else
 		showMonsterResist = true,
         showMonsterStatus = true,
         showMonsterID = true,
+		customRareMonsterColorEnabled = true,
+		customRareMonsterSpeed = 15,
+		customRareMonsterColorStart = 0xFFBF5814,
+		customRareMonsterColorEnd = 0xFFFCAA33,
 		mhpHideWhenMenu = true,
         mhpHideWhenSymbolChat = true,
         mhpHideWhenMenuUnavailable = true,
@@ -229,7 +243,7 @@ local function SaveOptions(options)
         io.write("{\n")
         io.write(string.format("    configurationEnableWindow = %s,\n", tostring(options.configurationEnableWindow)))
         io.write(string.format("    enable = %s,\n", tostring(options.enable)))
-		--io.write(string.format("    reso4K = %s,\n", tostring(options.reso4K)))
+		io.write(string.format("    reso4K = %s,\n", tostring(options.reso4K)))
 		io.write(string.format("    ShowRares = %s,\n", tostring(options.ShowRares)))
 		io.write(string.format("    ShowMonsterName = %s,\n", tostring(options.ShowMonsterName)))
 		io.write(string.format("    ShowHealthBar = %s,\n", tostring(options.ShowHealthBar)))
@@ -257,6 +271,10 @@ local function SaveOptions(options)
 		io.write(string.format("    showMonsterResist = %s,\n", tostring(options.showMonsterResist)))
         io.write(string.format("    showMonsterStatus = %s,\n", tostring(options.showMonsterStatus)))
         io.write(string.format("    showMonsterID = %s,\n", tostring(options.showMonsterID)))
+        io.write(string.format("    customRareMonsterColorEnabled = %s,\n", tostring(options.customRareMonsterColorEnabled)))
+        io.write(string.format("    customRareMonsterSpeed = %s,\n", tostring(options.customRareMonsterSpeed)))
+        io.write(string.format("    customRareMonsterColorStart = %s,\n", tostring(options.customRareMonsterColorStart)))
+        io.write(string.format("    customRareMonsterColorEnd = %s,\n", tostring(options.customRareMonsterColorEnd)))
 		io.write(string.format("    mhpHideWhenMenu = %s,\n", tostring(options.mhpHideWhenMenu)))
         io.write(string.format("    mhpHideWhenSymbolChat = %s,\n", tostring(options.mhpHideWhenSymbolChat)))
         io.write(string.format("    mhpHideWhenMenuUnavailable = %s,\n", tostring(options.mhpHideWhenMenuUnavailable)))
@@ -343,13 +361,13 @@ local section = {
 -- section id colors
 local section_color = {
 	["Bluefull"] = 0xFF0088F4,
-	["Greenill"] = 0xFF00FF00,
+	["Greenill"] = 0xFF74FB40,
 	["Oran"] = 0xFFFFAA00,
 	["Pinkal"] = 0xFFFF3898,
 	["Purplenum"] = 0xFFA020F0,
 	["Redria"] = 0xFFFF2031,
 	["Skyly"] = 0xFF00DDF4,
-	["Viridia"] = 0xFF00FF00,
+	["Viridia"] = 0xFF00AE6C,
 	["Yellowboze"] = 0xFFEAF718,
 	["Whitill"] = 0xFFFFFFFF
 }
@@ -466,14 +484,36 @@ end
 -- extract party dar, rare boosts, section id, and grab episode and difficulty
 local function parse_side_message(text)
 	local data = { }
-	
+
 	-- logic in identifying dar and rare boost
     local dropIndex = string.find(text, "Drop")
 	local rareIndex = string.find(text, "Rare")
+	local dropRareFormated  = string.find(text, "Drop/Rare")
 	local idIndex = string.find(text, "ID")
 
-	local dropStr = string.sub(text, dropIndex, rareIndex-1)
-	local rareStr = string.sub(text, rareIndex, -1)
+	local dropStr,rareStr
+	if dropRareFormated then
+		local dropRareStr = string.sub(text, dropRareFormated,-1)
+		for k,v in string.gmatch(dropRareStr, ":(.*)") do
+			dropRareStr = k
+			break
+		end
+		local i = 1
+		for k,v in string.gmatch(dropRareStr, "(%d+)") do
+			if i == 1 then
+				dropStr = k
+			elseif i == 2 then
+				rareStr = k
+			else
+				break
+			end
+			i = i + 1
+		end
+	else
+		dropStr = string.sub(text, dropIndex, rareIndex-1)
+		rareStr = string.sub(text, rareIndex, -1)
+	end
+
 	local idStr = string.sub(text, idIndex+2, dropIndex-1)
 
 	-- other data
@@ -485,8 +525,32 @@ local function parse_side_message(text)
     data.id = string.match(idStr,"%a+")
     data.difficulty = difficulty[_difficulty + 1]
     data.episode = episodes[_episode]
+
+	if data.dar == nil then
+		data.dar = -1
+	end
+	if data.rare == nil then
+		data.rare = -1
+	end
+	if data.id == nil then
+		data.id = -1
+	end
+	if data.difficulty == nil then
+		data.difficulty = -1
+	end
+	if data.episode == nil then
+		data.episode = -1
+	end
 	
 	return data
+end
+
+local function refresh_side_text()
+	local side = get_side_text()
+	if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
+		party = parse_side_message(side)
+		cacheSide = true
+	end
 end
 
 local function CopyMonster(monster)
@@ -797,6 +861,56 @@ local function GetMonsterList()
     return monsterList
 end
 
+
+local RareMonsterTextColor = {r=0,g=0,b=0,a=255,trans=0,dir=1}
+
+local function clampVal(clamp, min, max)
+    return clamp < min and min or clamp > max and max or clamp
+end
+local function Lerp(Norm,Min,Max)
+    return (Max - Min) * Norm + Min
+end
+local function transitionColors2(Color1, Color2, Speed, Transition, Direction)
+	-- Speed is 1-100 as a percentage of how fast to change between the colors
+	-- Transition is 0-1 on how much of color1 vs color2 comes through
+	local Ctbl = {}
+	Ctbl.a = Lerp(Transition,Color1.a,Color2.a)
+	Ctbl.r = Lerp(Transition,Color1.r,Color2.r)
+	Ctbl.g = Lerp(Transition,Color1.g,Color2.g)
+	Ctbl.b = Lerp(Transition,Color1.b,Color2.b)
+	if Direction < 0 then
+		Transition = Transition - Speed/100
+		if Transition <= 0.0 then
+			Direction = 1
+		end
+		Transition = clampVal(Transition,0,1) 
+	elseif Direction > 0 then
+		Transition = Transition + Speed/100
+		if Transition >= 1.0 then
+			Direction = -1
+		end
+		Transition = clampVal(Transition,0,1)
+	end
+	Ctbl.trans = Transition
+	Ctbl.dir = Direction
+	return Ctbl
+end
+local function ARGBtoHex(Clr)
+	return 	bit.lshift(Clr.a, 24) +
+			bit.lshift(Clr.r, 16) +
+			bit.lshift(Clr.g, 8) +
+			bit.lshift(Clr.b, 0)
+end
+local function shiftHexColor(color)
+    return
+    {
+        bit.band(bit.rshift(color, 24), 0xFF),
+        bit.band(bit.rshift(color, 16), 0xFF),
+        bit.band(bit.rshift(color, 8), 0xFF),
+        bit.band(color, 0xFF)
+    }
+end
+
 local function PresentMonsters()
     local monsterList = GetMonsterList()
     local monsterListCount = table.getn(monsterList)
@@ -850,7 +964,7 @@ local function PresentMonsters()
             local mHP = monster.HP
             local mHPMax = monster.HPMax
 			
-			if options.showMonsterResist then
+			if options.showMonsterResist and monster.color ~= 0xFFFFFF00 then
 				if (monster.Efr <= monster.Eth) and (monster.Efr <= monster.Eic) then
 					lib_helpers.TextC(true, 0xFFFF6600, monster.name)
 				elseif (monster.Eth <= monster.Efr) and (monster.Eth <= monster.Eic) then
@@ -860,8 +974,23 @@ local function PresentMonsters()
 				else
 					lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
 				end
+			elseif monster.color == 0xFFFFFF00 then -- overwrite rare color with gold
+				if options.customRareMonsterColorEnabled then
+					local startColor = shiftHexColor(options.customRareMonsterColorStart)
+					local endColor = shiftHexColor(options.customRareMonsterColorEnd)
+					RareMonsterTextColor = transitionColors2(
+						{a=startColor[1], r=startColor[2], g=startColor[3], b=startColor[4]},
+						{a=endColor[1],   r=endColor[2],   g=endColor[3],   b=endColor[4]},
+						options.customRareMonsterSpeed,
+						RareMonsterTextColor.trans,
+						RareMonsterTextColor.dir
+					)
+					lib_helpers.TextC(true, ARGBtoHex(RareMonsterTextColor), monster.name)
+				else
+					lib_helpers.TextC(true, 0xFFFFD700, monster.name)
+				end
 			else
-				lib_helpers.TextC(true, 0xFFFFFFFF, monster.name)
+				lib_helpers.TextC(true, monster.color, monster.name)
 			end
 
             imgui.NextColumn()
@@ -1272,18 +1401,13 @@ local function PresentTargetMonster(monster)
 		end
 		
 		if options.ShowRares then
-			local side = get_side_text()
-			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
-				party = parse_side_message(side)
-				cacheSide = true
-			end
 			if cacheSide then
 				local row = drop_charts[party.difficulty][party.episode][party.id]
 				for j = 1, #row do
 					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
 						lib_helpers.TextC(true, section_color[party.id], row[j].item)
 						lib_helpers.Text(false, " - Drop: 1/")
-						lib_helpers.Text(false, "%.2f", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
+						lib_helpers.Text(false, "%i", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
 						lib_helpers.Text(false, " (")
 						lib_helpers.Text(false, "%.4f", ((party.dar*row[j].dar)*(party.rare*row[j].rare))/1000000)
 						lib_helpers.Text(false, "%%) ")
@@ -1416,17 +1540,17 @@ local function PresentRateMonster(monster)
 
             -- Add Hell rate if enabled
             if options.RateEnableActivationRateItems.hell == true then
-                local str = string.format("Hell: %i", math.max((93 - monster.Edk)*(v50xHellBoost),0))
+                local str = string.format("Hell: %i", math.min(math.max((93 - monster.Edk)*(v50xHellBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Dark rate if enabled
             if options.RateEnableActivationRateItems.dark == true then
-                local str = string.format("Dark: %i", math.max((78 - monster.Edk)*(v50xHellBoost),0))
+                local str = string.format("Dark: %i", math.min(math.max((78 - monster.Edk)*(v50xHellBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Arrest rate if enabled
             if options.RateEnableActivationRateItems.arrest == true then
-                local str = string.format("Arrest: %i", math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Arrest: %i", math.min(math.max((80 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Blizzard rate if enabled
@@ -1436,17 +1560,17 @@ local function PresentRateMonster(monster)
             end
             -- Add Seize rate if enabled
             if options.RateEnableActivationRateItems.seize == true then
-                local str = string.format("Seize: %i", math.max((64 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Seize: %i", math.min(math.max((64 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Chaos rate if enabled
             if options.RateEnableActivationRateItems.chaos == true then
-                local str = string.format("Chaos: %i", math.max((76 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Chaos: %i", math.min(math.max((76 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
             -- Add Havoc rate if enabled
             if options.RateEnableActivationRateItems.havoc == true then
-                local str = string.format("Havoc: %i", math.max((60 + androidBoost - monster.Esp)*(v50xStatusBoost),0))
+                local str = string.format("Havoc: %i", math.min(math.max((60 + androidBoost - monster.Esp)*(v50xStatusBoost),0),100))
                 table.insert(rate_list, str)
             end
 
@@ -1990,18 +2114,13 @@ local function foRec(monster)
         end
 		
 		if options.ShowRares then
-			local side = get_side_text()
-			if string.find(side, "ID") and string.find(side, "Drop") and string.find(side, "Rare") then
-				party = parse_side_message(side)
-				cacheSide = true
-			end
 			if cacheSide then
 				local row = drop_charts[party.difficulty][party.episode][party.id]
 				for j = 1, #row do
 					if string.find(string.lower(row[j].target), string.lower(monster.name), 1, true) then
 						lib_helpers.TextC(true, section_color[party.id], row[j].item)
 						lib_helpers.Text(false, " - Drop: 1/")
-						lib_helpers.Text(false, "%.2f", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
+						lib_helpers.Text(false, "%i", 1/((party.dar*row[j].dar)*(party.rare*row[j].rare))*100000000)
 						lib_helpers.Text(false, " (")
 						lib_helpers.Text(false, "%.4f", ((party.dar*row[j].dar)*(party.rare*row[j].rare))/1000000)
 						lib_helpers.Text(false, "%%) ")
@@ -2037,8 +2156,9 @@ local function PresentTarget2MonsterWindow()
     end
 
     if options.target2EnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.target2Changed then
+        if firstPresent.target2 or options.target2Changed then
           options.target2Changed = false
+		  firstPresent.target2 = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.target2X, options.target2Y, options.target2W, options.target2H, options.target2Anchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.target2W, options.target2H, "Always");
@@ -2080,8 +2200,9 @@ local function PresentRateMonsterWindow()
     end
 
     if options.RateEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.RateChanged then
+        if firstPresent.rate or options.RateChanged then
           options.RateChanged = false
+		  firstPresent.rate = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.RateX, options.RateY, options.RateW, options.RateH, options.RateAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.RateW, options.RateH, "Always");
@@ -2123,8 +2244,9 @@ local function foRecWindow()
     end
 
     if options.foRecEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.foRecChanged then
+        if firstPresent.foRec or options.foRecChanged then
           options.foRecChanged = false
+		  firstPresent.foRec = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.foRecX, options.foRecY, options.foRecW, options.foRecH, options.foRecAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.foRecW, options.foRecH, "Always");
@@ -2166,8 +2288,9 @@ local function PresentTargetMonsterWindow()
     end
 
     if options.targetEnableWindow and monster ~= nil and monster.unitxtID ~= 0 then
-        if firstPresent or options.targetChanged then
+        if firstPresent.target or options.targetChanged then
           options.targetChanged = false
+		  firstPresent.target = false
           local ps = lib_helpers.GetPosBySizeAndAnchor(options.targetX, options.targetY, options.targetW, options.targetH, options.targetAnchor)
           imgui.SetNextWindowPos(ps[1], ps[2], "Always");
           imgui.SetNextWindowSize(options.targetW, options.targetH, "Always");
@@ -2213,14 +2336,15 @@ local function present()
     if options.enable == false then
         return
     end
-	
+
 	if (options.mhpEnableWindow == true)
         and (options.mhpHideWhenMenu == false or lib_menu.IsMenuOpen() == false)
         and (options.mhpHideWhenSymbolChat == false or lib_menu.IsSymbolChatOpen() == false)
         and (options.mhpHideWhenMenuUnavailable == false or lib_menu.IsMenuUnavailable() == false)
     then
-        if firstPresent or options.mhpChanged then
+        if firstPresent.room or options.mhpChanged then
             options.mhpChanged = false
+			firstPresent.room = false
             local ps = lib_helpers.GetPosBySizeAndAnchor(options.mhpX, options.mhpY, options.mhpW, options.mhpH, options.mhpAnchor)
             imgui.SetNextWindowPos(ps[1], ps[2], "Always");
             imgui.SetNextWindowSize(options.mhpW, options.mhpH, "Always");
@@ -2237,14 +2361,13 @@ local function present()
         end
     end
 
+	refresh_side_text()
+
     PresentTargetMonsterWindow()
 	foRecWindow()
 	PresentTarget2MonsterWindow()
 	PresentRateMonsterWindow()
-
-    if firstPresent then
-        firstPresent = false
-    end
+	
 end
 
 local function init()

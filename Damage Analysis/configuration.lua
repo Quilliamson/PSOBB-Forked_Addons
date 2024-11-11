@@ -8,6 +8,88 @@ local function ConfigurationWindow(configuration)
 
     local _configuration = configuration
 
+    local function PresentColorEditor(label, default, custom)
+        custom = custom or 0xFFFFFFFF
+    
+        local changed = false
+        local i_default =
+        {
+            bit.band(bit.rshift(default, 24), 0xFF),
+            bit.band(bit.rshift(default, 16), 0xFF),
+            bit.band(bit.rshift(default, 8), 0xFF),
+            bit.band(default, 0xFF)
+        }
+        local i_custom =
+        {
+            bit.band(bit.rshift(custom, 24), 0xFF),
+            bit.band(bit.rshift(custom, 16), 0xFF),
+            bit.band(bit.rshift(custom, 8), 0xFF),
+            bit.band(custom, 0xFF)
+        }
+    
+        local ids = { "##X", "##Y", "##Z", "##W" }
+        local fmt = { "A:%3.0f", "R:%3.0f", "G:%3.0f", "B:%3.0f" }
+    
+        imgui.BeginGroup()
+        imgui.PushID(label)
+    
+        imgui.PushItemWidth(50)
+        for n = 1, 4, 1 do
+            local changedDragInt = false
+            if n ~= 1 then
+                imgui.SameLine(0, 5)
+            end
+    
+            changedDragInt, i_custom[n] = imgui.DragInt(ids[n], i_custom[n], 1.0, 0, 255, fmt[n])
+            if changedDragInt then
+                this.changed = true
+            end
+        end
+        imgui.PopItemWidth()
+    
+        imgui.SameLine(0, 5)
+        imgui.ColorButton(i_custom[2] / 255, i_custom[3] / 255, i_custom[4] / 255, i_custom[1] / 255)
+        if imgui.IsItemHovered() then
+            imgui.SetTooltip(
+                string.format(
+                    "#%02X%02X%02X%02X",
+                    i_custom[4],
+                    i_custom[1],
+                    i_custom[2],
+                    i_custom[3]
+                )
+            )
+        end
+    
+        imgui.SameLine(0, 5)
+        imgui.Text(label)
+    
+        default =
+        bit.lshift(i_default[1], 24) +
+        bit.lshift(i_default[2], 16) +
+        bit.lshift(i_default[3], 8) +
+        bit.lshift(i_default[4], 0)
+    
+        custom =
+        bit.lshift(i_custom[1], 24) +
+        bit.lshift(i_custom[2], 16) +
+        bit.lshift(i_custom[3], 8) +
+        bit.lshift(i_custom[4], 0)
+    
+        if custom ~= default then
+            imgui.SameLine(0, 5)
+            if imgui.Button("Revert") then
+                custom = default
+                this.changed = true
+            end
+        end
+    
+        imgui.PopID()
+        imgui.EndGroup()
+    
+        return custom
+    end
+
     local _showWindowSettings = function()
         local success
         local anchorList =
@@ -249,6 +331,18 @@ local function ConfigurationWindow(configuration)
 				_configuration.showMonsterStatus = not _configuration.showMonsterStatus
 				this.changed = true
 			end
+			if imgui.Checkbox("Custom Rare Monster Color", _configuration.customRareMonsterColorEnabled) then
+				_configuration.customRareMonsterColorEnabled = not _configuration.customRareMonsterColorEnabled
+				this.changed = true
+			end
+            if _configuration.customRareMonsterColorEnabled then
+                success, _configuration.customRareMonsterSpeed = imgui.SliderInt("Color Transition Speed", _configuration.customRareMonsterSpeed, 0, 40)
+                if success then
+                    this.changed = true
+                end
+                _configuration.customRareMonsterColorStart = PresentColorEditor("Color Start", 0xFFBF5814, _configuration.customRareMonsterColorStart)
+                _configuration.customRareMonsterColorEnd = PresentColorEditor("Color End", 0xFFFCAA33, _configuration.customRareMonsterColorEnd)
+            end
 			if imgui.Checkbox("Show Megid %", _configuration.showMonsterID) then
 				_configuration.showMonsterID = not _configuration.showMonsterID
 				this.changed = true
