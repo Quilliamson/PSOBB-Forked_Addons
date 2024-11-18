@@ -152,7 +152,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -421,7 +421,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -690,7 +690,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Graviton Plate",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -921,9 +921,9 @@ return {
 		},
 		{
 		  ["target"] = "Pouilly Slime/\nPouilly Slime",
-		  ["item"] = "HP/Revival",
+		  ["item"] = "Heart of Wok of Akiko's Shop",
 		  ["dar"] = 100,
-		  ["rare"] = 87.50000
+		  ["rare"] = 10.15625
 		},
 		{
 		  ["target"] = "Pan Arms/\nPan Arms",
@@ -959,7 +959,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -1228,7 +1228,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "DB's Shield",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -1497,7 +1497,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -1766,7 +1766,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -2035,7 +2035,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -2304,7 +2304,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Proto Regene Gear",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -2573,7 +2573,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "H&S25 Justice",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -2823,7 +2823,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Brave Knuckle",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -3131,7 +3131,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Wals-MK2",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -3439,7 +3439,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Last Survivor",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -3747,7 +3747,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Vjaya",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -3772,9 +3772,9 @@ return {
 		},
 		{
 		  ["target"] = "Gol Dragon/\nGol Dragon",
-		  ["item"] = "Guilty Light",
+		  ["item"] = "Heart of Blade Dance",
 		  ["dar"] = 100,
-		  ["rare"] = 9.37500
+		  ["rare"] = 1.56250
 		},
 		{
 		  ["target"] = "SEPARATOR"
@@ -4055,7 +4055,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "H&S25 Justice",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -4363,7 +4363,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Ice Staff: Dagon",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -4671,7 +4671,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Diska of Liberator",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -4979,7 +4979,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Bloody Art",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -5287,7 +5287,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Wals-MK2",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125
@@ -5595,7 +5595,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "H&S25 Justice",
 		  ["dar"] = 30,
 		  ["rare"] = 0.78125

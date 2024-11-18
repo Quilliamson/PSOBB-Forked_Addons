@@ -72,9 +72,9 @@ return {
 		},
 		{
 		  ["target"] = "Grass Assassin/\nCrimson Assassin",
-		  ["item"] = "Shouren",
+		  ["item"] = "V101",
 		  ["dar"] = 55,
-		  ["rare"] = 0.14648
+		  ["rare"] = 0.07935
 		},
 		{
 		  ["target"] = "Poison Lily/\nOb Lily",
@@ -158,7 +158,7 @@ return {
 		  ["rare"] = 0.19531
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Final Impact",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -171,9 +171,9 @@ return {
 		},
 		{
 		  ["target"] = "Sinow Beat/\nSinow Blue",
-		  ["item"] = "V101",
+		  ["item"] = "Cure/Confuse",
 		  ["dar"] = 60,
-		  ["rare"] = 0.05493
+		  ["rare"] = 0.19531
 		},
 		{
 		  ["target"] = "Sinow Gold/\nSinow Red",
@@ -439,7 +439,7 @@ return {
 		  ["rare"] = 0.19531
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Yasminkov 3000R",
 		  ["dar"] = 30,
 		  ["rare"] = 0.31738
@@ -452,9 +452,9 @@ return {
 		},
 		{
 		  ["target"] = "Sinow Beat/\nSinow Blue",
-		  ["item"] = "V101",
+		  ["item"] = "Kasami Bracer",
 		  ["dar"] = 60,
-		  ["rare"] = 0.05493
+		  ["rare"] = 0.19531
 		},
 		{
 		  ["target"] = "Sinow Gold/\nSinow Red",
@@ -720,7 +720,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Justy-23ST",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -1001,7 +1001,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Vjaya",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -1115,7 +1115,7 @@ return {
 		  ["target"] = "So Dimenian/\nDel-D",
 		  ["item"] = "Heaven Striker",
 		  ["dar"] = 35,
-		  ["rare"] = 0.04883
+		  ["rare"] = 0.06714
 		},
 		{
 		  ["target"] = "Dark Falz/\nDark Falz",
@@ -1282,7 +1282,7 @@ return {
 		  ["rare"] = 0.19531
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Flowen's Sword (3073)",
 		  ["dar"] = 30,
 		  ["rare"] = 0.00992
@@ -1563,7 +1563,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Heart of Izmaela",
 		  ["dar"] = 30,
 		  ["rare"] = 0.03662
@@ -1725,9 +1725,9 @@ return {
 		},
 		{
 		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
-		  ["item"] = "God/Mind",
+		  ["item"] = "Heart of Twin Chakram",
 		  ["dar"] = 45,
-		  ["rare"] = 0.31738
+		  ["rare"] = 0.01526
 		},
 		{
 		  ["target"] = "Booma/\nBartle",
@@ -1844,7 +1844,7 @@ return {
 		  ["rare"] = 0.19531
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Heart of Sorcerer's Cane",
 		  ["dar"] = 30,
 		  ["rare"] = 0.03662
@@ -2075,9 +2075,9 @@ return {
 		},
 		{
 		  ["target"] = "Guil Shark/\nMelqueek",
-		  ["item"] = "HP/Revival",
+		  ["item"] = "Heart of TypeSS/Swords",
 		  ["dar"] = 15,
-		  ["rare"] = 0.19531
+		  ["rare"] = 0.04883
 		},
 		{
 		  ["target"] = "Pofuilly Slime/\nPofuilly Slime",
@@ -2125,7 +2125,7 @@ return {
 		  ["rare"] = 0.00992
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 30,
 		  ["rare"] = 0.03052
@@ -2183,15 +2183,15 @@ return {
 		},
 		{
 		  ["target"] = "Dark Gunner/\nDark Gunner",
-		  ["item"] = "Morning Glory",
+		  ["item"] = "Heart of Partisan of Lightning",
 		  ["dar"] = 45,
-		  ["rare"] = 0.31738
+		  ["rare"] = 0.03662
 		},
 		{
 		  ["target"] = "Death Gunner/\nDeath Gunner",
-		  ["item"] = "Morning Glory",
+		  ["item"] = "Heart of Partisan of Lightning",
 		  ["dar"] = 45,
-		  ["rare"] = 0.31738
+		  ["rare"] = 0.03662
 		},
 		{
 		  ["target"] = "Chaos Bringer/\nDark Bringer",
@@ -2406,7 +2406,7 @@ return {
 		  ["rare"] = 0.19531
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Gae Bolg",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -2419,15 +2419,15 @@ return {
 		},
 		{
 		  ["target"] = "Sinow Beat/\nSinow Blue",
-		  ["item"] = "Lame d'Argent",
+		  ["item"] = "Maser Beam",
 		  ["dar"] = 60,
-		  ["rare"] = 0.04272
+		  ["rare"] = 0.06104
 		},
 		{
 		  ["target"] = "Sinow Gold/\nSinow Red",
-		  ["item"] = "S-red's Arms",
+		  ["item"] = "Lame d'Argent",
 		  ["dar"] = 55,
-		  ["rare"] = 0.31738
+		  ["rare"] = 0.10986
 		},
 		{
 		  ["target"] = "Canadine/\nCanabin",
@@ -2687,7 +2687,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "L&K14 Combat",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -2949,7 +2949,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Heavenly/Power",
 		  ["dar"] = 30,
 		  ["rare"] = 0.31738
@@ -3275,7 +3275,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Cross Scar",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -3601,7 +3601,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Agito (1975)",
 		  ["dar"] = 30,
 		  ["rare"] = 0.00992
@@ -3927,7 +3927,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Guilty Light",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -4253,7 +4253,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Anti Android Rifle",
 		  ["dar"] = 30,
 		  ["rare"] = 0.31738
@@ -4579,7 +4579,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Liberta Kit",
 		  ["dar"] = 30,
 		  ["rare"] = 0.07935
@@ -4905,7 +4905,7 @@ return {
 		  ["rare"] = 0.08545
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Electro Frame",
 		  ["dar"] = 30,
 		  ["rare"] = 0.31738
@@ -5231,7 +5231,7 @@ return {
 		  ["rare"] = 0.31738
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Sting Tip",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -5557,7 +5557,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Gae Bolg",
 		  ["dar"] = 30,
 		  ["rare"] = 1.56250
@@ -5678,9 +5678,9 @@ return {
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
-		  ["item"] = "Stink Frame",
+		  ["item"] = "Heart of TypeDS/D.Saber",
 		  ["dar"] = 35,
-		  ["rare"] = 0.31738
+		  ["rare"] = 0.01984
 		},
 		{
 		  ["target"] = "Morfos/\nMorfos",
@@ -5883,7 +5883,7 @@ return {
 		  ["rare"] = 1.56250
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Electro Frame",
 		  ["dar"] = 30,
 		  ["rare"] = 0.31738
@@ -6357,15 +6357,15 @@ return {
 		},
 		{
 		  ["target"] = "Dorphon",
-		  ["item"] = "Lame d'Argent",
+		  ["item"] = "Electro Frame",
 		  ["dar"] = 80,
 		  ["rare"] = 0.12207
 		},
 		{
 		  ["target"] = "Dorphon Eclair",
-		  ["item"] = "Blue Odoshi Violet Nimaidou",
+		  ["item"] = "Liberta Kit",
 		  ["dar"] = 100,
-		  ["rare"] = 50.00000
+		  ["rare"] = 25.00000
 		},
 		{
 		  ["target"] = "Sand Rappy",
@@ -6426,9 +6426,9 @@ return {
 		},
 		{
 		  ["target"] = "Goran Detonator",
-		  ["item"] = "Liberta Kit",
+		  ["item"] = "Lame d'Argent",
 		  ["dar"] = 35,
-		  ["rare"] = 0.12207
+		  ["rare"] = 0.19531
 		},
 		{
 		  ["target"] = "Merissa A",

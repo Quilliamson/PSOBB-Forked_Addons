@@ -128,7 +128,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 28,
 		  ["rare"] = 0.03357
@@ -150,6 +150,12 @@ return {
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -201,6 +207,12 @@ return {
 		  ["item"] = "Def Material",
 		  ["dar"] = 40,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Bulk/\nBulk",
@@ -355,7 +367,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 28,
 		  ["rare"] = 0.03357
@@ -377,6 +389,12 @@ return {
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 50,
 		  ["rare"] = 21.87500
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -582,7 +600,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 28,
 		  ["rare"] = 0.03357
@@ -655,6 +673,12 @@ return {
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 40,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Bulk/\nBulk",
@@ -809,7 +833,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Brionac",
 		  ["dar"] = 28,
 		  ["rare"] = 0.02441
@@ -831,6 +855,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Yellow Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -882,6 +912,12 @@ return {
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 40,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Bulk/\nBulk",
@@ -985,6 +1021,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Evil Shark/\nVulmer",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Guil Shark/\nMelqueek",
 		  ["item"] = "Trimate",
 		  ["dar"] = 15,
@@ -1036,7 +1078,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "M&A60 Vise",
 		  ["dar"] = 28,
 		  ["rare"] = 0.02136
@@ -1058,6 +1100,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Yellow Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -1161,6 +1209,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Recovery Barrier",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 45,
@@ -1210,6 +1264,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Evil Shark/\nVulmer",
+		  ["item"] = "Assist Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Guil Shark/\nMelqueek",
@@ -1263,7 +1323,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "Fire Scepter: Agni",
 		  ["dar"] = 28,
 		  ["rare"] = 0.02441
@@ -1285,6 +1345,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Yellow Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -1338,6 +1404,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Bulk/\nBulk",
 		  ["item"] = "Fire Scepter: Agni",
 		  ["dar"] = 30,
@@ -1348,6 +1420,12 @@ return {
 		  ["item"] = "Fire Scepter: Agni",
 		  ["dar"] = 40,
 		  ["rare"] = 0.02136
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "La Dimenian/\nMerlan",
@@ -1439,6 +1517,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Pal Shark/\nGovulmer",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 32,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Guil Shark/\nMelqueek",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 15,
@@ -1490,7 +1574,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 28,
 		  ["rare"] = 0.03357
@@ -1512,6 +1596,12 @@ return {
 		  ["item"] = "AddSlot",
 		  ["dar"] = 50,
 		  ["rare"] = 0.03662
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Yellow Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -1563,6 +1653,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 40,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Bulk/\nBulk",
@@ -1717,7 +1813,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 28,
 		  ["rare"] = 0.03357
@@ -1739,6 +1835,12 @@ return {
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Yellow Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -1790,6 +1892,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 40,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Bulk/\nBulk",
@@ -1893,6 +2001,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Pal Shark/\nGovulmer",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 32,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Guil Shark/\nMelqueek",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 15,
@@ -1944,7 +2058,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "DB's Saber",
 		  ["dar"] = 28,
 		  ["rare"] = 0.02441
@@ -1966,6 +2080,12 @@ return {
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Canadine/\nCanabin",
+		  ["item"] = "Yellow Barrier",
+		  ["dar"] = 33,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Canane/\nCanune",
@@ -2017,6 +2137,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 40,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Bulk/\nBulk",
@@ -2120,6 +2246,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Evil Shark/\nVulmer",
+		  ["item"] = "Blue Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Guil Shark/\nMelqueek",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 15,
@@ -2171,7 +2303,7 @@ return {
 		  ["rare"] = 0.05493
 		},
 		{
-		  ["target"] = "Gillchic/\nGillchich",
+		  ["target"] = "Gilchic/\nGilchich",
 		  ["item"] = "S-Parts ver2.01",
 		  ["dar"] = 28,
 		  ["rare"] = 0.03357
@@ -2246,6 +2378,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Claw/\nClaw",
+		  ["item"] = "Red Barrier",
+		  ["dar"] = 28,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Bulk/\nBulk",
 		  ["item"] = "Sacred Guard",
 		  ["dar"] = 30,
@@ -2286,6 +2424,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Rag Rappy/\nEl Rappy",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 100,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -2298,10 +2442,34 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "General/Arm",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 31,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -2337,6 +2505,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -2353,6 +2533,18 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gilchic/\nGilchich",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -2380,6 +2572,24 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "Def Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Gi Gue/\nGi Gue",
@@ -2412,6 +2622,18 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Sinow Berill/\nSinow Berill",
+		  ["item"] = "Crush Bullet",
+		  ["dar"] = 40,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Spigell/\nSinow Spigell",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 45,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 100,
@@ -2419,6 +2641,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "AddSlot",
+		  ["dar"] = 30,
+		  ["rare"] = 0.03662
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -2436,6 +2664,12 @@ return {
 		  ["target"] = "Sinow Zoa/\nSinow Zoa",
 		  ["item"] = "Monogrinder",
 		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "Brionac",
+		  ["dar"] = 35,
 		  ["rare"] = 0.05493
 		},
 		{
@@ -2486,6 +2720,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Rag Rappy/\nEl Rappy",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 100,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -2498,9 +2738,33 @@ return {
 		  ["rare"] = 0.02747
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "General/Arm",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Monogrinder",
 		  ["dar"] = 35,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Luck Material",
+		  ["dar"] = 31,
 		  ["rare"] = 0.05493
 		},
 		{
@@ -2537,6 +2801,12 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "AddSlot",
+		  ["dar"] = 30,
+		  ["rare"] = 0.03662
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -2553,6 +2823,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -2582,6 +2858,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -2606,10 +2894,22 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Spigell/\nSinow Spigell",
+		  ["item"] = "Scape Doll",
+		  ["dar"] = 45,
+		  ["rare"] = 0.02136
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -2637,6 +2937,12 @@ return {
 		  ["item"] = "Evade Material",
 		  ["dar"] = 30,
 		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "Bloody Art",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Deldepth/\nDeldepth",
@@ -2686,6 +2992,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Rag Rappy/\nEl Rappy",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 100,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -2698,10 +3010,28 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 31,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -2737,6 +3067,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Def Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Luck Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -2753,6 +3095,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -2782,6 +3130,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Flowen's Sword",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -2806,10 +3166,34 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "AddSlot",
+		  ["dar"] = 30,
+		  ["rare"] = 0.03662
+		},
+		{
+		  ["target"] = "Zol Gibbon/\nZol Gibbon",
+		  ["item"] = "AddSlot",
+		  ["dar"] = 35,
+		  ["rare"] = 0.03662
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Berill/\nSinow Berill",
+		  ["item"] = "Power Material",
+		  ["dar"] = 40,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Spigell/\nSinow Spigell",
+		  ["item"] = "Dragon/HP",
+		  ["dar"] = 45,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -2819,6 +3203,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -2836,6 +3226,12 @@ return {
 		  ["target"] = "Sinow Zoa/\nSinow Zoa",
 		  ["item"] = "Monogrinder",
 		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 35,
 		  ["rare"] = 0.05493
 		},
 		{
@@ -2898,10 +3294,28 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "HP/Restorate",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 31,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -2937,6 +3351,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -2953,6 +3379,18 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gilchic/\nGilchich",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -2982,6 +3420,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -3006,10 +3456,22 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Spigell/\nSinow Spigell",
+		  ["item"] = "Scape Doll",
+		  ["dar"] = 45,
+		  ["rare"] = 0.02136
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -3019,6 +3481,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -3036,6 +3504,12 @@ return {
 		  ["target"] = "Sinow Zoa/\nSinow Zoa",
 		  ["item"] = "HP Material",
 		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "HP Material",
+		  ["dar"] = 35,
 		  ["rare"] = 0.13428
 		},
 		{
@@ -3098,10 +3572,34 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "Dragon/HP",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 31,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -3155,6 +3653,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Scape Doll",
+		  ["dar"] = 30,
+		  ["rare"] = 0.02136
+		},
+		{
 		  ["target"] = "Garanz/\nBaranz",
 		  ["item"] = "S-Parts ver1.16",
 		  ["dar"] = 50,
@@ -3182,6 +3686,24 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "HP Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -3206,6 +3728,18 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Zol Gibbon/\nZol Gibbon",
+		  ["item"] = "Star Atomizer",
+		  ["dar"] = 35,
+		  ["rare"] = 0.08545
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -3219,6 +3753,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -3237,6 +3777,12 @@ return {
 		  ["item"] = "Def Material",
 		  ["dar"] = 30,
 		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "Luck Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Deldepth/\nDeldepth",
@@ -3286,6 +3832,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Rag Rappy/\nEl Rappy",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 100,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -3298,10 +3850,34 @@ return {
 		  ["rare"] = 0.02747
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "General/Mind",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 31,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -3337,6 +3913,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -3353,6 +3941,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -3382,6 +3976,24 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -3406,10 +4018,28 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Zol Gibbon/\nZol Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Berill/\nSinow Berill",
+		  ["item"] = "Scape Doll",
+		  ["dar"] = 40,
+		  ["rare"] = 0.02136
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -3419,6 +4049,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -3437,6 +4073,12 @@ return {
 		  ["item"] = "Def Material",
 		  ["dar"] = 30,
 		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "Luck Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Deldepth/\nDeldepth",
@@ -3498,10 +4140,28 @@ return {
 		  ["rare"] = 0.02747
 		},
 		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "AddSlot",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 31,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -3537,6 +4197,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -3553,6 +4225,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Def Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -3580,6 +4258,18 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "HP Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Gi Gue/\nGi Gue",
@@ -3619,6 +4309,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -3686,6 +4382,18 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Mothmant/\nMothvert",
+		  ["item"] = "Power Material",
+		  ["dar"] = 20,
+		  ["rare"] = 0.02136
+		},
+		{
+		  ["target"] = "Rag Rappy/\nEl Rappy",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 100,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -3698,10 +4406,28 @@ return {
 		  ["rare"] = 0.02747
 		},
 		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "General/Power",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "La Dimenian/\nMerlan",
+		  ["item"] = "Def Material",
+		  ["dar"] = 31,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -3735,6 +4461,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Pan Arms/\nPan Arms",
@@ -3782,6 +4514,24 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -3806,10 +4556,34 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Def Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Zol Gibbon/\nZol Gibbon",
+		  ["item"] = "Luck Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Berill/\nSinow Berill",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 40,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Sinow Spigell/\nSinow Spigell",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 45,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -3886,6 +4660,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Rag Rappy/\nEl Rappy",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 100,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -3898,10 +4678,22 @@ return {
 		  ["rare"] = 0.02747
 		},
 		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "Resist/Flame",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -3937,6 +4729,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Savage Wolf/\nGulgus",
+		  ["item"] = "Star Atomizer",
+		  ["dar"] = 30,
+		  ["rare"] = 0.08545
+		},
+		{
+		  ["target"] = "Barbarous Wolf/\nGulgus-Gue",
+		  ["item"] = "Sol Atomizer",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Pan Arms/\nPan Arms",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -3953,6 +4757,12 @@ return {
 		  ["item"] = "Trimate",
 		  ["dar"] = 45,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Def Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Garanz/\nBaranz",
@@ -3982,6 +4792,24 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "Mind Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Gee/\nGee",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -4006,10 +4834,28 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Zol Gibbon/\nZol Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Berill/\nSinow Berill",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 40,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -4037,6 +4883,12 @@ return {
 		  ["item"] = "Def Material",
 		  ["dar"] = 30,
 		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "Luck Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "Deldepth/\nDeldepth",
@@ -4086,6 +4938,12 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Mothmant/\nMothvert",
+		  ["item"] = "Evade Material",
+		  ["dar"] = 20,
+		  ["rare"] = 0.02136
+		},
+		{
 		  ["target"] = "Love Rappy/\nLove Rappy",
 		  ["item"] = "Angel/Luck",
 		  ["dar"] = 100,
@@ -4098,10 +4956,28 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Poison Lily/\nOb Lily",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Nar Lily/\nMil Lily",
+		  ["item"] = "Resist/Flame",
+		  ["dar"] = 100,
+		  ["rare"] = 87.50000
+		},
+		{
 		  ["target"] = "Dark Belra/\nIndi Belra",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 35,
 		  ["rare"] = 56.25000
+		},
+		{
+		  ["target"] = "Dimenian/\nArlan",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
 		},
 		{
 		  ["target"] = "So Dimenian/\nDel-D",
@@ -4155,6 +5031,12 @@ return {
 		  ["rare"] = 56.25000
 		},
 		{
+		  ["target"] = "Dubchic/\nDubchich",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Garanz/\nBaranz",
 		  ["item"] = "Sol Atomizer",
 		  ["dar"] = 50,
@@ -4182,6 +5064,18 @@ return {
 		  ["target"] = "SEPARATOR"
 		},
 		{
+		  ["target"] = "Merillia/\nMerillia",
+		  ["item"] = "HP Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
+		},
+		{
+		  ["target"] = "Meriltas/\nMeriltas",
+		  ["item"] = "HP Material",
+		  ["dar"] = 35,
+		  ["rare"] = 0.13428
+		},
+		{
 		  ["target"] = "Gi Gue/\nGi Gue",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
@@ -4206,10 +5100,28 @@ return {
 		  ["rare"] = 87.50000
 		},
 		{
+		  ["target"] = "Ul Gibbon/\nUl Gibbon",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
 		  ["target"] = "Gibbles/\nGibbles",
 		  ["item"] = "Star Atomizer",
 		  ["dar"] = 80,
 		  ["rare"] = 87.50000
+		},
+		{
+		  ["target"] = "Sinow Berill/\nSinow Berill",
+		  ["item"] = "Monogrinder",
+		  ["dar"] = 40,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Sinow Spigell/\nSinow Spigell",
+		  ["item"] = "Scape Doll",
+		  ["dar"] = 45,
+		  ["rare"] = 0.02136
 		},
 		{
 		  ["target"] = "Gal Gryphon/\nGal Gryphon",
@@ -4219,6 +5131,12 @@ return {
 		},
 		{
 		  ["target"] = "SEPARATOR"
+		},
+		{
+		  ["target"] = "Dolmolm/\nDolmolm",
+		  ["item"] = "Power Material",
+		  ["dar"] = 30,
+		  ["rare"] = 0.13428
 		},
 		{
 		  ["target"] = "Dolmdarl/\nDolmdarl",
@@ -4236,6 +5154,12 @@ return {
 		  ["target"] = "Sinow Zoa/\nSinow Zoa",
 		  ["item"] = "Monogrinder",
 		  ["dar"] = 30,
+		  ["rare"] = 0.05493
+		},
+		{
+		  ["target"] = "Sinow Zele/\nSinow Zele",
+		  ["item"] = "M&A60 Vise",
+		  ["dar"] = 35,
 		  ["rare"] = 0.05493
 		},
 		{
