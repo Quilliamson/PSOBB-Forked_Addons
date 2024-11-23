@@ -593,6 +593,7 @@ local function CopyMonster(monster)
     copy.name     = monster.name
 	copy.attribute  = monster.attribute
 	copy.isBoss   = monster.isBoss
+	copy.part     = monster.part
 	copy.Exp      = monster.Exp
     copy.color    = monster.color
     copy.display  = monster.display
@@ -629,10 +630,12 @@ local function GetMonsterDataDeRolLe(monster)
 
         monster.HP2 = pso.read_u32(monster.address + _MonsterDeRolLeSkullHP)
         monster.HP2Max = skullMaxHP
+		monster.part = 0
     else
         monster.HP = pso.read_u32(monster.address + _MonsterDeRolLeShellHP)
         monster.HPMax = shellMaxHP
         monster.name = monster.name .. " Shell"
+		monster.part = 2
     end
 
     return monster
@@ -662,10 +665,12 @@ local function GetMonsterDataBarbaRay(monster)
 
         monster.HP2 = pso.read_u32(monster.address + _MonsterBarbaRaySkullHP)
         monster.HP2Max = skullMaxHP
+		monster.part = 0
     else
         monster.HP = pso.read_u32(monster.address + _MonsterBarbaRayShellHP)
         monster.HPMax = shellMaxHP
         monster.name = monster.name .. " Shell"
+		monster.part = 2
     end
 
     return monster
@@ -777,7 +782,7 @@ local function GetTargetMonster()
     local i = 0
     while i < entityCount do
         local monster = {}
-
+        monster.index = i
         monster.address = pso.read_u32(_EntityArray + 4 * (i + playerCount))
         -- If we got a pointer, then read from it
         if monster.address ~= 0 then
@@ -785,6 +790,25 @@ local function GetTargetMonster()
 
             if monster.id == targetID then
                 monster = GetMonsterData(monster)
+				-- If we have De Rol Le
+				if monster.unitxtID == 45 and monster.index == 0 then
+					if monster.HP2 > 0 then
+						monster.index = monster.index + 1
+						monster.HP = monster.HP2
+						monster.HPMax = monster.HP2Max
+						monster.name = monster.name .. " Skull"
+						monster.part = 1
+					end
+				-- If we have Barba Ray
+				elseif monster.unitxtID == 73 and monster.index == 0 then
+					if monster.HP2 > 0 then
+						monster.index = monster.index + 1
+						monster.HP = monster.HP2
+						monster.HPMax = monster.HP2Max
+						monster.name = monster.name .. " Skull"
+						monster.part = 1
+					end
+				end
                 return monster
             end
         end
@@ -864,14 +888,16 @@ local function GetMonsterList()
                 monster.HP = monster.HP2
                 monster.HPMax = monster.HP2Max
                 monster.name = monster.name .. " Skull"
+				monster.part = 1
             elseif monster.unitxtID == 73 and monster.index == 0 then
                 local head = CopyMonster(monster)
-                table.insert(monsterList, head)
+				table.insert(monsterList, head)
 
                 monster.index = monster.index + 1
                 monster.HP = monster.HP2
                 monster.HPMax = monster.HP2Max
                 monster.name = monster.name .. " Skull"
+				monster.part = 1
             end
 
 
@@ -931,6 +957,49 @@ local function shiftHexColor(color)
         bit.band(bit.rshift(color, 8), 0xFF),
         bit.band(color, 0xFF)
     }
+end
+local RareDropMonsterExceptions = {
+	[32] = "GRAN SORCERER",    -- Bee R / Gee R
+	[33] = "GRAN SORCERER",    -- Bee L / Gee L
+	[87] = "EPSILON",          -- Epsigard
+	[45] = "DAL RA LIE",       -- Dal Ra Lie
+	[73] = "BARBA RAY",        -- Barba Ray
+	-- uncomment to enable these below. (not including this line)
+	-- [85] = "OLGA FLOW",     -- Gael
+	-- [86] = "OLGA FLOW",     -- Giel
+}
+local function PrintRareDrop(monster)
+	if cacheSide then
+		local rateColor = 0xFFFFFFFF
+		local mName = string.upper(monster.name)
+		local mException = RareDropMonsterExceptions[monster.unitxtID]
+		if mException ~= nil -- there is an exception
+			and monster.isBoss ~= 1  -- normal exception, not a boss
+			or (monster.isBoss == 1 and monster.part ~= nil and monster.part > 0 ) -- is a boss, but the exception is for other boss parts
+		then
+			mName = mException
+			rateColor = 0xFFA0A0A0
+		end
+		if drop_charts[party.difficulty]
+			and drop_charts[party.difficulty][party.episode]
+			and drop_charts[party.difficulty][party.episode][party.id]
+			and drop_charts[party.difficulty][party.episode][party.id][mName]
+		then
+			local mDrops = drop_charts[party.difficulty][party.episode][party.id][mName]
+			for i,drop in pairs(mDrops) do
+				if drop.item and drop.rare and drop.dar then
+					lib_helpers.TextC(true, section_color[party.id], drop.item)
+					lib_helpers.TextC(false, 0xFFFFFFFF, " - Drop:")
+					lib_helpers.TextC(false, rateColor, " 1/%i", 1/((party.dar*drop.dar)*(party.rare*drop.rare))*100000000)
+					lib_helpers.TextC(false, 0xFFFFFFFF, " (")
+					lib_helpers.TextC(false, rateColor, "%.4f%%", ((party.dar*drop.dar)*(party.rare*drop.rare))/1000000)
+					lib_helpers.TextC(false, 0xFFFFFFFF, ") ")
+				end
+			end
+		end
+	else
+		lib_helpers.Text(true, "Type /partyinfo to refresh...")
+	end
 end
 
 local function PresentMonsters()
@@ -1423,28 +1492,7 @@ local function PresentTargetMonster(monster)
 		end
 		
 		if options.ShowRares then
-			if cacheSide then
-				local mName = string.upper(monster.name)
-				if drop_charts[party.difficulty]
-					and drop_charts[party.difficulty][party.episode]
-					and drop_charts[party.difficulty][party.episode][party.id]
-					and drop_charts[party.difficulty][party.episode][party.id][mName]
-				then
-					local mDrops = drop_charts[party.difficulty][party.episode][party.id][mName]
-					for i,drop in pairs(mDrops) do
-						if drop.item and drop.rare and drop.dar then
-							lib_helpers.TextC(true, section_color[party.id], drop.item)
-							lib_helpers.Text(false, " - Drop: 1/")
-							lib_helpers.Text(false, "%i", 1/((party.dar*drop.dar)*(party.rare*drop.rare))*100000000)
-							lib_helpers.Text(false, " (")
-							lib_helpers.Text(false, "%.4f", ((party.dar*drop.dar)*(party.rare*drop.rare))/1000000)
-							lib_helpers.Text(false, "%%) ")
-						end
-					end
-				end
-			else
-				lib_helpers.Text(true, "Type /partyinfo to refresh...")
-			end
+			PrintRareDrop(monster)
 		end
     end
 end
@@ -2142,28 +2190,7 @@ local function foRec(monster)
         end
 		
 		if options.ShowRares then
-			if cacheSide then
-				local mName = string.upper(monster.name)
-				if drop_charts[party.difficulty]
-					and drop_charts[party.difficulty][party.episode]
-					and drop_charts[party.difficulty][party.episode][party.id]
-					and drop_charts[party.difficulty][party.episode][party.id][mName]
-				then
-					local mDrops = drop_charts[party.difficulty][party.episode][party.id][mName]
-					for i,drop in pairs(mDrops) do
-						if drop.item and drop.rare and drop.dar then
-							lib_helpers.TextC(true, section_color[party.id], drop.item)
-							lib_helpers.Text(false, " - Drop: 1/")
-							lib_helpers.Text(false, "%i", 1/((party.dar*drop.dar)*(party.rare*drop.rare))*100000000)
-							lib_helpers.Text(false, " (")
-							lib_helpers.Text(false, "%.4f", ((party.dar*drop.dar)*(party.rare*drop.rare))/1000000)
-							lib_helpers.Text(false, "%%) ")
-						end
-					end
-				end
-			else
-				lib_helpers.Text(true, "Type /partyinfo to refresh...")
-			end
+			PrintRareDrop(monster)
 		end
 		
 	end

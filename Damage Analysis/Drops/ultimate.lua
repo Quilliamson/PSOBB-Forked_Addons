@@ -163,7 +163,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'L&K38 Combat',
 					rare = 2.53906,
@@ -219,7 +219,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Ruby Bullet',
 					rare = 4.29688,
@@ -480,7 +480,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Holy Ray',
 					rare = 3.12500,
@@ -536,7 +536,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Ruby Bullet',
 					rare = 4.29688,
@@ -797,7 +797,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Laconium Axe',
 					rare = 2.53906,
@@ -853,7 +853,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Rianov 303SNR-1',
 					rare = 2.73438,
@@ -1114,7 +1114,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Asteron Belt',
 					rare = 2.53906,
@@ -1170,7 +1170,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Rianov 303SNR-3',
 					rare = 2.73438,
@@ -1431,7 +1431,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Phonon Maser',
 					rare = 2.73438,
@@ -1487,7 +1487,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Ruby Bullet',
 					rare = 4.29688,
@@ -1748,7 +1748,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Holy Ray',
 					rare = 3.12500,
@@ -1804,7 +1804,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Ruby Bullet',
 					rare = 4.29688,
@@ -2065,7 +2065,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'De Rol Le Shell',
 					rare = 4.29688,
@@ -2121,7 +2121,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Heavenly/HP',
 					rare = 2.14844,
@@ -2382,7 +2382,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'De Rol Le Shell',
 					rare = 4.29688,
@@ -2438,7 +2438,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Zero Divide',
 					rare = 2.14844,
@@ -2699,7 +2699,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Holy Ray',
 					rare = 3.12500,
@@ -2755,7 +2755,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Stink Shield',
 					rare = 2.14844,
@@ -3016,7 +3016,7 @@ return
 					dar = 45
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Heavenly/Resist',
 					rare = 4.29688,
@@ -3072,7 +3072,7 @@ return
 					dar = 35
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Ruby Bullet',
 					rare = 4.29688,

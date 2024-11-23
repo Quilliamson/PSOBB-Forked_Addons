@@ -128,7 +128,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -184,7 +184,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -396,7 +396,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -452,7 +452,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -657,7 +657,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -706,7 +706,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -918,7 +918,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -974,7 +974,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -1193,7 +1193,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -1249,7 +1249,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -1468,7 +1468,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -1524,7 +1524,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -1750,7 +1750,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -1806,7 +1806,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -2018,7 +2018,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -2074,7 +2074,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -2293,7 +2293,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -2349,7 +2349,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -2568,7 +2568,7 @@ return
 					dar = 40
 				}
 			},
-			['DE ROL LE/DAL RAL LIE'] = {
+			['DE ROL LE/DAL RA LIE'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
@@ -2617,7 +2617,7 @@ return
 					dar = 33
 				}
 			},
-			['VOL OPT/VOL OPT VER. 2'] = {
+			['VOL OPT/VOL OPT VER.2'] = {
 				{
 					item = 'Star Atomizer',
 					rare = 87.50000,
